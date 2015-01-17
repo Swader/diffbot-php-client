@@ -1,0 +1,38 @@
+{
+    "name": "swader/diffbot_client",
+    "description": "A PHP wrapper for using Diffbot's API",
+    "keywords": [
+        "diffbot", "api", "wrapper", "client"
+    ],
+    "homepage": "https://github.com/swader/diffbot_client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bruno Skvorc",
+            "email": "bruno@skvorc.me",
+            "homepage": "http://bitfalls.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Swader\\Diffbot\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Swader\\Diffbot\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
