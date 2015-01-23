@@ -7,6 +7,9 @@ use Swader\Diffbot\Api\Product;
 use Swader\Diffbot\Api\Image;
 use Swader\Diffbot\Api\Analyze;
 use Swader\Diffbot\Api\Article;
+use GuzzleHttp\Client;
+use Swader\Diffbot\Factory\Entity;
+use Swader\Diffbot\Interfaces\EntityFactory;
 
 /**
  * Class Diffbot
@@ -18,10 +21,16 @@ use Swader\Diffbot\Api\Article;
 class Diffbot
 {
     /** @var string The API access token */
-    private static $token = null;
+    protected static $token = null;
 
     /** @var string The instance token, settable once per new instance */
-    private $instanceToken;
+    protected $instanceToken;
+
+    /** @var Client The HTTP clients to perform requests with */
+    protected $client;
+
+    /** @var  EntityFactory The Factory which created Entities from Responses */
+    protected $factory;
 
     /**
      * @param string|null $token The API access token, as obtained on diffbot.com/dev
@@ -73,6 +82,54 @@ class Diffbot
     }
 
     /**
+     * Sets the client to be used for querying the API endpoints
+     *
+     * @param Client $client
+     * @return $this
+     */
+    public function setHttpClient(Client $client = null)
+    {
+        if ($client === null) {
+            $client = new Client();
+        }
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * Returns either the instance of the Guzzle client that has been defined, or null
+     * @return Client|null
+     */
+    public function getHttpClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Sets the Entity Factory which will create the Entities from Responses
+     * @param EntityFactory $factory
+     * @return $this
+     */
+    public function setEntityFactory(EntityFactory $factory = null)
+    {
+        if ($factory === null) {
+            $factory = new Entity();
+        }
+        $this->factory = $factory;
+        return $this;
+    }
+
+    /**
+     * Returns the Factory responsible for creating Entities from Responses
+     * @return EntityFactory
+     */
+    public function getEntityFactory()
+    {
+        return $this->factory;
+    }
+
+
+    /**
      * Creates a Product API interface
      *
      * @param $url string Url to analyze
@@ -80,40 +137,57 @@ class Diffbot
      */
     public function createProductAPI($url)
     {
-        return new Product($url);
+        $api = new Product($url);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+        }
+        return $api->registerDiffbot($this);
     }
 
     /**
      * Creates an Article API interface
      *
      * @param $url string Url to analyze
-     * @return Product
+     * @return Article
      */
     public function createArticleAPI($url)
     {
-        return new Article($url);
+        $api = new Article($url);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+        }
+        return $api->registerDiffbot($this);
     }
 
     /**
      * Creates an Image API interface
      *
      * @param $url string Url to analyze
-     * @return Product
+     * @return Image
      */
     public function createImageAPI($url)
     {
-        return new Image($url);
+        $api = new Image($url);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+        }
+        return $api->registerDiffbot($this);
     }
 
     /**
      * Creates an Analyze API interface
      *
      * @param $url string Url to analyze
-     * @return Product
+     * @return Analyze
      */
     public function createAnalyzeAPI($url)
     {
-        return new Analyze($url);
+        $api = new Analyze($url);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+        }
+        return $api->registerDiffbot($this);
     }
+
 
 }

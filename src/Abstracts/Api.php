@@ -2,6 +2,8 @@
 
 namespace Swader\Diffbot\Abstracts;
 
+use GuzzleHttp\Client;
+use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Exceptions\DiffbotException;
 
 /**
@@ -21,6 +23,10 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
 
     /** @var array Settings on which optional fields to fetch */
     protected $fieldSettings = [];
+
+    /** @var  Diffbot The parent class which spawned this one */
+    protected $diffbot;
+
 
     public function __construct($url)
     {
@@ -90,5 +96,47 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
             throw new \BadMethodCallException('Prefix "'.$prefix.'" not allowed.');
         }
         throw new \BadMethodCallException($name . ': such a field does not exist for this API class.');
+    }
+
+    public function call()
+    {
+        $response = $this->diffbot->getHttpClient()->get($this->buildUrl());
+        return $this->diffbot->getEntityFactory()->createAppropriate($response);
+    }
+
+    protected function buildUrl()
+    {
+        $url = rtrim($this->apiUrl, '/') . '/';
+
+        // Add Token
+        $url .= '?token=' . $this->diffbot->getToken();
+
+        // Add URL
+        $url .= '&url='.urlencode($this->url);
+
+        // Add Custom Fields
+        $fields = static::getOptionalFields();
+        $fieldString = '';
+        foreach ($fields as $field) {
+            $methodName = 'get' . ucfirst($field);
+            $fieldString .= ($this->$methodName()) ? $field . ',' : '';
+        }
+        $fieldString = trim($fieldString, ',');
+        if ($fieldString != '') {
+            $url .= '&fields=' . $fieldString;
+        }
+
+        return $url;
+    }
+
+    /**
+     * Sets the Diffbot instance on the child class
+     * Used to later fetch the token, HTTP client, EntityFactory, etc
+     * @param Diffbot $d
+     * @return $this
+     */
+    public function registerDiffbot(Diffbot $d) {
+        $this->diffbot = $d;
+        return $this;
     }
 }
