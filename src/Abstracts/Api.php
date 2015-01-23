@@ -2,17 +2,25 @@
 
 namespace Swader\Diffbot\Abstracts;
 
+use Swader\Diffbot\Exceptions\DiffbotException;
+
 /**
  * Class Api
  * @package Swader\Diffbot\Abstracts
  */
-abstract class Api
+abstract class Api implements \Swader\Diffbot\Interfaces\Api
 {
     /** @var int Timeout value in ms - defaults to 30s if empty */
     private $timeout = 30000;
 
     /** @var string The URL onto which to unleash the API in question */
     private $url;
+
+    /** @var string API URL to which to send the request */
+    protected $apiUrl;
+
+    /** @var array Settings on which optional fields to fetch */
+    protected $fieldSettings = [];
 
     public function __construct($url)
     {
@@ -59,5 +67,28 @@ abstract class Api
 
         $this->timeout = $timeout;
         return $this;
+    }
+
+    public function __call($name, $arguments)
+    {
+        $prefix = substr(lcfirst($name), 0, 3);
+        $field = lcfirst(substr($name, 3));
+
+        $fields = static::getOptionalFields();
+        if (in_array($field, $fields)) {
+            if ($prefix == 'get') {
+                return (isset($this->fieldSettings[$field])) ? $this->fieldSettings[$field] : false;
+            }
+
+            if ($prefix == 'set') {
+                if (is_bool($arguments[0]) || $arguments[0] === null) {
+                    $this->fieldSettings[$field] = (bool)$arguments[0];
+                    return $this;
+                }
+                throw new \InvalidArgumentException('Only booleans and null are allowed as optional field flags!');
+            }
+            throw new \BadMethodCallException('Prefix "'.$prefix.'" not allowed.');
+        }
+        throw new \BadMethodCallException($name . ': such a field does not exist for this API class.');
     }
 }

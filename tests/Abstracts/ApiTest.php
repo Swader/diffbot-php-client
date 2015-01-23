@@ -3,6 +3,8 @@
 namespace Swader\Diffbot\Test;
 
 use Swader\Diffbot\Abstracts\Api;
+use Swader\Diffbot\Diffbot;
+use Swader\Diffbot\Exceptions\DiffbotException;
 
 class ApiTest extends \PHPUnit_Framework_TestCase
 {
@@ -113,6 +115,135 @@ TAG
                 continue;
             }
             $this->fail('Did not fail with invalid URL at index ' . $i);
+        }
+    }
+
+    protected function returnApis()
+    {
+        $diffbot = new Diffbot('demo');
+        $demoUrl = 'https://www.google.com';
+        return [
+            'product' => $diffbot->createProductAPI($demoUrl),
+            'analyze' => $diffbot->createAnalyzeAPI($demoUrl),
+            'article' => $diffbot->createArticleAPI($demoUrl),
+            'image' => $diffbot->createImageAPI($demoUrl)
+        ];
+    }
+
+    public function testFieldSettersSuccess()
+    {
+        /**
+         * @var  $name string
+         * @var  $api Api
+         */
+        foreach ($this->returnApis() as $name => $api) {
+            $fields = $api::getOptionalFields();
+            foreach ($fields as $field) {
+                $setterName = 'set' . ucfirst($field);
+                $values = [true, false, null];
+                $i = 1000;
+                while ($i--) {
+                    $v = $values[rand(0, count($values) - 1)];
+                    try {
+                        $api->$setterName($v);
+                    } catch (\InvalidArgumentException $e) {
+                        $this->fail($e->getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    public function testFieldSettersFail()
+    {
+        /**
+         * @var  $name string
+         * @var  $api Api
+         */
+        foreach ($this->returnApis() as $name => $api) {
+            $fields = $api::getOptionalFields();
+            foreach ($fields as $field) {
+                $setterName = 'set' . ucfirst($field);
+                $values = ['true', 'false', 5, 0, 1, '', 5 + 5, 'hello', [true], [false], [true, false]];
+                $i = 1000;
+                while ($i--) {
+                    $v = $values[rand(0, count($values) - 1)];
+                    try {
+                        $api->$setterName($v);
+                    } catch (\InvalidArgumentException $e) {
+                        // All good, we got the exception, next iteration please
+                        continue;
+                    }
+                    $message = 'ProductAPI did not error when given wrong input into ' . $setterName . '. ';
+                    $message .= 'The input was: ' . print_r($v, true);
+                    $this->fail($message);
+                }
+            }
+        }
+    }
+
+    public function testFieldGettersSuccess()
+    {
+        /**
+         * @var  $name string
+         * @var  $api Api
+         */
+        foreach ($this->returnApis() as $name => $api) {
+            $fields = $api::getOptionalFields();
+            foreach ($fields as $field) {
+                $getterName = 'get' . ucfirst($field);
+                $this->assertTrue(is_bool($api->$getterName()));
+            }
+        }
+    }
+
+    public function testFieldFail()
+    {
+        $invalidFieldNames = ['gibberish', 'nonsense', 'folly'];
+        /**
+         * @var  $name string
+         * @var  $api Api
+         */
+        foreach ($this->returnApis() as $name => $api) {
+            $settableValues = [true, false, null];
+            foreach ($invalidFieldNames as $field) {
+                $getterName = 'get' . ucfirst($field);
+                $setterName = 'set' . ucfirst($field);
+
+                $e1 = false;
+                try {
+                    $api->$getterName();
+                } catch (\BadMethodCallException $e1) {
+                    // Exception should happen, all good
+                }
+                if (!$e1) {
+                    $this->fail('No exception raised when getting invalid field: ' . $field);
+                }
+
+                $e2 = false;
+                foreach ($settableValues as $value) {
+                    try {
+                        $api->$setterName($value);
+                    } catch (\BadMethodCallException $e2) {
+                        // Exception should happen, all good
+                    }
+                    if (!$e2) {
+                        $this->fail('No exception raised when setting invalid field: ' . $field);
+                    }
+                }
+            }
+            foreach ($api::getOptionalFields() as $field) {
+                $methodName = 'wet' . ucfirst($field);
+                $e3 = false;
+                try {
+                    $api->$methodName();
+                } catch (\BadMethodCallException $e3) {
+                    // Exception should happen, all good
+                }
+                if (!$e3) {
+                    $this->fail('No exception raised when using invalid prefix: ' . $field);
+                }
+            }
         }
 
     }

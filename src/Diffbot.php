@@ -3,6 +3,10 @@
 namespace Swader\Diffbot;
 
 use Swader\Diffbot\Exceptions\DiffbotException;
+use Swader\Diffbot\Api\Product;
+use Swader\Diffbot\Api\Image;
+use Swader\Diffbot\Api\Analyze;
+use Swader\Diffbot\Api\Article;
 
 /**
  * Class Diffbot
@@ -58,4 +62,58 @@ class Diffbot
         }
         return true;
     }
+
+    /**
+     * Returns the token that has been defined.
+     * @return null|string
+     */
+    public function getToken()
+    {
+        return ($this->instanceToken) ? $this->instanceToken : self::$token;
+    }
+
+    /**
+     * Creates a Product API interface
+     *
+     * @param $url string Url to analyze
+     * @return Product
+     */
+    public function createProductAPI($url)
+    {
+        return new Product($url);
+    }
+
+    /**
+     * Creates an Article API interface
+     *
+     * @param $url string Url to analyze
+     * @return Product
+     */
+    public function createArticleAPI($url)
+    {
+        return new Article($url);
+    }
+
+    /**
+     * Creates an Image API interface
+     *
+     * @param $url string Url to analyze
+     * @return Product
+     */
+    public function createImageAPI($url)
+    {
+        return new Image($url);
+    }
+
+    /**
+     * Creates an Analyze API interface
+     *
+     * @param $url string Url to analyze
+     * @return Product
+     */
+    public function createAnalyzeAPI($url)
+    {
+        return new Analyze($url);
+    }
+
 }

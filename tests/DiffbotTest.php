@@ -72,4 +72,37 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
             $this->fail('Scenario failed!');
         }
     }
+
+    public function testGetToken()
+    {
+        Diffbot::setToken('testing');
+        $d1 = new Diffbot;
+
+        $this->assertEquals('testing', $d1->getToken());
+
+        $sampleToken = 'abcdef';
+        $d2 = new Diffbot($sampleToken);
+
+        $this->assertEquals($sampleToken, $d2->getToken());
+    }
+
+    public function testApiInstances() {
+
+        $url = 'https://google.com';
+        $diffbot = new Diffbot('demo');
+
+        $product = $diffbot->createProductAPI($url);
+        $this->assertInstanceOf('\Swader\Diffbot\Api\Product', $product);
+
+        $analyze = $diffbot->createAnalyzeAPI($url);
+        $this->assertInstanceOf('\Swader\Diffbot\Api\Analyze', $analyze);
+
+        $image = $diffbot->createImageAPI($url);
+        $this->assertInstanceOf('\Swader\Diffbot\Api\Image', $image);
+
+        $article = $diffbot->createArticleAPI($url);
+        $this->assertInstanceOf('\Swader\Diffbot\Api\Article', $article);
+
+    }
+
 }
