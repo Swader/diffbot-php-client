@@ -3,7 +3,6 @@
 namespace Swader\Diffbot\Test;
 
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Exceptions\DiffbotException;
 
 /**
  * @runTestsInSeparateProcesses
@@ -11,65 +10,65 @@ use Swader\Diffbot\Exceptions\DiffbotException;
 class DiffbotTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $invalidTokens = [
-        '',
-        'a',
-        'ab',
-        'abc',
-        1,
-        12,
-        123,
-        true,
-        array('token')
-    ];
-
-    private $validTokens = [
-        'token',
-        '123456789',
-        'akrwejhtn983z420qrzc8397r4'
-    ];
-
-    public function testStaticSetToken()
+    public function invalidTokens()
     {
-        foreach ($this->invalidTokens as $value) {
-            try {
-                Diffbot::setToken($value);
-            } catch (\InvalidArgumentException $e) {
-                // Good, we got an exception!
-                continue;
-            }
-            $this->fail('Expected exception not raised on value: "' . $value . '".');
-        }
-
-        foreach ($this->validTokens as $value) {
-            Diffbot::setToken($value);
-        }
+        return [
+            'empty'        => [ '' ],
+            'a'            => [ 'a' ],
+            'ab'           => [ 'ab' ],
+            'abc'          => [ 'abc' ],
+            'digit'        => [ 1 ],
+            'double-digit' => [ 12 ],
+            'triple-digit' => [ 123 ],
+            'bool'         => [ true ],
+            'array'        => [ ['token'] ],
+        ];
     }
 
-    public function testInstantiation()
+    public function validTokens()
     {
-        $exceptionTriggered = false;
-        try {
-            new Diffbot();
-        } catch (DiffbotException $e) {
-            // Great, got it!
-            $exceptionTriggered = true;
-        }
-        if (!$exceptionTriggered) {
-            $this->fail('Empty token did not produce exception!');
-        }
+        return [
+            'token'      => [ 'token' ],
+            'short-hash' => [ '123456789' ],
+            'full-hash'  => [ 'akrwejhtn983z420qrzc8397r4' ],
+        ];
+    }
 
-        try {
-            Diffbot::setToken('token');
-            new Diffbot();
-        } catch (DiffbotException $e) {
-            $this->fail('Scenario failed!');
-        }
+    /**
+     * @dataProvider invalidTokens
+     */
+    public function testSetTokenRaisesExceptionOnInvalidToken($token)
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        Diffbot::setToken($token);
+    }
 
-        try {
-            new Diffbot('token');
-        } catch (DiffbotException $e) {
-            $this->fail('Scenario failed!');
-        }
+    /**
+     * @dataProvider validTokens
+     */
+    public function testSetTokenSucceedsOnValidToken($token)
+    {
+        Diffbot::setToken($token);
+        $bot = new Diffbot();
+        $this->assertInstanceOf('\Swader\Diffbot\Diffbot', $bot);
+    }
+
+    public function testInstantiationWithNoGlobalTokenAndNoArgumentRaisesAnException()
+    {
+        $this->setExpectedException('\Swader\Diffbot\Exceptions\DiffbotException');
+        new Diffbot();
+    }
+
+    public function testInstantiationWithGlobalTokenAndNoArgumentSucceeds()
+    {
+        Diffbot::setToken('token');
+        $bot = new Diffbot();
+        $this->assertInstanceOf('Swader\Diffbot\Diffbot', $bot);
+    }
+
+    public function testInstantiationWithNoGlobalTokenButWithArgumentSucceeds()
+    {
+        $bot = new Diffbot('token');
+        $this->assertInstanceOf('Swader\Diffbot\Diffbot', $bot);
     }
 }
