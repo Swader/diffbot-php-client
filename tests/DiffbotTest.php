@@ -5,9 +5,6 @@ namespace Swader\Diffbot\Test;
 use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Exceptions\DiffbotException;
 
-/**
- * @runTestsInSeparateProcesses
- */
 class DiffbotTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -54,6 +51,9 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Swader\Diffbot\Diffbot', $bot);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testInstantiationWithNoGlobalTokenAndNoArgumentRaisesAnException()
     {
         $this->setExpectedException('\Swader\Diffbot\Exceptions\DiffbotException');
