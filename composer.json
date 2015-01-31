@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Swader\\Diffbot\\Test\\": "tests"
+            "Swader\\Diffbot\\Test\\": "tests/"
         }
     },
     "extra": {

@@ -4,7 +4,6 @@ namespace Swader\Diffbot\Test;
 
 use Swader\Diffbot\Abstracts\Api;
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Exceptions\DiffbotException;
 
 class ApiTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,52 +18,57 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         return $this->getMockForAbstractClass($this->className, [$this->testUrl]);
     }
 
-    public function testSetTimeout()
+    public function validTimeouts()
+    {
+        return [
+            'zero' => [0],
+            '1000' => [1000],
+            '2000' => [2000],
+            '3000' => [3000],
+            '3 mil' => [3000000],
+            '40 mil' => [40000000]
+        ];
+    }
+
+    public function invalidTimeouts()
+    {
+        return [
+            'negative_big' => [-298979879827],
+            'negative_small' => [-4983],
+            'string ' => ['abcef'],
+            'empty string' => [''],
+            'bool' => [false]
+        ];
+    }
+
+    public function testSetEmptyTimeoutSuccess()
     {
         /** @var Api $mock */
         $mock = $this->buildMock();
+        $mock->setTimeout();
+    }
 
-        $validTimeouts = [
-            0,
-            1000,
-            2000,
-            3000,
-            3000000,
-            40000000,
-            null
-        ];
+    /**
+     * @dataProvider invalidTimeouts
+     * @param $timeout mixed
+     */
+    public function testSetTimeoutInvalid($timeout)
+    {
+        /** @var Api $mock */
+        $mock = $this->buildMock();
+        $this->setExpectedException('InvalidArgumentException');
+        $mock->setTimeout($timeout);
+    }
 
-        $invalidTimeouts = [
-            -298979879827,
-            -4983,
-            'abcef',
-            '',
-            false
-        ];
-
-        try {
-            $mock->setTimeout();
-        } catch (\InvalidArgumentException $e) {
-            $this->fail('Failed with supposedly valid (empty) timeout.');
-        }
-
-        foreach ($validTimeouts as $timeout) {
-            try {
-                $mock->setTimeout($timeout);
-            } catch (\InvalidArgumentException $e) {
-                $this->fail('Failed with supposedly valid timeout: ' . $timeout);
-            }
-        }
-
-        foreach ($invalidTimeouts as $timeout) {
-            try {
-                $mock->setTimeout($timeout);
-            } catch (\InvalidArgumentException $e) {
-                // Got expected exception
-                continue;
-            }
-            $this->fail('Failed, assumed invalid parameter was valid.');
-        }
+    /**
+     * @dataProvider validTimeouts
+     * @param $timeout int
+     */
+    public function testSetTimeoutValid($timeout)
+    {
+        /** @var Api $mock */
+        $mock = $this->buildMock();
+        $mock->setTimeout($timeout);
     }
 
     public function testConstructor()
