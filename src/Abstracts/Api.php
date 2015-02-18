@@ -104,7 +104,7 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
         return $this->diffbot->getEntityFactory()->createAppropriate($response);
     }
 
-    protected function buildUrl()
+    public function buildUrl()
     {
         $url = rtrim($this->apiUrl, '/') . '/';
 

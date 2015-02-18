@@ -41,4 +41,22 @@ class Product extends Entity
     {
         return $this->objects['title'];
     }
+
+    /**
+     * Returns Stock Keeping Unit -- store/vendor inventory number or identifier.
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->objects['sku'];
+    }
+
+    /**
+     * offerPrice separated into its constituent parts: amount, symbol, and full text.
+     * @return array
+     */
+    public function getOfferPriceDetails()
+    {
+        return $this->objects['offerPriceDetails'];
+    }
 }

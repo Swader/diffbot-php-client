@@ -26,9 +26,4 @@ class Image extends Api
     {
         return self::$optionalFields;
     }
-
-    public function call()
-    {
-
-    }
 }
