@@ -3,7 +3,6 @@
 namespace Swader\Diffbot\Test;
 
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Exceptions\DiffbotException;
 
 class DiffbotTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,6 +33,7 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidTokens
+     * @param $token
      */
     public function testSetTokenRaisesExceptionOnInvalidToken($token)
     {
@@ -43,6 +43,7 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider validTokens
+     * @param $token
      */
     public function testSetTokenSucceedsOnValidToken($token)
     {
@@ -84,25 +85,6 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         $d2 = new Diffbot($sampleToken);
 
         $this->assertEquals($sampleToken, $d2->getToken());
-    }
-
-    public function testApiInstances() {
-
-        $url = 'https://google.com';
-        $diffbot = new Diffbot('demo');
-
-        $product = $diffbot->createProductAPI($url);
-        $this->assertInstanceOf('\Swader\Diffbot\Api\Product', $product);
-
-        $analyze = $diffbot->createAnalyzeAPI($url);
-        $this->assertInstanceOf('\Swader\Diffbot\Api\Analyze', $analyze);
-
-        $image = $diffbot->createImageAPI($url);
-        $this->assertInstanceOf('\Swader\Diffbot\Api\Image', $image);
-
-        $article = $diffbot->createArticleAPI($url);
-        $this->assertInstanceOf('\Swader\Diffbot\Api\Article', $article);
-
     }
 
 }

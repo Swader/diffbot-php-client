@@ -3,14 +3,15 @@
 namespace Swader\Diffbot\Interfaces;
 
 use GuzzleHttp\Message\Response;
+use Swader\Diffbot\Abstracts\Entity;
 
 interface EntityFactory
 {
     /**
-     * Returns the appropriate entity as built by the contents of $response
+     * Returns the entity iterator containing the appropriate entities as built by the contents of $response
      *
      * @param Response $response
      * @return Entity
      */
-    public function createAppropriate(Response $response);
+    public function createAppropriateIterator(Response $response);
 }

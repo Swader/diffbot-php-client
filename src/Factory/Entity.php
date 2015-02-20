@@ -3,6 +3,7 @@
 namespace Swader\Diffbot\Factory;
 
 use GuzzleHttp\Message\Response;
+use Swader\Diffbot\Entity\EntityIterator;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Interfaces\EntityFactory;
 
@@ -18,23 +19,29 @@ class Entity implements EntityFactory
 
     /**
      * Creates an appropriate Entity from a given Response
-     * If no valid Entity can be found for typoe of API, the Wildcard entity is selected
+     * If no valid Entity can be found for typo of API, the Wildcard entity is selected
      *
      * @param Response $response
-     * @return \Swader\Diffbot\Abstracts\Entity
+     * @return EntityIterator
      * @throws DiffbotException
      */
-    public function createAppropriate(Response $response)
+    public function createAppropriateIterator(Response $response)
     {
         $this->checkResponseFormat($response);
 
         $arr = $response->json();
-        if (isset($this->apiEntities[$arr['request']['api']])) {
-            $class = $this->apiEntities[$arr['request']['api']];
-        } else {
-            $class = $this->apiEntities['*'];
+
+        $objects = [];
+        foreach ($arr['objects'] as $object) {
+            if (isset($this->apiEntities[$object['type']])) {
+                $class = $this->apiEntities[$object['type']];
+            } else {
+                $class = $this->apiEntities['*'];
+            }
+            $objects[] = new $class($object);
         }
-        return new $class($response);
+
+        return new EntityIterator($objects, $response);
     }
 
     /**

@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.0
+Date: Fri, 20 Feb 2015 10:10:23 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 794
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+
+{"request":{"pageUrl":"https://500px.com/photo/78703451/zola-by-bruno-skvorc?from=user_library","api":"image","version":3,"fields":"","options":["mentos"]},"objects":[{"tags":[{"id":285917,"label":"Golden retriever","uri":"http://dbpedia.org/resource/Golden_retriever"}],"title":"Photograph Zola by Bruno Skvorc on 500px","naturalHeight":1365,"diffbotUri":"image|3|1611902484","pageUrl":"https://500px.com/photo/78703451/zola-by-bruno-skvorc?from=user_library","humanLanguage":"en","naturalWidth":2048,"date":"Aug 1, 2014","type":"image","url":"https://drscdn.500px.org/photo/78703451/m=2048/956d2879591f57e2352d2064e98f461b","xpath":"/HTML/BODY/DIV[@class='photo_show minimal has_next_photo has_previous_photo']/DIV[@class='photo segment']/DIV[@id='photo_78703451']/IMG[@class='the_photo']"}]}

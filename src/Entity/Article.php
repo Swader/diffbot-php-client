@@ -3,44 +3,19 @@
 namespace Swader\Diffbot\Entity;
 
 use Swader\Diffbot\Abstracts\Entity;
+use Swader\Diffbot\Traits\StandardEntity;
 
 class Article extends Entity
 {
+    use StandardEntity;
+
     /**
      * Should always return "article"
      * @return string
      */
     public function getType()
     {
-        return $this->objects['type'];
-    }
-
-    /**
-     * Returns the URL which was crawled
-     * @return string
-     */
-    public function getPageUrl()
-    {
-        return $this->objects['pageUrl'];
-    }
-
-    /**
-     * Returns page Url which was resolved by redirects, if any.
-     * For example, crawling a bitly link will make this method return the ultimate destination's URL
-     * @return string
-     */
-    public function getResolvedPageUrl()
-    {
-        return (isset($this->objects['resolvedPageUrl'])) ? $this->objects['resolvedPageUrl'] : $this->getPageUrl();
-    }
-
-    /**
-     * Returns title of article as deducted by Diffbot
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->objects['title'];
+        return $this->data['type'];
     }
 
     /**
@@ -50,7 +25,7 @@ class Article extends Entity
      */
     public function getText()
     {
-        return $this->objects['text'];
+        return $this->data['text'];
     }
 
     /**
@@ -59,7 +34,7 @@ class Article extends Entity
      */
     public function getHtml()
     {
-        return $this->objects['html'];
+        return $this->data['html'];
     }
 
     /**
@@ -71,7 +46,7 @@ class Article extends Entity
      */
     public function getDate()
     {
-        return $this->objects['date'];
+        return $this->data['date'];
     }
 
     /**
@@ -80,15 +55,13 @@ class Article extends Entity
      */
     public function getAuthor()
     {
-        return $this->objects['author'];
+        return $this->data['author'];
     }
 
     /**
      * The array returned will contain all tags that Diffbot's AI concluded match the content
      *
      * Note that these are *not* the meta tags as defined by the author, but machine learned ones.
-     * Note also that tags may differ depending on URL. Visiting a bitly link vs visiting a fully resolved one
-     * will sometimes yield different results. It is currently unknown why this happens.
      * The format of the array is:
      *
      * [
@@ -114,27 +87,7 @@ class Article extends Entity
      */
     public function getTags()
     {
-        return $this->objects['tags'];
-    }
-
-    /**
-     * Alias for getLang()
-     * @see getLang()
-     * @return string
-     */
-    public function getHumanLanguage()
-    {
-        return $this->getLang();
-    }
-
-    /**
-     * Returns the human language as determined by Diffbot when looking at content.
-     * The code returned is a two-character ISO 639-1 code: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-     * @return string
-     */
-    public function getLang()
-    {
-        return $this->objects['humanLanguage'];
+        return $this->data['tags'];
     }
 
     /**
@@ -145,22 +98,22 @@ class Article extends Entity
      */
     public function getNumPages()
     {
-        return (isset($this->objects['numPages'])) ? $this->objects['numPages'] : 1;
+        return (isset($this->data['numPages'])) ? $this->data['numPages'] : 1;
     }
 
     /**
-     * Array of all page URLs concatenated in a multipage article.
+     * Array of all page URLs concatenated in a multipage article. Max 20 entries.
      * Empty array if article was not concatenated before being returned.
      * @see http://support.diffbot.com/automatic-apis/handling-multiple-page-articles/
      * @return array
      */
     public function getNextPages()
     {
-        return (isset($this->objects['nextPages'])) ? $this->objects['nextPages'] : [];
+        return (isset($this->data['nextPages'])) ? $this->data['nextPages'] : [];
     }
 
     /**
-     * Returns an array of images found in the article's content.
+     * Returns an array of images found in the page's content.
      *
      * Note that this (tries) to ignore content-unrelated images like ads arounds the page, etc.
      * The format of the array will be:
@@ -189,12 +142,14 @@ class Article extends Entity
      */
     public function getImages()
     {
-        return (isset($this->objects['images'])) ? $this->objects['images'] : [];
+        return (isset($this->data['images'])) ? $this->data['images'] : [];
     }
 
     /**
      * Returns an array of videos found in the article's content.
      *
+     * Works on and off - the better choice is the Video API
+     * @see https://www.diffbot.com/dev/docs/video
      * The format of the array will be:
      *
      * [
@@ -213,7 +168,7 @@ class Article extends Entity
      * @return array
      */
     public function getVideos() {
-        return (isset($this->objects['images'])) ? $this->objects['images'] : [];
+        return (isset($this->data['images'])) ? $this->data['images'] : [];
     }
 
     /**
@@ -222,18 +177,7 @@ class Article extends Entity
      */
     public function getDiffbotUri()
     {
-        return $this->objects['diffbotUri'];
+        return $this->data['diffbotUri'];
     }
 
-    public function getLinks() {
-
-    }
-
-    public function getMeta() {
-
-    }
-
-    public function getQueryString() {
-
-    }
 }

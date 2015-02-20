@@ -2,28 +2,22 @@
 
 namespace Swader\Diffbot\Abstracts;
 
-use GuzzleHttp\Message\Response;
-
 abstract class Entity
 {
-    /** @var Response */
-    protected $response;
+    /** @var array */
+    protected $data;
 
-    /** @var  array */
-    protected $objects;
-
-    public function __construct(Response $response)
+    public function __construct(array $data)
     {
-        $this->response = $response;
-        $this->objects = $response->json()['objects'][0];
+        $this->data = $data;
     }
 
     /**
      * Returns the original response that was passed into the Entity
-     * @return Response
+     * @return array
      */
-    public function getResponse()
+    public function getData()
     {
-        return $this->response;
+        return $this->data;
     }
 }

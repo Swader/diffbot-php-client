@@ -2,9 +2,7 @@
 
 namespace Swader\Diffbot\Abstracts;
 
-use GuzzleHttp\Client;
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Exceptions\DiffbotException;
 
 /**
  * Class Api
@@ -75,33 +73,10 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
         return $this;
     }
 
-    public function __call($name, $arguments)
-    {
-        $prefix = substr(lcfirst($name), 0, 3);
-        $field = lcfirst(substr($name, 3));
-
-        $fields = static::getOptionalFields();
-        if (in_array($field, $fields)) {
-            if ($prefix == 'get') {
-                return (isset($this->fieldSettings[$field])) ? $this->fieldSettings[$field] : false;
-            }
-
-            if ($prefix == 'set') {
-                if (is_bool($arguments[0]) || $arguments[0] === null) {
-                    $this->fieldSettings[$field] = (bool)$arguments[0];
-                    return $this;
-                }
-                throw new \InvalidArgumentException('Only booleans and null are allowed as optional field flags!');
-            }
-            throw new \BadMethodCallException('Prefix "'.$prefix.'" not allowed.');
-        }
-        throw new \BadMethodCallException($name . ': such a field does not exist for this API class.');
-    }
-
     public function call()
     {
         $response = $this->diffbot->getHttpClient()->get($this->buildUrl());
-        return $this->diffbot->getEntityFactory()->createAppropriate($response);
+        return $this->diffbot->getEntityFactory()->createAppropriateIterator($response);
     }
 
     public function buildUrl()
@@ -112,14 +87,14 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
         $url .= '?token=' . $this->diffbot->getToken();
 
         // Add URL
-        $url .= '&url='.urlencode($this->url);
+        $url .= '&url=' . urlencode($this->url);
+
 
         // Add Custom Fields
-        $fields = static::getOptionalFields();
+        $fields = $this->fieldSettings;
         $fieldString = '';
-        foreach ($fields as $field) {
-            $methodName = 'get' . ucfirst($field);
-            $fieldString .= ($this->$methodName()) ? $field . ',' : '';
+        foreach ($fields as $field => $value) {
+            $fieldString .= ($value) ? $field . ',' : '';
         }
         $fieldString = trim($fieldString, ',');
         if ($fieldString != '') {
@@ -135,8 +110,10 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
      * @param Diffbot $d
      * @return $this
      */
-    public function registerDiffbot(Diffbot $d) {
+    public function registerDiffbot(Diffbot $d)
+    {
         $this->diffbot = $d;
         return $this;
     }
+
 }
