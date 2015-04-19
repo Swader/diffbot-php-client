@@ -11,4 +11,53 @@ class Product extends Api
 
     /** @var string API URL to which to send the request */
     protected $apiUrl = 'http://api.diffbot.com/v3/product';
+
+    /**
+     * If set to false, will not extract article comments in a Discussion
+     * entity embedded in the Product entity. By default, it will.
+     * @param bool $bool
+     * @return $this
+     */
+    public function setDiscussion($bool = true)
+    {
+        $this->otherOptions['discussion'] = ($bool) ? 'true' : 'false';
+
+        return $this;
+    }
+
+    /**
+     * @see Swader\Diffbot\Entity\Product::getColors()
+     * @param $bool
+     * @return $this
+     */
+    public function setColors($bool)
+    {
+        $this->fieldSettings['colors'] = (bool)$bool;
+
+        return $this;
+    }
+
+    /**
+     * @see Swader\Diffbot\Entity\Product::getSize()
+     * @param $bool
+     * @return $this
+     */
+    public function setSize($bool)
+    {
+        $this->fieldSettings['size'] = (bool)$bool;
+
+        return $this;
+    }
+
+    /**
+     * @see Swader\Diffbot\Entity\Product::isAvailable()
+     * @param $bool
+     * @return $this
+     */
+    public function setAvailability($bool)
+    {
+        $this->fieldSettings['availability'] = (bool)$bool;
+
+        return $this;
+    }
 }

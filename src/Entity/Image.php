@@ -19,21 +19,13 @@ class Image extends Entity
     }
 
     /**
-     * An internal identifier for Diffbot, used for indexing in their databases
-     * @return string
-     */
-    public function getDiffbotUri()
-    {
-        return $this->data['diffbotUri'];
-    }
-
-    /**
      * Height of image as (re-)sized via browser/CSS.
      * @return mixed
      */
     public function getHeight()
     {
-        return (isset($this->data['height'])) ? $this->data['height'] : $this->getNaturalHeight();
+        return (isset($this->data['height']))
+            ? $this->data['height'] : $this->getNaturalHeight();
     }
 
     /**
@@ -42,7 +34,8 @@ class Image extends Entity
      */
     public function getWidth()
     {
-        return (isset($this->data['width'])) ? $this->data['width'] : $this->getNaturalWidth();
+        return (isset($this->data['width']))
+            ? $this->data['width'] : $this->getNaturalWidth();
     }
 
     /**
@@ -63,4 +56,68 @@ class Image extends Entity
         return $this->data['naturalWidth'];
     }
 
+    /**
+     * Returns the URL of the image
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->data['url'];
+    }
+
+    /**
+     * Returns the URL to which the image is linked, if any. Otherwise, null.
+     * @return string|null
+     */
+    public function getAnchorUrl()
+    {
+        return (isset($this->data['anchorUrl']))
+            ? $this->data['anchorUrl'] : null;
+    }
+
+    /**
+     * XPath Expression identifying the image node in the page
+     * @return string
+     */
+    public function getXPath()
+    {
+        return $this->data['xpath'];
+    }
+
+    /**
+     * Returns an array of [title, link] arrays for all posts where this image,
+     * or a similar one, was found
+     * @return array
+     */
+    public function getMentions()
+    {
+        $d = $this->data;
+
+        return (isset($d['mentions']) && !empty($d['mentions']))
+            ? $d['mentions'] : [];
+    }
+
+    /**
+     * Returns recognized faces
+     * Currently doesn't even recognize Oprah, heavy beta, do not use
+     * @return string
+     */
+    public function getFaces()
+    {
+        $d = $this->data;
+
+        return (isset($d['faces']) && !empty($d['faces']))
+            ? $d['faces'] : "";
+    }
+
+    /**
+     * Returns recognized text from picture
+     * Currently does not recognize anything, heavy beta, do not use
+     * @return string
+     */
+    public function getOcr()
+    {
+        return (isset($this->data['ocr']) && !empty($this->data['ocr']))
+            ? $this->data['ocr'] : "";
+    }
 }

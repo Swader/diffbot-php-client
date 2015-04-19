@@ -1,19 +1,6 @@
 #Changelog
-All Notable changes to `:package_name` will be documented in this file
+All notable changes will be documented in this file
 
-## NEXT - YYYY-MM-DD
+## 0.1 - April 20th, 2015
 
-### Added
-- Nothing
-
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Remove
-- Nothing
-
-### Security
-- Nothing
+Initial public release.

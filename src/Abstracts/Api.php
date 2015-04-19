@@ -22,6 +22,9 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
     /** @var array Settings on which optional fields to fetch */
     protected $fieldSettings = [];
 
+    /** @var array Other API specific options */
+    protected $otherOptions = [];
+
     /** @var  Diffbot The parent class which spawned this one */
     protected $diffbot;
 
@@ -99,6 +102,11 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
         $fieldString = trim($fieldString, ',');
         if ($fieldString != '') {
             $url .= '&fields=' . $fieldString;
+        }
+
+        // Add Other Options
+        foreach ($this->otherOptions as $option => $value) {
+            $url .= '&'.$option . '=' . $value;
         }
 
         return $url;

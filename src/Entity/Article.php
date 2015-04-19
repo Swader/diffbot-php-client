@@ -51,11 +51,11 @@ class Article extends Entity
 
     /**
      * Returns the full name of the author, as signed on the article's page
-     * @return string
+     * @return string | null
      */
     public function getAuthor()
     {
-        return $this->data['author'];
+        return (isset($this->data['author'])) ? $this->data['author'] : null;
     }
 
     /**
@@ -113,6 +113,16 @@ class Article extends Entity
     }
 
     /**
+     * Returns the sentiment score of the analyzed article text, a value randing from
+     * -1.0 (very negative) to 1.0 (very positive).
+     * @return float|null
+     */
+    public function getSentiment()
+    {
+        return (isset($this->data['sentiment'])) ? $this->data['sentiment'] : null;
+    }
+
+    /**
      * Returns an array of images found in the page's content.
      *
      * Note that this (tries) to ignore content-unrelated images like ads arounds the page, etc.
@@ -167,17 +177,8 @@ class Article extends Entity
      *
      * @return array
      */
-    public function getVideos() {
-        return (isset($this->data['images'])) ? $this->data['images'] : [];
-    }
-
-    /**
-     * An internal identifier for Diffbot, used for indexing in their databases
-     * @return string
-     */
-    public function getDiffbotUri()
+    public function getVideos()
     {
-        return $this->data['diffbotUri'];
+        return (isset($this->data['videos'])) ? $this->data['videos'] : [];
     }
-
 }

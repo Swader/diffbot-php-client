@@ -7,13 +7,13 @@ use GuzzleHttp\Subscriber\Mock;
 use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Entity\Article;
 
-class ArticleApiTest extends \PHPUnit_Framework_TestCase
+class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $validMock;
 
     /**
-     * @var \Swader\Diffbot\Api\Article
+     * @var \Swader\Diffbot\Api\Analyze
      */
     protected $apiWithMock;
 
@@ -26,7 +26,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
         $diffbot->setHttpClient($fakeClient);
         $diffbot->setEntityFactory();
 
-        $this->apiWithMock = $diffbot->createArticleAPI('https://article-mock.com');
+        $this->apiWithMock = $diffbot->createAnalyzeAPI('https://article-mock.com');
     }
 
     protected function getValidDiffbotInstance()
@@ -45,19 +45,12 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
         return $this->validMock;
     }
 
-    public function testCall()
-    {
-        /** @var Article $article */
-        $article = $this->apiWithMock->call();
-
-    }
-
     public function testBuildUrlNoCustomFields()
     {
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -67,7 +60,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -78,7 +71,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->setMeta(true)
             ->setLinks(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -90,21 +83,19 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->setLinks(true)
             ->setBreadcrumb(true)
             ->setQuerystring(true)
-            ->setSentiment(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring,sentiment';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring';
         $this->assertEquals($expectedUrl, $url);
     }
 
     public function testBuildUrlOtherOptionsOnly()
     {
         $url = $this->apiWithMock
-            ->setPaging(false)
-            ->setMaxTags(10)
             ->setDiscussion(false)
+            ->setMode('article')
             ->buildUrl();
 
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com&paging=false&maxTags=10&discussion=false';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com&discussion=false&mode=article';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -114,13 +105,55 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->setLinks(true)
-            ->setPaging(false)
             ->setBreadcrumb(true)
             ->setQuerystring(true)
-            ->setMaxTags(10)
+            ->setDiscussion(false)
+            ->setMode('product')
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring&paging=false&maxTags=10';
+        $expectedUrl = 'http://api.diffbot.com/v3/analyze/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring&discussion=false&mode=product';
         $this->assertEquals($expectedUrl, $url);
+    }
+
+    public function invalidModes()
+    {
+        return [
+            ['foo'],
+            ['bar'],
+            ['post'],
+            ['discussion']
+        ];
+    }
+
+    /**
+     * @dataProvider invalidModes
+     * @param $mode
+     */
+    public function testInvalidMode($mode)
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $this->apiWithMock->setMode($mode);
+    }
+
+    public function validModes()
+    {
+        return [
+            ['article'],
+            ['product'],
+            ['image']
+        ];
+    }
+
+    /**
+     * @dataProvider validModes
+     * @param $mode
+     */
+    public function testValidMode($mode)
+    {
+        try {
+            $this->apiWithMock->setMode($mode);
+        } catch (\Exception $e) {
+            $this->fail('Error should not have happened: ' . $e->getMessage());
+        }
     }
 
 }

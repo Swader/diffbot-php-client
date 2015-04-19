@@ -46,12 +46,7 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         $products = $this->apiWithMock->call();
 
         foreach ($products as $product) {
-            /** @var Product $product */
-            $targetTitle = 'Grreat Choice® Soft Slicker Dog Brush';
-            $this->assertEquals($targetTitle, $product->getTitle());
-            $this->assertTrue($product->isAvailable());
-            $this->assertEquals("$4.99", $product->getOfferPrice());
-            $this->assertEquals('Grreat Choice', $product->getBrand());
+            $this->assertInstanceOf('Swader\Diffbot\Entity\Product', $product);
         }
     }
 
@@ -63,4 +58,26 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
+    public function testBuildUrlMultipleCustomFields() {
+        $url = $this
+            ->apiWithMock
+            ->setColors(true)
+            ->setSize(true)
+            ->setAvailability(true)
+            ->buildUrl();
+        $expectedUrl = 'http://api.diffbot.com/v3/product/?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability';
+        $this->assertEquals($expectedUrl, $url);
+    }
+
+    public function testBuildUrlMultipleCustomFieldsAndOtherOptions() {
+        $url = $this
+            ->apiWithMock
+            ->setColors(true)
+            ->setSize(true)
+            ->setAvailability(true)
+            ->setDiscussion(false)
+            ->buildUrl();
+        $expectedUrl = 'http://api.diffbot.com/v3/product/?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability&discussion=false';
+        $this->assertEquals($expectedUrl, $url);
+    }
 }

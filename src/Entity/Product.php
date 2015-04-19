@@ -263,13 +263,4 @@ class Product extends Entity
     {
         return $this->data['offerPriceDetails'];
     }
-
-    /**
-     * An internal identifier for Diffbot, used for indexing in their databases
-     * @return string
-     */
-    public function getDiffbotUri()
-    {
-        return $this->data['diffbotUri'];
-    }
 }

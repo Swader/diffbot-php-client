@@ -1,9 +1,7 @@
 # Contributing
 
 Contributions are **welcome** and will be fully **credited**.
-
-We accept contributions via Pull Requests on [Github](https://github.com/thephpleague/:package_name).
-
+Send Pull Requests or open issues please.
 
 ## Pull Requests
 
@@ -25,7 +23,7 @@ We accept contributions via Pull Requests on [Github](https://github.com/thephpl
 ## Running Tests
 
 ``` bash
-$ phpunit
+phpunit
 ```
 
 

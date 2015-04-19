@@ -13,7 +13,6 @@ class Entity implements EntityFactory
         'product' => '\Swader\Diffbot\Entity\Product',
         'article' => '\Swader\Diffbot\Entity\Article',
         'image' => '\Swader\Diffbot\Entity\Image',
-        'analyze' => '\Swader\Diffbot\Entity\Analyze',
         '*' => '\Swader\Diffbot\Entity\Wildcard',
     ];
 
