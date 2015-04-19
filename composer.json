@@ -1,5 +1,5 @@
 {
-    "name": "swader/diffbot_client",
+    "name": "swader/diffbot-php-client",
     "description": "A PHP wrapper for using Diffbot's API",
     "keywords": [
         "diffbot", "api", "wrapper", "client"
