@@ -31,21 +31,20 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
 
     public function __construct($url)
     {
-        if (!is_string($url)) {
-            throw new \InvalidArgumentException('URL param must be a string.');
-        }
-        $url = trim($url);
+        $url = trim((string)$url);
         if (strlen($url) < 4) {
-            throw new \InvalidArgumentException('URL must be at least four characters in length');
+            throw new \InvalidArgumentException(
+                'URL must be a string of at least four characters in length'
+            );
         }
-        if ($parts = parse_url($url)) {
-            if (!isset($parts["scheme"])) {
-                $url = "http://$url";
-            }
-        }
+
+        $url = (isset(parse_url($url)['scheme'])) ? $url : "http://$url";
+
         $filtered_url = filter_var($url, FILTER_VALIDATE_URL);
-        if (false === $filtered_url) {
-            throw new \InvalidArgumentException('You provided an invalid URL: ' . $url);
+        if (!$filtered_url) {
+            throw new \InvalidArgumentException(
+                'You provided an invalid URL: ' . $url
+            );
         }
 
         $this->url = $filtered_url;
@@ -54,7 +53,8 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
     /**
      * Setting the timeout will define how long Diffbot will keep trying
      * to fetch the API results. A timeout can happen for various reasons, from
-     * Diffbot's failure, to the site being crawled being exceptionally slow, and more.
+     * Diffbot's failure, to the site being crawled being exceptionally slow,
+     * and more.
      *
      * @param int|null $timeout Defaults to 30000 even if not set
      *
@@ -69,17 +69,24 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
             throw new \InvalidArgumentException('Parameter is not an integer');
         }
         if ($timeout < 0) {
-            throw new \InvalidArgumentException('Parameter is negative. Only positive timeouts accepted.');
+            throw new \InvalidArgumentException(
+                'Parameter is negative. Only positive timeouts accepted.'
+            );
         }
 
         $this->timeout = $timeout;
+
         return $this;
     }
 
     public function call()
     {
         $response = $this->diffbot->getHttpClient()->get($this->buildUrl());
-        return $this->diffbot->getEntityFactory()->createAppropriateIterator($response);
+
+        return $this
+            ->diffbot
+            ->getEntityFactory()
+            ->createAppropriateIterator($response);
     }
 
     public function buildUrl()
@@ -106,7 +113,7 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
 
         // Add Other Options
         foreach ($this->otherOptions as $option => $value) {
-            $url .= '&'.$option . '=' . $value;
+            $url .= '&' . $option . '=' . $value;
         }
 
         return $url;
@@ -121,6 +128,7 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
     public function registerDiffbot(Diffbot $d)
     {
         $this->diffbot = $d;
+
         return $this;
     }
 

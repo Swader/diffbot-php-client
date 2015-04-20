@@ -4,7 +4,7 @@
     "keywords": [
         "diffbot", "api", "wrapper", "client"
     ],
-    "homepage": "https://github.com/swader/diffbot_client",
+    "homepage": "https://github.com/swader/diffbot-php-client",
     "license": "MIT",
     "authors": [
         {

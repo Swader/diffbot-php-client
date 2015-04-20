@@ -96,7 +96,6 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         return [
             'bool' => [false],
             'null' => [null],
-            'number' => [12345],
             'abc' => ['abc'],
             'misc_string' => ['35tugz---sdf----?//*****/*//*']
         ];

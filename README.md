@@ -1,4 +1,6 @@
-![Travis Build Badge](https://travis-ci.org/Swader/diffbot-php-client.svg?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/build-status/master)
 
 # Diffbot PHP API Wrapper
 
