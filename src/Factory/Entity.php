@@ -54,7 +54,7 @@ class Entity implements EntityFactory
         $arr = $response->json();
 
         if (!isset($arr['objects'])) {
-            throw new DiffbotException('Objects property missing - cannot extract entity values');
+            throw new \Swader\Diffbot\Exceptions\DiffbotException('Objects property missing - cannot extract entity values');
         }
 
         if (!isset($arr['request'])) {
