@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Factory;
 
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Message\ResponseInterface as Response;
 use Swader\Diffbot\Entity\EntityIterator;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Interfaces\EntityFactory;

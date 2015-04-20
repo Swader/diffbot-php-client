@@ -9,7 +9,6 @@ namespace Swader\Diffbot\Traits;
  */
 trait StandardApi {
 
-
     /**
      * Makes the API call return the links field, common to all standard API types
      * @param $bool

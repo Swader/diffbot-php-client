@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Entity;
 
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Message\ResponseInterface as Response;
 use Swader\Diffbot\Abstracts\Entity;
 
 class EntityIterator implements \Countable, \Iterator

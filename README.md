@@ -1,3 +1,5 @@
+![Travis Build Badge](https://travis-ci.org/Swader/diffbot-php-client.svg?branch=master)
+
 # Diffbot PHP API Wrapper
 
 This package is a slightly overengineered Diffbot API wrapper. It uses Guzzle to make API calls. To learn more about Diffbot see [here](http://www.sitepoint.com/tag/diffbot/) and [their homepage](http://diffbot.com).
