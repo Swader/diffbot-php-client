@@ -1,6 +1,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/build-status/master)
+[![Build Status](https://travis-ci.org/Swader/diffbot-php-client.svg?branch=master)](https://travis-ci.org/Swader/diffbot-php-client)
 
 # Diffbot PHP API Wrapper
 
@@ -15,7 +15,7 @@ Minimum PHP 5.4 because Guzzle needs it.
 
 Via Composer
 
-``` bash
+```bash
 composer require swader/diffbot-php-client
 ```
 
@@ -25,13 +25,13 @@ Todo
 
 ## Testing
 
-``` bash
+```bash
 phpunit
 ```
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/thephpleague/:package_name/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
