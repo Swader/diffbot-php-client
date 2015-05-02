@@ -1,6 +1,13 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 0.2 - May 2nd, 2015
+
+- added Discussion API
+- added basic Custom API - returns Wildcards by default
+- Discussion API is now returned as child of Article / Product, too
+- minor change in how URLs are built - trailing slash no longer enforced after base API URL
+
 ## 0.1.3 - April 21st, 2015
 
 - new Scrutinizer settings

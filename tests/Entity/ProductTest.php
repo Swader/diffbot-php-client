@@ -18,6 +18,7 @@ class ProductTest extends ResponseProvider
     protected function ei($file)
     {
         $ef = new Entity();
+
         return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
     }
 
@@ -27,6 +28,7 @@ class ProductTest extends ResponseProvider
         foreach ($this->files as $file) {
             $files[] = [$file];
         }
+
         return $files;
     }
 
@@ -99,7 +101,8 @@ class ProductTest extends ResponseProvider
     {
         /** @var Product $entity */
         foreach ($this->ei($file) as $entity) {
-            $this->assertEquals($regularPriceDetails, $entity->getRegularPriceDetails());
+            $this->assertEquals($regularPriceDetails,
+                $entity->getRegularPriceDetails());
         }
     }
 
@@ -154,7 +157,8 @@ class ProductTest extends ResponseProvider
     {
         /** @var Product $entity */
         foreach ($this->ei($file) as $entity) {
-            $this->assertEquals($saveAmountDetails, $entity->getSaveAmountDetails());
+            $this->assertEquals($saveAmountDetails,
+                $entity->getSaveAmountDetails());
         }
     }
 
@@ -410,7 +414,8 @@ class ProductTest extends ResponseProvider
     {
         /** @var Product $entity */
         foreach ($this->ei($file) as $entity) {
-            $this->assertEquals($offerPriceDetails, $entity->getOfferPriceDetails());
+            $this->assertEquals($offerPriceDetails,
+                $entity->getOfferPriceDetails());
         }
     }
 
@@ -483,6 +488,32 @@ class ProductTest extends ResponseProvider
         /** @var Product $entity */
         foreach ($this->ei($file) as $entity) {
             $this->assertEquals($sku, $entity->getSku());
+        }
+    }
+
+    public function discussionDetailsProvider()
+    {
+        return [
+            ['Products/dogbrush.json', null],
+        ];
+    }
+
+    /**
+     * @param $file
+     * @param $articles
+     * @dataProvider discussionDetailsProvider
+     */
+    public function testDiscussion($file, $articles)
+    {
+        $articles = (is_array($articles)) ? $articles : [$articles];
+        /** @var Product $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            if ($articles[$i] == null) {
+                $this->assertEquals(null, $entity->getDiscussion());
+            } else {
+                $this->assertInstanceOf($articles[$i],
+                    $entity->getDiscussion());
+            }
         }
     }
 

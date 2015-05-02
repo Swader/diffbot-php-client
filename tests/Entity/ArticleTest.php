@@ -274,4 +274,30 @@ class ArticleTest extends ResponseProvider
             }
         }
     }
+
+    public function discussionDetailsProvider()
+    {
+        return [
+            ['Articles/diffbot-sitepoint-basic.json', 'Swader\Diffbot\Entity\Discussion'],
+        ];
+    }
+
+    /**
+     * @param $file
+     * @param $articles
+     * @dataProvider discussionDetailsProvider
+     */
+    public function testDiscussion($file, $articles)
+    {
+        $articles = (is_array($articles)) ? $articles : [$articles];
+        /** @var Article $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            if ($articles[$i] == null) {
+                $this->assertEquals(null, $entity->getDiscussion());
+            } else {
+                $this->assertInstanceOf($articles[$i],
+                    $entity->getDiscussion());
+            }
+        }
+    }
 }

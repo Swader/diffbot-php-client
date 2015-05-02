@@ -108,7 +108,7 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
 
     public function methodnameProvider()
     {
-        return [['product'], ['image'], ['analyze'], ['article']];
+        return [['product'], ['image'], ['analyze'], ['article'], ['discussion']];
     }
 
     /**

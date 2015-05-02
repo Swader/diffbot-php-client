@@ -56,7 +56,7 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/image/?token=demo&url=https%3A%2F%2Farticle-mock.com';
+        $expectedUrl = 'http://api.diffbot.com/v3/image?token=demo&url=https%3A%2F%2Farticle-mock.com';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -66,7 +66,7 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/image/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
+        $expectedUrl = 'http://api.diffbot.com/v3/image?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -77,7 +77,7 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
             ->setMeta(true)
             ->setLinks(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/image/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
+        $expectedUrl = 'http://api.diffbot.com/v3/image?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -93,7 +93,7 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
             ->setFaces(true)
             ->setMentions(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/image/?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring,ocr,faces,mentions';
+        $expectedUrl = 'http://api.diffbot.com/v3/image?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring,ocr,faces,mentions';
         $this->assertEquals($expectedUrl, $url);
     }
 

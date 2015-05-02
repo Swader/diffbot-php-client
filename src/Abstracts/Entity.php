@@ -20,4 +20,18 @@ abstract class Entity
     {
         return $this->data;
     }
+
+    public function __get($name)
+    {
+        return (isset($this->data[$name])) ? $this->data[$name] : null;
+    }
+
+    public function __call($name, $arguments)
+    {
+        $isGetter = substr($name, 0, 3) == 'get';
+        if ($isGetter) {
+            $property = lcfirst(substr($name, 3, strlen($name) - 3));
+            return $this->$property;
+        }
+    }
 }

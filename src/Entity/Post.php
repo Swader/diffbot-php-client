@@ -3,30 +3,37 @@
 namespace Swader\Diffbot\Entity;
 
 use Swader\Diffbot\Abstracts\Entity;
-use Swader\Diffbot\Traits\StandardEntity;
 
-class Article extends Entity
+class Post extends Entity
 {
-    use StandardEntity;
-
-    /** @var Discussion */
-    protected $discussion = null;
-
-    public function __construct(array $data)
-    {
-        parent::__construct($data);
-        if (isset($this->data['discussion'])) {
-            $this->discussion = new Discussion($this->data['discussion']);
-        }
-    }
 
     /**
-     * Should always return "article"
+     * Should always return "post"
      * @return string
      */
     public function getType()
     {
         return $this->data['type'];
+    }
+
+    /**
+     * Alias for getLang()
+     * @see getLang()
+     * @return string
+     */
+    public function getHumanLanguage()
+    {
+        return $this->getLang();
+    }
+
+    /**
+     * Returns the human language of the page as determined by Diffbot when looking at content.
+     * The code returned is a two-character ISO 639-1 code: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+     * @return string
+     */
+    public function getLang()
+    {
+        return $this->data['humanLanguage'];
     }
 
     /**
@@ -70,6 +77,15 @@ class Article extends Entity
     }
 
     /**
+     * Returns the url of the author - their profile URL if available
+     * @return string | null
+     */
+    public function getAuthorUrl()
+    {
+        return (isset($this->data['authorUrl'])) ? $this->data['authorUrl'] : null;
+    }
+
+    /**
      * The array returned will contain all tags that Diffbot's AI concluded match the content
      *
      * Note that these are *not* the meta tags as defined by the author, but machine learned ones.
@@ -98,29 +114,7 @@ class Article extends Entity
      */
     public function getTags()
     {
-        return $this->data['tags'];
-    }
-
-    /**
-     * Number of pages automatically concatenated to form the text or html response.
-     * By default, Diffbot will automatically concatenate up to 20 pages of an article.
-     * @see http://support.diffbot.com/automatic-apis/handling-multiple-page-articles/
-     * @return int
-     */
-    public function getNumPages()
-    {
-        return (isset($this->data['numPages'])) ? $this->data['numPages'] : 1;
-    }
-
-    /**
-     * Array of all page URLs concatenated in a multipage article. Max 20 entries.
-     * Empty array if article was not concatenated before being returned.
-     * @see http://support.diffbot.com/automatic-apis/handling-multiple-page-articles/
-     * @return array
-     */
-    public function getNextPages()
-    {
-        return (isset($this->data['nextPages'])) ? $this->data['nextPages'] : [];
+        return (isset($this->data['tags'])) ? $this->data['tags'] : [];
     }
 
     /**
@@ -131,6 +125,34 @@ class Article extends Entity
     public function getSentiment()
     {
         return (isset($this->data['sentiment'])) ? $this->data['sentiment'] : null;
+    }
+
+    /**
+     * Returns the number of upvotes on a post or 0 if none or unavailable
+     * @return int
+     */
+    public function getVotes()
+    {
+        return (isset($this->data['votes'])) ? $this->data['votes'] : null;
+    }
+
+    /**
+     * Returns the ID of the post (usually the ordinary number of the post in
+     * the list of all posts, starting with 0 for the first one
+     * @return int
+     */
+    public function getId()
+    {
+        return (isset($this->data['id'])) ? $this->data['id'] : 1;
+    }
+
+    /**
+     * If the post is a reply, this is the ID of the post it replies to
+     * @return int
+     */
+    public function getParentId()
+    {
+        return (isset($this->data['parentId'])) ? $this->data['parentId'] : null;
     }
 
     /**
@@ -167,38 +189,20 @@ class Article extends Entity
     }
 
     /**
-     * Returns an array of videos found in the article's content.
-     *
-     * Works on and off - the better choice is the Video API
-     * @see https://www.diffbot.com/dev/docs/video
-     * The format of the array will be:
-     *
-     * [
-     *  {
-     *      "diffbotUri": "video|3|-1138675744",
-     *      "primary": true,
-     *      "url": "http://player.vimeo.com/video/22439234"
-     *  },
-     *  {
-     *      "diffbotUri": "video|3|-1138675744",
-     *      "primary": true,
-     *      "url": "http://player.vimeo.com/video/22439234"
-     *  }
-     * ]
-     *
-     * @return array
+     * Returns the URL which was crawled
+     * @return string
      */
-    public function getVideos()
+    public function getPageUrl()
     {
-        return (isset($this->data['videos'])) ? $this->data['videos'] : [];
+        return $this->data['pageUrl'];
     }
 
     /**
-     * Returns the Discussion entity - comments of the article
-     * @return Discussion
+     * An internal identifier for Diffbot, used for indexing in their databases
+     * @return string
      */
-    public function getDiscussion()
+    public function getDiffbotUri()
     {
-        return $this->discussion;
+        return $this->data['diffbotUri'];
     }
 }

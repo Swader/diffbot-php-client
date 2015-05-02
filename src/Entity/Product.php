@@ -9,6 +9,17 @@ class Product extends Entity
 {
     use StandardEntity;
 
+    /** @var Discussion */
+    protected $discussion = null;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+        if (isset($this->data['discussion'])) {
+            $this->discussion = new Discussion($this->data['discussion']);
+        }
+    }
+
     /**
      * Should always return "product"
      * @return string
@@ -263,4 +274,14 @@ class Product extends Entity
     {
         return $this->data['offerPriceDetails'];
     }
+
+    /**
+     * Returns the Discussion entity - comments of the product
+     * @return Discussion
+     */
+    public function getDiscussion()
+    {
+        return $this->discussion;
+    }
+
 }

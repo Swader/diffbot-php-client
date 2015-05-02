@@ -54,7 +54,7 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/product/?token=demo&url=https%3A%2F%2Fdogbrush-mock.com';
+        $expectedUrl = 'http://api.diffbot.com/v3/product?token=demo&url=https%3A%2F%2Fdogbrush-mock.com';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -65,7 +65,7 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
             ->setSize(true)
             ->setAvailability(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/product/?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability';
+        $expectedUrl = 'http://api.diffbot.com/v3/product?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -77,7 +77,7 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
             ->setAvailability(true)
             ->setDiscussion(false)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/product/?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability&discussion=false';
+        $expectedUrl = 'http://api.diffbot.com/v3/product?token=demo&url=https%3A%2F%2Fdogbrush-mock.com&fields=colors,size,availability&discussion=false';
         $this->assertEquals($expectedUrl, $url);
     }
 }

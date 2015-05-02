@@ -13,6 +13,7 @@ class Entity implements EntityFactory
         'product' => '\Swader\Diffbot\Entity\Product',
         'article' => '\Swader\Diffbot\Entity\Article',
         'image' => '\Swader\Diffbot\Entity\Image',
+        'discussion' => '\Swader\Diffbot\Entity\Discussion',
         '*' => '\Swader\Diffbot\Entity\Wildcard',
     ];
 
@@ -52,6 +53,10 @@ class Entity implements EntityFactory
     protected function checkResponseFormat(Response $response)
     {
         $arr = $response->json();
+
+        if (isset($arr['error'])) {
+            throw new DiffbotException('Diffbot returned error '.$arr['errorCode'].': '.$arr['error']);
+        }
 
         if (!isset($arr['objects'])) {
             throw new DiffbotException('Objects property missing - cannot extract entity values');

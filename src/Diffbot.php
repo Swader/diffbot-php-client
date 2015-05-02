@@ -2,11 +2,13 @@
 
 namespace Swader\Diffbot;
 
+use Swader\Diffbot\Api\Custom;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Api\Product;
 use Swader\Diffbot\Api\Image;
 use Swader\Diffbot\Api\Analyze;
 use Swader\Diffbot\Api\Article;
+use Swader\Diffbot\Api\Discussion;
 use GuzzleHttp\Client;
 use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Interfaces\EntityFactory;
@@ -52,7 +54,7 @@ class Diffbot
 
     /**
      * Sets the token for all future new instances
-     * @param $token string The API access token, as obtained on diffbot.com/dev
+     * @param string $token The API access token, as obtained on diffbot.com/dev
      * @return void
      */
     public static function setToken($token)
@@ -132,7 +134,7 @@ class Diffbot
     /**
      * Creates a Product API interface
      *
-     * @param $url string Url to analyze
+     * @param string $url Url to analyze
      * @return Product
      */
     public function createProductAPI($url)
@@ -140,6 +142,7 @@ class Diffbot
         $api = new Product($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+            $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
     }
@@ -147,7 +150,7 @@ class Diffbot
     /**
      * Creates an Article API interface
      *
-     * @param $url string Url to analyze
+     * @param string $url Url to analyze
      * @return Article
      */
     public function createArticleAPI($url)
@@ -155,6 +158,7 @@ class Diffbot
         $api = new Article($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+            $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
     }
@@ -162,7 +166,7 @@ class Diffbot
     /**
      * Creates an Image API interface
      *
-     * @param $url string Url to analyze
+     * @param string $url Url to analyze
      * @return Image
      */
     public function createImageAPI($url)
@@ -170,6 +174,7 @@ class Diffbot
         $api = new Image($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+            $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
     }
@@ -177,7 +182,7 @@ class Diffbot
     /**
      * Creates an Analyze API interface
      *
-     * @param $url string Url to analyze
+     * @param string $url Url to analyze
      * @return Analyze
      */
     public function createAnalyzeAPI($url)
@@ -185,9 +190,44 @@ class Diffbot
         $api = new Analyze($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+            $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
     }
 
+    /**
+     * Creates an Discussion API interface
+     *
+     * @param string $url Url to analyze
+     * @return Discussion
+     */
+    public function createDiscussionAPI($url)
+    {
+        $api = new Discussion($url);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+            $this->setEntityFactory();
+        }
+        return $api->registerDiffbot($this);
+    }
+
+    /**
+     * Creates a generic Custom API
+     *
+     * Does not have predefined Entity, so by default returns Wildcards
+     *
+     * @param string $url Url to analyze
+     * @param string $name Name of the custom API, required to finalize URL
+     * @return Custom
+     */
+    public function createCustomAPI($url, $name)
+    {
+        $api = new Custom($url, $name);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+            $this->setEntityFactory();
+        }
+        return $api->registerDiffbot($this);
+    }
 
 }

@@ -5,15 +5,14 @@ namespace Swader\Diffbot\Test\Api;
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Entity\Article;
 
-class ArticleApiTest extends \PHPUnit_Framework_TestCase
+class DiscussionApiTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $validMock;
 
     /**
-     * @var \Swader\Diffbot\Api\Article
+     * @var \Swader\Diffbot\Api\Discussion
      */
     protected $apiWithMock;
 
@@ -26,7 +25,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
         $diffbot->setHttpClient($fakeClient);
         $diffbot->setEntityFactory();
 
-        $this->apiWithMock = $diffbot->createArticleAPI('https://article-mock.com');
+        $this->apiWithMock = $diffbot->createDiscussionAPI('https://discussion-mock.com');
     }
 
     protected function getValidDiffbotInstance()
@@ -38,7 +37,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
     {
         if (!$this->validMock) {
             $this->validMock = new Mock(
-                [file_get_contents(__DIR__ . '/../Mocks/Articles/hi_quicktip_basic.json')]
+                [file_get_contents(__DIR__ . '/../Mocks/Discussions/15-05-01/sp_discourse_php7_recap.json')]
             );
         }
 
@@ -47,9 +46,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
 
     public function testCall()
     {
-        /** @var Article $article */
-        $article = $this->apiWithMock->call();
-
+        $this->apiWithMock->call();
     }
 
     public function testBuildUrlNoCustomFields()
@@ -57,7 +54,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -67,7 +64,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -78,7 +75,7 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->setMeta(true)
             ->setLinks(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -92,19 +89,17 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->setQuerystring(true)
             ->setSentiment(true)
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring,sentiment';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links,breadcrumb,querystring,sentiment';
         $this->assertEquals($expectedUrl, $url);
     }
 
     public function testBuildUrlOtherOptionsOnly()
     {
         $url = $this->apiWithMock
-            ->setPaging(false)
-            ->setMaxTags(10)
-            ->setDiscussion(false)
+            ->setMaxPages(10)
             ->buildUrl();
 
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com&paging=false&maxTags=10&discussion=false';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&maxPages=10';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -114,12 +109,11 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->setLinks(true)
-            ->setPaging(false)
             ->setBreadcrumb(true)
             ->setQuerystring(true)
-            ->setMaxTags(10)
+            ->setMaxPages('all')
             ->buildUrl();
-        $expectedUrl = 'http://api.diffbot.com/v3/article?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring&paging=false&maxTags=10';
+        $expectedUrl = 'http://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links,breadcrumb,querystring&maxPages=all';
         $this->assertEquals($expectedUrl, $url);
     }
 

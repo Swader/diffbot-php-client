@@ -31,7 +31,7 @@ phpunit
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details and [TODO](TODO.md) for ideas.
 
 ## Credits
 
