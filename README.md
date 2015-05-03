@@ -25,8 +25,8 @@ Simplest possible use case:
 
 ```php
 $diffbot = new Diffbot('my_token');
-
-$articleApi = $diffbot->createArticleAPI('http://www.sitepoint.com/diffbot-crawling-visual-machine-learning/');
+$url = 'http://www.sitepoint.com/diffbot-crawling-visual-machine-learning/';
+$articleApi = $diffbot->createArticleAPI($url);
 
 echo $articleApi->call()->author; // prints out "Bruno Skvorc"
 ```
@@ -66,8 +66,8 @@ All APIs can also be tested on http://diffbot.com
 
 The API you picked can be spawned through the main Diffbot instance:
 
-```
-$api = $diffbot->createArticleAPI('http://www.sitepoint.com/diffbot-crawling-visual-machine-learning/');
+```php
+$api = $diffbot->createArticleAPI($url);
 ```
 
 ### API configuration
@@ -90,12 +90,15 @@ All config methods are chainable:
 $api->setMeta(true)->setDiscussion(false);
 ```
 
+For an overview of all the config fields and the values each API returns, see [here](https://www.diffbot.com/dev/docs).
+
 ### Calling
 
 All API instances have the `call` method which returns a collection of results. The collection is iterable:
 
 ```php
-$imageApi = $diffbot->createImageAPI('http://smittenkitchen.com/blog/2012/01/buckwheat-baby-with-salted-caramel-syrup/');
+$url = 'http://smittenkitchen.com/blog/2012/01/buckwheat-baby-with-salted-caramel-syrup/';
+$imageApi = $diffbot->createImageAPI($url);
 /** @var Image $imageEntity */
 foreach ($imageApi->call() as $imageEntity) {
     echo 'Image dimensions: ' . $imageEntity->getHeight() . ' x ' . $imageEntity->getWidth() . '<br>';
@@ -114,7 +117,7 @@ Image dimensions: 333 x 500
 */
 ```
 
-In cases where only one entity is returned, like Article or Product, iterating works all the same, it just iterates through through the one single elements. The return data is **always** a collection! 
+In cases where only one entity is returned, like Article or Product, iterating works all the same, it just iterates through the one single elements. The return data is **always** a collection! 
 
 However, for brevity, you can access properties directly on the collection, too.
 
