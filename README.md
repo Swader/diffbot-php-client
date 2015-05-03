@@ -117,7 +117,7 @@ Image dimensions: 333 x 500
 */
 ```
 
-In cases where only one entity is returned, like Article or Product, iterating works all the same, it just iterates through the one single elements. The return data is **always** a collection! 
+In cases where only one entity is returned, like Article or Product, iterating works all the same, it just iterates through the one single element. The return data is **always** a collection! 
 
 However, for brevity, you can access properties directly on the collection, too.
 
