@@ -7,6 +7,7 @@ All notable changes will be documented in this file
 - added basic Custom API - returns Wildcards by default
 - Discussion API is now returned as child of Article / Product, too
 - minor change in how URLs are built - trailing slash no longer enforced after base API URL
+- entity properties can be accessed directly from EntityIterator now, no need to actually iterate. This forwards the property call to the first entity in the set.
 
 ## 0.1.3 - April 21st, 2015
 
