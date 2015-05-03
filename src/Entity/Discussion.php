@@ -17,6 +17,7 @@ class Discussion extends Entity
         foreach ($this->data['posts'] as $post) {
             $this->posts[] = new Post($post);
         }
+        $this->data['posts'] = $this->posts;
     }
 
     /**

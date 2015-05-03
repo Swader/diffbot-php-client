@@ -125,6 +125,9 @@ class DiscussionTest extends ResponseProvider
         foreach ($this->ei($file) as $i => $entity) {
             $this->assertEquals($discussions[$i], $entity->getNumPosts());
             $this->assertEquals($discussions[$i], count($entity->getPosts()));
+            if ($entity->getNumPosts()) {
+                $this->assertInstanceOf('Swader\Diffbot\Entity\Post', $entity->getPosts()[0]);
+            }
         }
     }
 

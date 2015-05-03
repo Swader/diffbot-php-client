@@ -4,6 +4,7 @@ namespace Swader\Diffbot\Test\Factory;
 
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Stream\Stream;
+use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Factory\Entity;
 
 class EntityTest extends \PHPUnit_Framework_TestCase
@@ -36,14 +37,20 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testMissingRequestFail()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode(['objects' => 'foo', 'req' => 'bar'])));
+        $this->responseOk->setBody(Stream::factory(json_encode([
+            'objects' => 'foo',
+            'req' => 'bar'
+        ])));
         $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException');
         $this->ef->createAppropriateIterator($this->responseOk);
     }
 
     public function testMissingApiFail()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode(['objects' => 'foo', 'request' => 'bar'])));
+        $this->responseOk->setBody(Stream::factory(json_encode([
+            'objects' => 'foo',
+            'request' => 'bar'
+        ])));
         $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException');
         $this->ef->createAppropriateIterator($this->responseOk);
     }
@@ -64,5 +71,16 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             'request' => ['api' => 'mysterious_api', 'foo' => 2]
         ])));
         $this->ef->createAppropriateIterator($this->responseOk);
+    }
+
+    public function testErrorResponse()
+    {
+        $diffbot = new Diffbot('invalidToken12345');
+        $api = $diffbot->createArticleAPI('http://google.com');
+
+        $arr = ['errorCode' => 401, 'error' => 'Not authorized API token.'];
+        $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException',
+            'Diffbot returned error ' . $arr['errorCode'] . ': ' . $arr['error']);
+        $api->call();
     }
 }

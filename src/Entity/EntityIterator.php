@@ -64,4 +64,23 @@ class EntityIterator implements \Countable, \Iterator
     {
         return ($this->cursor < $this->count());
     }
+
+    public function __call($name, $args)
+    {
+        $isGetter = substr($name, 0, 3) == 'get';
+        if ($isGetter) {
+            $property = lcfirst(substr($name, 3, strlen($name) - 3));
+
+            return $this->$property;
+        }
+
+        throw new \BadMethodCallException('No such method: ' . $name);
+    }
+
+    public function __get($name)
+    {
+        $entity = ($this->cursor == -1) ? $this->data[0] : $this->current();
+
+        return $entity->$name;
+    }
 }

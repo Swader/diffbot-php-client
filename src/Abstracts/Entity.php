@@ -33,5 +33,7 @@ abstract class Entity
             $property = lcfirst(substr($name, 3, strlen($name) - 3));
             return $this->$property;
         }
+
+        throw new \BadMethodCallException('No such method: '.$name);
     }
 }

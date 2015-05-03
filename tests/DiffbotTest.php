@@ -126,4 +126,13 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCustomApiCreation()
+    {
+        $bot = new Diffbot('token');
+        $api = $bot->createCustomAPI('http://someurl.com', 'apiName');
+        $this->assertInstanceOf(
+            'Swader\Diffbot\Api\Custom', $api
+        );
+    }
+
 }

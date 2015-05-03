@@ -38,6 +38,24 @@ class EntityIteratorTest extends \PHPUnit_Framework_TestCase
         return $this->responses;
     }
 
+    public function testBadMethodCall()
+    {
+        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ei = $ef->createAppropriateIterator($this->prepareResponses()['Images/one_image_zola.json']);
+
+        $this->setExpectedException('BadMethodCallException');
+        $ei->invalidMethodCall();
+    }
+
+    public function testMagic()
+    {
+        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ei = $ef->createAppropriateIterator($this->prepareResponses()['Images/one_image_zola.json']);
+
+        $this->assertEquals('image', $ei->type);
+        $this->assertEquals('image', $ei->getType());
+    }
+
     public function testCount()
     {
         $fileExpectations = [

@@ -12,7 +12,8 @@ class ProductTest extends ResponseProvider
     protected $responses = [];
 
     protected $files = [
-        'Products/dogbrush.json'
+        'Products/dogbrush.json',
+        'Products/15-05-03/shoes-sportsdirect.json'
     ];
 
     protected function ei($file)
@@ -46,7 +47,8 @@ class ProductTest extends ResponseProvider
     public function textProvider()
     {
         return [
-            ['Products/dogbrush.json', 513]
+            ['Products/dogbrush.json', 513],
+            ['Products/15-05-03/shoes-sportsdirect.json', 622]
         ];
     }
 
@@ -64,7 +66,8 @@ class ProductTest extends ResponseProvider
     public function regularPriceProvider()
     {
         return [
-            ['Products/dogbrush.json', "$4.99"]
+            ['Products/dogbrush.json', "$4.99"],
+            ['Products/15-05-03/shoes-sportsdirect.json', "£79.99"]
         ];
     }
 
@@ -88,6 +91,14 @@ class ProductTest extends ResponseProvider
                     "amount" => 4.99,
                     "text" => "$4.99",
                     "symbol" => "$"
+                ],
+            ],
+            [
+                'Products/15-05-03/shoes-sportsdirect.json',
+                [
+                    "amount" => 79.99,
+                    "text" => "£79.99",
+                    "symbol" => "£"
                 ]
             ]
         ];
@@ -109,7 +120,8 @@ class ProductTest extends ResponseProvider
     public function shippingAmountProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -127,7 +139,8 @@ class ProductTest extends ResponseProvider
     public function saveAmountProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -146,7 +159,8 @@ class ProductTest extends ResponseProvider
     public function saveAmountDetailsProvider()
     {
         return [
-            ['Products/dogbrush.json', []]
+            ['Products/dogbrush.json', []],
+            ['Products/15-05-03/shoes-sportsdirect.json', []]
         ];
     }
 
@@ -165,7 +179,8 @@ class ProductTest extends ResponseProvider
     public function productIdProvider()
     {
         return [
-            ['Products/dogbrush.json', "36-12094"]
+            ['Products/dogbrush.json', "36-12094"],
+            ['Products/15-05-03/shoes-sportsdirect.json', "211115"]
         ];
     }
 
@@ -183,7 +198,8 @@ class ProductTest extends ResponseProvider
     public function upcProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -201,7 +217,8 @@ class ProductTest extends ResponseProvider
     public function mpnProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -219,7 +236,8 @@ class ProductTest extends ResponseProvider
     public function isbnProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -237,7 +255,8 @@ class ProductTest extends ResponseProvider
     public function specsProvider()
     {
         return [
-            ['Products/dogbrush.json', []]
+            ['Products/dogbrush.json', []],
+            ['Products/15-05-03/shoes-sportsdirect.json', []]
         ];
     }
 
@@ -270,6 +289,22 @@ class ProductTest extends ResponseProvider
                         "xpath" => "/html[1]/body[1]/div[3]/div[2]/div[3]/div[2]/div[1]/div[1]/img[1]"
                     ]
                 ]
+            ],
+            [
+                'Products/15-05-03/shoes-sportsdirect.json',
+                [
+                    [
+                        "title" => " Zoom  \nSpin ",
+                        "height" => 390,
+                        "diffbotUri" => "image|3|1588542090",
+                        "naturalHeight" => 390,
+                        "width" => 390,
+                        "primary" => true,
+                        "naturalWidth" => 390,
+                        "url" => "http://images.sportsdirect.com/images/products/21111503_l.jpg",
+                        "xpath" => "/html[1]/body[1]/form[1]/div[7]/div[1]/div[1]/div[1]/div[1]/div[2]/section[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/a[1]/div[1]/img[1]"
+                    ]
+                ]
             ]
         ];
     }
@@ -288,7 +323,8 @@ class ProductTest extends ResponseProvider
     public function prefixCodeProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -306,7 +342,8 @@ class ProductTest extends ResponseProvider
     public function productOriginProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -324,7 +361,8 @@ class ProductTest extends ResponseProvider
     public function priceRangeProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -342,7 +380,8 @@ class ProductTest extends ResponseProvider
     public function quantityPricesProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -360,7 +399,8 @@ class ProductTest extends ResponseProvider
     public function availabilityProvider()
     {
         return [
-            ['Products/dogbrush.json', true]
+            ['Products/dogbrush.json', true],
+            ['Products/15-05-03/shoes-sportsdirect.json', true]
         ];
     }
 
@@ -378,7 +418,8 @@ class ProductTest extends ResponseProvider
     public function offerPriceProvider()
     {
         return [
-            ['Products/dogbrush.json', "$4.99"]
+            ['Products/dogbrush.json', "$4.99"],
+            ['Products/15-05-03/shoes-sportsdirect.json', "£24.99"]
         ];
     }
 
@@ -403,6 +444,14 @@ class ProductTest extends ResponseProvider
                     "text" => "$4.99",
                     "symbol" => "$"
                 ]
+            ],
+            [
+                'Products/15-05-03/shoes-sportsdirect.json',
+                [
+                    "amount" => 24.99,
+                    "text" => "£24.99",
+                    "symbol" => "£"
+                ]
             ]
         ];
     }
@@ -422,7 +471,8 @@ class ProductTest extends ResponseProvider
     public function sizeProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -440,7 +490,8 @@ class ProductTest extends ResponseProvider
     public function colorsProvider()
     {
         return [
-            ['Products/dogbrush.json', null]
+            ['Products/dogbrush.json', null],
+            ['Products/15-05-03/shoes-sportsdirect.json', null]
         ];
     }
 
@@ -458,7 +509,8 @@ class ProductTest extends ResponseProvider
     public function brandProvider()
     {
         return [
-            ['Products/dogbrush.json', "Grreat Choice"]
+            ['Products/dogbrush.json', "Grreat Choice"],
+            ['Products/15-05-03/shoes-sportsdirect.json', "Karrimor"]
         ];
     }
 
@@ -476,7 +528,8 @@ class ProductTest extends ResponseProvider
     public function skuProvider()
     {
         return [
-            ['Products/dogbrush.json', "36-12094"]
+            ['Products/dogbrush.json', "36-12094"],
+            ['Products/15-05-03/shoes-sportsdirect.json', "211115"]
         ];
     }
 
@@ -495,6 +548,10 @@ class ProductTest extends ResponseProvider
     {
         return [
             ['Products/dogbrush.json', null],
+            [
+                'Products/15-05-03/shoes-sportsdirect.json',
+                'Swader\Diffbot\Entity\Discussion'
+            ]
         ];
     }
 
