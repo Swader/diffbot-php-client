@@ -11,7 +11,6 @@ Active todos, ordered by priority
 
 - add streaming to Crawlbot - make it stream the result (it constantly grows)
 - implement Video API (currently beta)
-- add test case with mock for product that has discussion (Amazon?)
 
 ## Low
 
