@@ -225,14 +225,14 @@ In a nutshell, the Crawlbot crawls a set of seed URLs for links (even if a subdo
 
 A joint list of all your crawl / bulk jobs can be fetched via:
 
-```
+```php
 $diffbot = new Diffbot('my_token');
 $jobs = $diffbot->crawl()->call();
 ```
 
 This returns a collection of all crawl and bulk jobs. Each type is represented by its own class: `JobCrawl` and `JobBulk`. It's important to note that Jobs only contain the information about the job - not the data. To get the data of a job, use the `downloadUrl` method to get the URL to the dataset:
  
-```
+```php
 $url = $job->downloadUrl("json");
 ```
 
@@ -240,7 +240,7 @@ $url = $job->downloadUrl("json");
 
 See inline comments for step by step explanation
 
-```
+```php
 // Create new diffbot as usual
 $diffbot = new Diffbot('my_token');
 
@@ -266,7 +266,7 @@ dump($job->getDownloadUrl("json")); // outputs download URL to JSON dataset of t
 
 To get data about a job (this will be the data it was configured with - its flags - and not the results!), use the exact same approach as if creating a new one, only without the API and seeds:
 
-```
+```php
 $diffbot = new Diffbot('my_token');
 
 $crawl = $diffbot->crawl('sitepoint_01');
@@ -282,7 +282,7 @@ While there is no way to alter a crawl job's configuration post creation, you ca
 
 Provided you fetched a `$crawl` instance as in the above section on inspecting, you can do the following:
 
-```
+```php
 // Force start of a new crawl round manually
 $crawl->roundStart();
 
@@ -301,13 +301,13 @@ Note that it is not necessary to issue a `call()` after these methods.
 
 If you would like to extract the generated API call URL for these instant-call actions, pass in the parameter `false`, like so:
 
-```
+```php
 $crawl->delete(false);
 ```
 
 You can then save the URL for your convenience and call `call` when ready to execute (if at all).
 
-```
+```php
 $url = $crawl->buildUrl();
 $url->call();
 ```

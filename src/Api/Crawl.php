@@ -40,7 +40,7 @@ class Crawl
      */
     public function __construct($name = null, Api $api = null)
     {
-        if ($name) {
+        if ($name !== null) {
             $this->name = $name;
             if ($api) {
                 $this->setApi($api);
