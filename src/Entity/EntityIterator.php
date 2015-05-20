@@ -65,13 +65,25 @@ class EntityIterator implements \Countable, \Iterator
         return ($this->cursor < $this->count());
     }
 
+    protected function _getZerothEntity()
+    {
+        return ($this->cursor == -1) ? $this->data[0] : $this->current();
+    }
+
     public function __call($name, $args)
     {
         $isGetter = substr($name, 0, 3) == 'get';
-        if ($isGetter) {
-            $property = lcfirst(substr($name, 3, strlen($name) - 3));
 
-            return $this->$property;
+        if ($isGetter) {
+            $zeroth = $this->_getZerothEntity();
+            if (method_exists($this->_getZerothEntity(), $name)) {
+                $rv = $zeroth->$name(...$args);
+            } else {
+                $property = lcfirst(substr($name, 3, strlen($name) - 3));
+                $rv = $zeroth->$property;
+            }
+
+            return $rv;
         }
 
         throw new \BadMethodCallException('No such method: ' . $name);
@@ -79,7 +91,7 @@ class EntityIterator implements \Countable, \Iterator
 
     public function __get($name)
     {
-        $entity = ($this->cursor == -1) ? $this->data[0] : $this->current();
+        $entity = $this->_getZerothEntity();
 
         return $entity->$name;
     }

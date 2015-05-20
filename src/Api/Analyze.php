@@ -10,7 +10,7 @@ class Analyze extends Api
     use StandardApi;
 
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3/analyze';
+    protected $apiUrl = 'https://api.diffbot.com/v3/analyze';
 
     /**
      * If set to false, will not extract article comments in a Discussion
@@ -37,7 +37,7 @@ class Analyze extends Api
      */
     public function setMode($mode)
     {
-        if (!in_array($mode, ['article', 'product', 'image'])) {
+        if (!in_array($mode, ['article', 'product', 'image', 'auto'])) {
             $error = 'Only "article", "product" and "image" modes supported.';
             throw new \InvalidArgumentException($error);
         }

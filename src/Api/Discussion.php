@@ -10,7 +10,7 @@ class Discussion extends Api
     use StandardApi;
 
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3/discussion';
+    protected $apiUrl = 'https://api.diffbot.com/v3/discussion';
 
     /**
      * Set the maximum number of pages in a thread to automatically concatenate

@@ -1,0 +1,96 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.3
+Date: Wed, 20 May 2015 21:04:33 GMT
+Content-Type: application/json
+Content-Length: 2242
+Connection: keep-alive
+Pragma: no-cache
+Expires: -1
+Last-Modified: Wed, 20 May 2015 21:05:13 GMT
+Access-Control-Allow-Origin: *
+
+{
+"jobs":[
+
+{"name":"sitepoint_0",
+"type":"crawl",
+"jobCreationTimeUTC":1432069878,
+"jobCompletionTimeUTC":1432130762,
+"jobStatus":{"status":2,"message":"Job has reached maxToCrawl limit."},
+"sentJobDoneNotification":1,
+"objectsFound":92096,
+"urlsHarvested":3386071,
+"pageCrawlAttempts":107716,
+"pageCrawlSuccesses":100003,
+"pageCrawlSuccessesThisRound":100003,
+"pageProcessAttempts":92441,
+"pageProcessSuccesses":92096,
+"pageProcessSuccessesThisRound":92096,
+"maxRounds":-1,
+"repeat":0.000000,
+"crawlDelay":0.250000,
+"obeyRobots":1,
+"maxToCrawl":100000,
+"maxToProcess":100000,
+"onlyProcessIfNew":1,
+"seeds":"http://sitepoint.com",
+"roundsCompleted":0,
+"roundStartTime":0,
+"currentTime":1432155913,
+"currentTimeUTC":1432155913,
+"apiUrl":"http://api.diffbot.com/v3/article?&discussion=false",
+"urlCrawlPattern":"",
+"urlProcessPattern":"",
+"pageProcessPattern":"",
+"urlCrawlRegEx":"",
+"urlProcessRegEx":"",
+"maxHops":-1,
+"downloadJson":"http://api.diffbot.com/v3/crawl/download/xxxxxxxxxxx-sitepoint_0_data.json",
+"downloadUrls":"http://api.diffbot.com/v3/crawl/download/xxxxxxxxxxx-sitepoint_0_urls.csv",
+"notifyEmail":"",
+"notifyWebhook":""
+}
+,
+	
+
+{"name":"sitepoint_01",
+"type":"crawl",
+"jobCreationTimeUTC":1432155773,
+"jobCompletionTimeUTC":0,
+"jobStatus":{"status":7,"message":"Job is in progress."},
+"sentJobDoneNotification":0,
+"objectsFound":95,
+"urlsHarvested":10282,
+"pageCrawlAttempts":117,
+"pageCrawlSuccesses":117,
+"pageCrawlSuccessesThisRound":117,
+"pageProcessAttempts":115,
+"pageProcessSuccesses":95,
+"pageProcessSuccessesThisRound":95,
+"maxRounds":-1,
+"repeat":0.000000,
+"crawlDelay":0.250000,
+"obeyRobots":1,
+"maxToCrawl":100000,
+"maxToProcess":100000,
+"onlyProcessIfNew":1,
+"seeds":"http://sitepoint.com",
+"roundsCompleted":0,
+"roundStartTime":0,
+"currentTime":1432155913,
+"currentTimeUTC":1432155913,
+"apiUrl":"http://api.diffbot.com/v3/article?&discussion=false",
+"urlCrawlPattern":"",
+"urlProcessPattern":"",
+"pageProcessPattern":"",
+"urlCrawlRegEx":"",
+"urlProcessRegEx":"",
+"maxHops":-1,
+"downloadJson":"http://api.diffbot.com/v3/crawl/download/xxxxxxxxxxx-sitepoint_01_data.json",
+"downloadUrls":"http://api.diffbot.com/v3/crawl/download/xxxxxxxxxxx-sitepoint_01_urls.csv",
+"notifyEmail":"",
+"notifyWebhook":""
+}
+
+]
+}

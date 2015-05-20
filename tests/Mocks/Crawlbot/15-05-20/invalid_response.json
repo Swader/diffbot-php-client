@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.3
+Date: Wed, 20 May 2015 21:43:21 GMT
+Content-Type: application/json
+Content-Length: 40
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Last-Modified: Wed, 20 May 2015 21:44:01 GMT
+Access-Control-Allow-Origin: *
+
+{"foo":"bar"}

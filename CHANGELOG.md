@@ -1,6 +1,29 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 0.3 - May 17th, 2015
+
+### Internal changes
+
+- [Internal] DiffbotAware trait now responsible for registering Diffbot parent in children
+- [BC Break, Internal] PHP 5.6 is now required (`...` operator)
+- [Internal] Updated all API calls to HTTPS
+
+### Features
+
+- [Feature] Implemented Crawlbot API, added usage example to README
+    - [Feature] Added `Job` abstract entity with `JobCrawl` and `JobBulk` derivations. A `Job` is either a [Bulk API job](https://www.diffbot.com/dev/docs/bulk) or a [Crawl job](https://www.diffbot.com/dev/docs/crawl). A collection of jobs is the result of a Crawl or Bulk API call. When job name is provided, a max of one item is present in the collection.
+    
+### Bugs
+
+- [Bug] Fixed [#1](https://github.com/Swader/diffbot-php-client/issues/1)
+
+### Meta
+
+- [Repository] Added TODOs as issues in repo, linked to relevant ones in [TODO file](TODO.md).
+- [CI] Stopped testing for 5.4 and 5.5, updated Travis and Scrutinizer file to take this into account
+- [Tests] Fully tested Crawlbot implementation
+
 ## 0.2 - May 2nd, 2015
 
 - added Discussion API

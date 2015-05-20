@@ -3,6 +3,7 @@
 namespace Swader\Diffbot\Abstracts;
 
 use Swader\Diffbot\Diffbot;
+use Swader\Diffbot\Traits\DiffbotAware;
 
 /**
  * Class Api
@@ -28,26 +29,29 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
     /** @var  Diffbot The parent class which spawned this one */
     protected $diffbot;
 
+    use DiffbotAware;
 
     public function __construct($url)
     {
-        $url = trim((string)$url);
-        if (strlen($url) < 4) {
-            throw new \InvalidArgumentException(
-                'URL must be a string of at least four characters in length'
-            );
+        if (strcmp($url, 'crawl') !== 0) {
+            $url = trim((string)$url);
+            if (strlen($url) < 4) {
+                throw new \InvalidArgumentException(
+                    'URL must be a string of at least four characters in length'
+                );
+            }
+
+            $url = (isset(parse_url($url)['scheme'])) ? $url : "http://$url";
+
+            $filtered_url = filter_var($url, FILTER_VALIDATE_URL);
+            if (!$filtered_url) {
+                throw new \InvalidArgumentException(
+                    'You provided an invalid URL: ' . $url
+                );
+            }
+            $url = $filtered_url;
         }
-
-        $url = (isset(parse_url($url)['scheme'])) ? $url : "http://$url";
-
-        $filtered_url = filter_var($url, FILTER_VALIDATE_URL);
-        if (!$filtered_url) {
-            throw new \InvalidArgumentException(
-                'You provided an invalid URL: ' . $url
-            );
-        }
-
-        $this->url = $filtered_url;
+        $this->url = $url;
     }
 
     /**
@@ -91,14 +95,15 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
 
     public function buildUrl()
     {
-        $url = rtrim($this->apiUrl, '/');
+        $url = rtrim($this->apiUrl, '/').'?';
 
-        // Add Token
-        $url .= '?token=' . $this->diffbot->getToken();
+        if (strcmp($url,'crawl') !== 0) {
+            // Add Token
+            $url .= 'token=' . $this->diffbot->getToken();
 
-        // Add URL
-        $url .= '&url=' . urlencode($this->url);
-
+            // Add URL
+            $url .= '&url=' . urlencode($this->url);
+        }
 
         // Add Custom Fields
         $fields = $this->fieldSettings;
@@ -118,18 +123,4 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
 
         return $url;
     }
-
-    /**
-     * Sets the Diffbot instance on the child class
-     * Used to later fetch the token, HTTP client, EntityFactory, etc
-     * @param Diffbot $d
-     * @return $this
-     */
-    public function registerDiffbot(Diffbot $d)
-    {
-        $this->diffbot = $d;
-
-        return $this;
-    }
-
 }
