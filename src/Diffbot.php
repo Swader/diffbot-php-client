@@ -2,6 +2,7 @@
 
 namespace Swader\Diffbot;
 
+use Swader\Diffbot\Api\Crawl;
 use Swader\Diffbot\Api\Custom;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Api\Product;
@@ -11,6 +12,7 @@ use Swader\Diffbot\Api\Article;
 use Swader\Diffbot\Api\Discussion;
 use GuzzleHttp\Client;
 use Swader\Diffbot\Factory\Entity;
+use Swader\Diffbot\Interfaces\Api;
 use Swader\Diffbot\Interfaces\EntityFactory;
 
 /**
@@ -223,6 +225,26 @@ class Diffbot
     public function createCustomAPI($url, $name)
     {
         $api = new Custom($url, $name);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+            $this->setEntityFactory();
+        }
+        return $api->registerDiffbot($this);
+    }
+
+    /**
+     * Creates a new Crawljob with the given name.
+     *
+     * @see https://www.diffbot.com/dev/docs/crawl/
+     *
+     * @param string $name Name of the crawljob. Needs to be unique.
+     * @param Api $api Optional instance of an API - if omitted, must be set
+     * later manually
+     * @return Crawl
+     */
+    public function crawl($name = null, Api $api = null)
+    {
+        $api = new Crawl($name, $api);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
             $this->setEntityFactory();

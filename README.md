@@ -10,7 +10,7 @@ Right now it only supports Analyze, Product, Image, Discussion and Article APIs,
 
 ## Requirements
 
-Minimum PHP 5.4 because Guzzle needs it.
+Minimum PHP 5.6 is required. When installed via Composer, the library will pull in Guzzle 5 as well, so it's recommended you have cURL installed, but not required.
 
 ## Install
 
@@ -59,7 +59,7 @@ Currently available [*automatic*](http://www.diffbot.com/products/automatic/) AP
 - [discussion](http://www.diffbot.com/products/automatic/discussion/) (fetches discussion / review / comment threads - can be embedded in the Product or Article return data, too, if those contain any comments or discussions)
 - [analyze](http://www.diffbot.com/products/automatic/analyze/) (combines all the above in that it automatically determines the right API for the URL and applies it)
 
-Video is coming soon.
+Video is coming soon. See below for instructions on Crawlbot, Search and Bulk API.
 
 There is also a [Custom API](http://www.diffbot.com/products/custom/) like [this one](http://www.sitepoint.com/analyze-sitepoint-author-portfolios-diffbot/) - unless otherwise configured, they return instances of the Wildcard entity)
 
@@ -200,7 +200,7 @@ Used just like all others. There are only two differences:
 The following is a usage example of my own custom API for author profiles at SitePoint:
 
 ```php
-$diffbot = new Diffbot('brunoskvorc');
+$diffbot = new Diffbot('my_token');
 $customApi = $diffbot->createCustomAPI('http://sitepoint.com/author/bskvorc', 'authorFolioNew');
 
 $return = $customApi->call();
@@ -212,6 +212,105 @@ foreach ($return as $wildcard) {
 ```
 
 Of course, you can easily extend the basic Custom API class and make your own, as well as add your own Entities that perfectly correspond to the returned data. This will all be covered in a tutorial in the near future.
+
+## Crawlbot and Bulk API
+
+Basic Crawlbot support has been added to the library.
+To find out more about Crawlbot and what, how and why it does what it does, see [here](https://www.diffbot.com/dev/docs/crawl/).
+I also recommend reading the [Crawlbot API docs](https://www.diffbot.com/dev/docs/crawl/api.jsp) and the [Crawlbot support topics](http://support.diffbot.com/topics/crawlbot/) just so you can dive right in without being too confused by the code below.
+
+In a nutshell, the Crawlbot crawls a set of seed URLs for links (even if a subdomain is passed to it as seed URL, it still looks through the entire main domain and all other subdomains it can find) and then processes all the pages it can find using the API you define (or opting for Analyze API by default).
+
+### List of all crawl / bulk jobs
+
+A joint list of all your crawl / bulk jobs can be fetched via:
+
+```
+$diffbot = new Diffbot('my_token');
+$jobs = $diffbot->crawl()->call();
+```
+
+This returns a collection of all crawl and bulk jobs. Each type is represented by its own class: `JobCrawl` and `JobBulk`. It's important to note that Jobs only contain the information about the job - not the data. To get the data of a job, use the `downloadUrl` method to get the URL to the dataset:
+ 
+```
+$url = $job->downloadUrl("json");
+```
+
+### Crawl jobs: Creating a Crawl Job
+
+See inline comments for step by step explanation
+
+```
+// Create new diffbot as usual
+$diffbot = new Diffbot('my_token');
+
+// The crawlbot needs to be told which API to use to process crawled pages. This is optional - if omitted, it will be told to use the Analyze API with mode set to auto.
+// The "crawl" url is a flag to tell APIs to prepare for consumption with Crawlbot, letting them know they won't be used directly.
+$url = 'crawl';
+$articleApi = $diffbot->createArticleAPI($url)->setDiscussion(false);
+
+// Make a new crawl job. Optionally, pass in API instance
+$crawl = $diffbot->crawl('sitepoint_01', $articleApi);
+
+// Set seeds - seeds are URLs to crawl. By default, passing a subdomain into the crawl will also crawl other subdomains on main domain, including www.
+$crawl->setSeeds(['http://sitepoint.com']);
+
+// Call as usual - an EntityIterator collection of results is returned. In the case of a job's creation, only one job entity will always be returned.
+$job = $crawl->call();
+
+// See JobCrawl class to find out which getters are available 
+dump($job->getDownloadUrl("json")); // outputs download URL to JSON dataset of the job's result
+```
+
+### Crawl jobs: Inspecting an existing Crawl Job
+
+To get data about a job (this will be the data it was configured with - its flags - and not the results!), use the exact same approach as if creating a new one, only without the API and seeds:
+
+```
+$diffbot = new Diffbot('my_token');
+
+$crawl = $diffbot->crawl('sitepoint_01');
+
+$job = $crawl->call();
+
+dump($job->getDownloadUrl("json")); // outputs download URL to JSON dataset of the job's result
+```
+
+### Crawl jobs: Modifying an existing Crawl Job
+
+While there is no way to alter a crawl job's configuration post creation, you can still do some operations on it.
+
+Provided you fetched a `$crawl` instance as in the above section on inspecting, you can do the following:
+
+```
+// Force start of a new crawl round manually
+$crawl->roundStart();
+
+// Pause or unpause (0) a job
+$crawl->pause();
+$crawl->pause(0)
+
+// Restart removes all crawled data but keeps the job (and settings)
+$crawl->restart();
+
+// Delete a job and all related data
+$crawl->delete();
+```
+
+Note that it is not necessary to issue a `call()` after these methods.
+
+If you would like to extract the generated API call URL for these instant-call actions, pass in the parameter `false`, like so:
+
+```
+$crawl->delete(false);
+```
+
+You can then save the URL for your convenience and call `call` when ready to execute (if at all).
+
+```
+$url = $crawl->buildUrl();
+$url->call();
+```
 
 ## Testing
 

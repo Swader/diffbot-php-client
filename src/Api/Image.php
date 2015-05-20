@@ -10,7 +10,7 @@ class Image extends Api
     use StandardApi;
 
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3/image';
+    protected $apiUrl = 'https://api.diffbot.com/v3/image';
 
     /**
      * Tells the API call to return the mentions field

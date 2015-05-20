@@ -7,7 +7,7 @@ use Swader\Diffbot\Abstracts\Api;
 class Custom extends Api
 {
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3';
+    protected $apiUrl = 'https://api.diffbot.com/v3';
 
     public function __construct($url, $name)
     {

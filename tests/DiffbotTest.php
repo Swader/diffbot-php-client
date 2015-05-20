@@ -135,4 +135,13 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCrawlCreation()
+    {
+        $bot = new Diffbot('token');
+        $api = $bot->crawl('test');
+        $this->assertInstanceOf(
+            'Swader\Diffbot\Api\Crawl', $api
+        );
+    }
+
 }

@@ -47,23 +47,23 @@ class CustomApiTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 'custom',
-                'http://api.diffbot.com/v3/custom?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/custom?token=demo&url=http%3A%2F%2Fsample-url.com'
             ],
             [
                 'authorFolioNew',
-                'http://api.diffbot.com/v3/authorFolioNew?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/authorFolioNew?token=demo&url=http%3A%2F%2Fsample-url.com'
             ],
             [
                 'authorFolioNew/something',
-                'http://api.diffbot.com/v3/authorFolioNew/something?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/authorFolioNew/something?token=demo&url=http%3A%2F%2Fsample-url.com'
             ],
             [
                 'my-api',
-                'http://api.diffbot.com/v3/my-api?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/my-api?token=demo&url=http%3A%2F%2Fsample-url.com'
             ],
             [
                 'my-api?param=value',
-                'http://api.diffbot.com/v3/my-api?param=value?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/my-api?param=value?token=demo&url=http%3A%2F%2Fsample-url.com'
             ]
         ];
     }
@@ -96,7 +96,7 @@ class CustomApiTest extends \PHPUnit_Framework_TestCase
 //    public function testInvalidNames($name)
 //    {
 //        $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException');
-//        $this->diffbot->createCustomAPI('http://sample-url.com', $name);
+//        $this->diffbot->createCustomAPI('https://sample-url.com', $name);
 //    }
 
 }

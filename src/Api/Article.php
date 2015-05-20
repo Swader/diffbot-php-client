@@ -10,7 +10,7 @@ class Article extends Api
     use StandardApi;
 
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3/article';
+    protected $apiUrl = 'https://api.diffbot.com/v3/article';
 
     /**
      * @see Swader\Diffbot\Entity\Article::getSentiment()

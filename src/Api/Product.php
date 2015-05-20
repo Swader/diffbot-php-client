@@ -10,7 +10,7 @@ class Product extends Api
     use StandardApi;
 
     /** @var string API URL to which to send the request */
-    protected $apiUrl = 'http://api.diffbot.com/v3/product';
+    protected $apiUrl = 'https://api.diffbot.com/v3/product';
 
     /**
      * If set to false, will not extract article comments in a Discussion
