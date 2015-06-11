@@ -5,7 +5,6 @@ Active todos, ordered by priority
 ## High
 
 - [implement Bulk Processing Support](https://github.com/Swader/diffbot-php-client/issues/3)
-- [implement Search API](https://github.com/Swader/diffbot-php-client/issues/2)
 
 ## Medium
 
