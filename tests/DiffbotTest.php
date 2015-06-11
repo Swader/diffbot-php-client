@@ -144,4 +144,13 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSearchCreation()
+    {
+        $bot = new Diffbot('token');
+        $api = $bot->search('test');
+        $this->assertInstanceOf(
+            'Swader\Diffbot\Api\Search', $api
+        );
+    }
+
 }

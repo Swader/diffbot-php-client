@@ -312,6 +312,22 @@ $url = $crawl->buildUrl();
 $url->call();
 ```
 
+## Search API
+
+The Search API is used to quickly search across data obtained through Bulk or Crawl API.
+
+```php
+$diffbot = new Diffbot('my_token');
+$search = $diffbot->search('author:"Miles Johnson" AND type:article')->call();
+
+
+foreach ($search as $article) {
+    echo $article->getTitle();
+}
+```
+
+Use Search APIs `setCol` method to target a specific collection only - otherwise, all your token's collections are searched.
+
 ## Testing
 
 Just run PHPUnit in the root folder of the cloned project.
