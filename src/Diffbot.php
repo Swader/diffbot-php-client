@@ -4,6 +4,7 @@ namespace Swader\Diffbot;
 
 use Swader\Diffbot\Api\Crawl;
 use Swader\Diffbot\Api\Custom;
+use Swader\Diffbot\Api\Search;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Api\Product;
 use Swader\Diffbot\Api\Image;
@@ -252,4 +253,19 @@ class Diffbot
         return $api->registerDiffbot($this);
     }
 
+    /**
+     * Search query.
+     * @see https://www.diffbot.com/dev/docs/search/#query
+     * @param string $q
+     * @return Search
+     */
+    public function search($q)
+    {
+        $api = new Search($q);
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+            $this->setEntityFactory();
+        }
+        return $api->registerDiffbot($this);
+    }
 }

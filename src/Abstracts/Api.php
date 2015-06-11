@@ -97,7 +97,7 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
     {
         $url = rtrim($this->apiUrl, '/').'?';
 
-        if (strcmp($url,'crawl') !== 0) {
+        if (strcmp($this->url,'crawl') !== 0) {
             // Add Token
             $url .= 'token=' . $this->diffbot->getToken();
 

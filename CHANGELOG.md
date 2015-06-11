@@ -1,6 +1,11 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 0.4 - June 11th, 2015
+
+- [Feature] Added Search API
+- [Feature] Added SearchInfo: apart from Entites in a regular EntityIterator as usual, the Search API returns a SearchInfo object, too. See README.
+
 ## 0.3 - May 17th, 2015
 
 ### Internal changes

@@ -21,6 +21,7 @@ class Entity implements EntityFactory
      * Creates an appropriate Entity from a given Response
      * If no valid Entity can be found for typo of API, the Wildcard entity is selected
      *
+     * @todo: remove error avoidance when issue 12 is fixed: https://github.com/Swader/diffbot-php-client/issues/12
      * @param Response $response
      * @return EntityIterator
      * @throws DiffbotException
@@ -29,7 +30,10 @@ class Entity implements EntityFactory
     {
         $this->checkResponseFormat($response);
 
-        $arr = $response->json();
+
+        set_error_handler(function() { /* ignore errors */ });
+        $arr = $response->json(['big_int_strings' => true]);
+        restore_error_handler();
 
         $objects = [];
         foreach ($arr['objects'] as $object) {
@@ -47,27 +51,30 @@ class Entity implements EntityFactory
     /**
      * Makes sure the Diffbot response has all the fields it needs to work properly
      *
+     * @todo: remove error avoidance when issue 12 is fixed: https://github.com/Swader/diffbot-php-client/issues/12
      * @param Response $response
      * @throws DiffbotException
      */
     protected function checkResponseFormat(Response $response)
     {
-        $arr = $response->json();
+        set_error_handler(function() { /* ignore errors */ });
+        $arr = $response->json(['big_int_strings' => true]);
+        restore_error_handler();
 
         if (isset($arr['error'])) {
-            throw new DiffbotException('Diffbot returned error '.$arr['errorCode'].': '.$arr['error']);
+            throw new DiffbotException('Diffbot returned error ' . $arr['errorCode'] . ': ' . $arr['error']);
         }
 
-        if (!isset($arr['objects'])) {
-            throw new DiffbotException('Objects property missing - cannot extract entity values');
+        $required = [
+            'objects' => 'Objects property missing - cannot extract entity values',
+            'request' => 'Request property not found in response!'
+        ];
+
+        foreach ($required as $k=>$v) {
+            if (!isset($arr[$k])) {
+                throw new DiffbotException($v);
+            }
         }
 
-        if (!isset($arr['request'])) {
-            throw new DiffbotException('Request property not found in response!');
-        }
-
-        if (!isset($arr['request']['api'])) {
-            throw new DiffbotException('API property not found in request property of response!');
-        }
     }
 }

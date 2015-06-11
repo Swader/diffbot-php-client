@@ -45,16 +45,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->ef->createAppropriateIterator($this->responseOk);
     }
 
-    public function testMissingApiFail()
-    {
-        $this->responseOk->setBody(Stream::factory(json_encode([
-            'objects' => 'foo',
-            'request' => 'bar'
-        ])));
-        $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException');
-        $this->ef->createAppropriateIterator($this->responseOk);
-    }
-
     public function testProductEntityPass()
     {
         $this->responseOk->setBody(Stream::factory(json_encode([
