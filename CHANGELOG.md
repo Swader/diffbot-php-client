@@ -1,6 +1,10 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 0.4.1
+
+- [Internal] Added ArrayAccess to EntityIterator
+
 ## 0.4 - June 11th, 2015
 
 - [Feature] Added Search API
