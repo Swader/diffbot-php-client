@@ -52,6 +52,9 @@ class EntityIterator implements \Countable, \Iterator, \ArrayAccess
 
     public function current()
     {
+        while(!$this->offsetExists($this->cursor)) {
+            $this->next();
+        }
         return $this->data[$this->cursor];
     }
 
@@ -159,8 +162,6 @@ class EntityIterator implements \Countable, \Iterator, \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        if ($this->offsetExists($offset)) {
-            unset($this->data[$offset]);
-        }
+        unset($this->data[$offset]);
     }
 }
