@@ -1,11 +1,15 @@
 #Changelog
 All notable changes will be documented in this file
 
-## 0.4.2
+## 0.4.3 - June 16th, 2015
+
+- [Bug] Fixed #15
+
+## 0.4.2 - June 15th, 2015
 
 - [Internal] Fixed issue #14 - EntityIterator cursor bug
 
-## 0.4.1
+## 0.4.1 - June 13th, 2015
 
 - [Internal] Added ArrayAccess to EntityIterator
 
