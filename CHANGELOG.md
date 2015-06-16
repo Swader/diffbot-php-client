@@ -1,6 +1,10 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 0.4.4 - June 16th, 2015
+
+- [Bug] Fixed #16
+
 ## 0.4.3 - June 16th, 2015
 
 - [Bug] Fixed #15

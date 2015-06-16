@@ -65,7 +65,11 @@ class EntityIterator implements \Countable, \Iterator, \ArrayAccess
 
     public function valid()
     {
-        return ($this->cursor <= max(array_keys($this->data)));
+        if (count($this->data)) {
+            return ($this->cursor <= max(array_keys($this->data)));
+        } else {
+            return false;
+        }
     }
 
     protected function _getZerothEntity()
