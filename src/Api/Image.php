@@ -15,7 +15,7 @@ class Image extends Api
     /**
      * Tells the API call to return the mentions field
      * @see https://www.diffbot.com/dev/docs/image/
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setMentions($bool)
@@ -27,7 +27,7 @@ class Image extends Api
     /**
      * Sets the API call to return the faces field
      * @see https://www.diffbot.com/dev/docs/image/
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setFaces($bool)
@@ -39,7 +39,7 @@ class Image extends Api
     /**
      * Sets the API call to return the ocr field.
      * @see https://www.diffbot.com/dev/docs/image/
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setOcr($bool)

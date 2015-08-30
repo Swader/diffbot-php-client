@@ -27,7 +27,7 @@ class Product extends Api
 
     /**
      * @see Swader\Diffbot\Entity\Product::getColors()
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setColors($bool)
@@ -39,7 +39,7 @@ class Product extends Api
 
     /**
      * @see Swader\Diffbot\Entity\Product::getSize()
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setSize($bool)
@@ -51,7 +51,7 @@ class Product extends Api
 
     /**
      * @see Swader\Diffbot\Entity\Product::isAvailable()
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setAvailability($bool)

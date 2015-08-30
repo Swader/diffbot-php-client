@@ -137,7 +137,7 @@ class Crawl
      * The use of a urlCrawlRegEx will allow Crawlbot to spider outside of the
      * seed domain; it will follow all matching URLs regardless of domain.
      *
-     * @param $regex
+     * @param string $regex
      * @return $this
      */
     public function setUrlCrawlRegEx($regex)
@@ -172,7 +172,7 @@ class Crawl
      * Specify a regular expression to limit pages processed to those URLs that
      * match your expression. This will override any urlProcessPattern value.
      *
-     * @param $regex
+     * @param string $regex
      * @return $this
      */
     public function setUrlProcessRegEx($regex)
@@ -262,7 +262,7 @@ class Crawl
      * X-Crawl-Status in the headers, and the full JSON response in the
      * POST body.
      *
-     * @param $string
+     * @param string $string
      * @return $this
      * @throws InvalidArgumentException
      */
@@ -309,11 +309,12 @@ class Crawl
      *
      * @param int|float $input
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setRepeat($input)
     {
         if (!is_numeric($input) || !$input) {
-            throw new InvalidArgumentException('Only positive numbers allowed.');
+            throw new \InvalidArgumentException('Only positive numbers allowed.');
         }
         $this->otherOptions['repeat'] = (float)$input;
 

@@ -14,7 +14,7 @@ class Article extends Api
 
     /**
      * @see Swader\Diffbot\Entity\Article::getSentiment()
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setSentiment($bool)

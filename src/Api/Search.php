@@ -5,6 +5,7 @@ namespace Swader\Diffbot\Api;
 use Swader\Diffbot\Abstracts\Api;
 use Swader\Diffbot\Entity\SearchInfo;
 use Swader\Diffbot\Traits\DiffbotAware;
+use Swader\Diffbot\Entity\EntityIterator;
 
 /**
  * Class Search
@@ -32,7 +33,7 @@ class Search extends Api
     /**
      * Search query.
      * @see https://www.diffbot.com/dev/docs/search/#query
-     * @param string $q
+     * @param string string $q
      */
     public function __construct($q)
     {
@@ -129,7 +130,7 @@ class Search extends Api
      *
      * @todo: remove error avoidance when issue 12 is fixed: https://github.com/Swader/diffbot-php-client/issues/12
      * @param bool $info
-     * @return \Swader\Diffbot\Entity\EntityIterator|SearchInfo
+     * @return EntityIterator|SearchInfo
      */
     public function call($info = false)
     {

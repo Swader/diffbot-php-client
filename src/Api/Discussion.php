@@ -32,7 +32,7 @@ class Discussion extends Api
 
     /**
      * @see Swader\Diffbot\Entity\Discussion::getSentiment()
-     * @param $bool
+     * @param bool|mixed $bool
      * @return $this
      */
     public function setSentiment($bool)
