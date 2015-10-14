@@ -145,6 +145,8 @@ class Diffbot
         $api = new Product($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -161,6 +163,8 @@ class Diffbot
         $api = new Article($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -177,6 +181,8 @@ class Diffbot
         $api = new Image($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -193,6 +199,8 @@ class Diffbot
         $api = new Analyze($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -209,6 +217,8 @@ class Diffbot
         $api = new Discussion($url);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -228,6 +238,8 @@ class Diffbot
         $api = new Custom($url, $name);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -248,6 +260,8 @@ class Diffbot
         $api = new Crawl($name, $api);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
@@ -264,6 +278,8 @@ class Diffbot
         $api = new Search($q);
         if (!$this->getHttpClient()) {
             $this->setHttpClient();
+        }
+        if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
         return $api->registerDiffbot($this);
