@@ -5,16 +5,22 @@
 
 # Diffbot PHP API Wrapper
 
-This package is a slightly overengineered Diffbot API wrapper. It uses Guzzle to make API calls. To learn more about Diffbot see [here](http://www.sitepoint.com/tag/diffbot/) and [their homepage](http://diffbot.com).
-Right now it only supports Analyze, Product, Image, Discussion and Article APIs, but can also accommodate Custom APIs. Crawlbot, Search and Video API support coming soon.
+This package is a slightly overengineered Diffbot API wrapper. It uses [PSR-7](http://www.php-fig.org/psr/psr-7/) and [PHP-HTTP](http://php-http.readthedocs.org/) friendly client implementations to make API calls. To learn more about Diffbot see [here](http://www.sitepoint.com/tag/diffbot/) and [their homepage](http://diffbot.com).
+Right now it only supports Analyze, Product, Image, Discussion, Crawl, Search, and Article APIs, but can also accommodate Custom APIs. Video and Bulk API support coming soon.
 
 ## Requirements
 
-Minimum PHP 5.6 is required. When installed via Composer, the library will pull in Guzzle 5 as well, so it's recommended you have cURL installed, but not required.
+Minimum PHP 5.6 is required.
 
 ## Install
 
-Via Composer
+The library depends on an implementation of the [client-implementation](https://packagist.org/providers/php-http/client-implementation) virtual package. If you don't know what this means, simply requiring the Guzzle6 adapter will do:
+
+```bash
+composer require php-http/guzzle6-adapter
+```
+
+This adapter satisfies the requirement for client-implementation (see above) and will make it possible to install the client with:
 
 ```bash
 composer require swader/diffbot-php-client
@@ -357,7 +363,7 @@ If you would like to contribute by adding Entity tests, I suggest following this
     ```
 
 3. Grab the URL and paste it into a REST client like Postman or into your browser. You'll get Diffbot's response back. Keep it open for reference.
-4. Download this response, with headers, into a JSON file. Preferably into `tests/Mocks/Products/[date]/somefilename.json`, like the other tests are. This is easily accomplished by executing `curl -i "[url] > somefilename.json"` in the Terminal/Command Line.
+4. Download this response into a JSON file. Preferably into `tests/Mocks/Products/[date]/somefilename.json`, like the other tests are. This is easily accomplished by executing `curl "[url] > somefilename.json"` in the Terminal/Command Line.
 5. Go into the appropriate tests folder. In this case, `tests/Entity` and open `ProductTest.php`. Notice how the file is added into the batch of files to be tested against. Every provider has it referenced, along with the value the method being tested should produce. Slowly go through every test method and add your file. Use the values in the JSON you got in step 3 to get the values.
 6. Run `phpunit tests/Entity/ProductTest.php` to test just this file (much faster than entire suite). If OK, send PR :)
 
