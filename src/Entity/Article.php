@@ -70,6 +70,15 @@ class Article extends Entity
     }
 
     /**
+     * Returns the URL of the author's profile, if available. Otherwise, null.
+     * @return string | null
+     */
+    public function getAuthorUrl()
+    {
+        return (isset($this->data['authorUrl'])) ? $this->data['authorUrl'] : null;
+    }
+
+    /**
      * The array returned will contain all tags that Diffbot's AI concluded match the content
      *
      * Note that these are *not* the meta tags as defined by the author, but machine learned ones.

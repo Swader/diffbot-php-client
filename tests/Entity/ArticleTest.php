@@ -138,25 +138,28 @@ class ArticleTest extends ResponseProvider
     public function authorProvider()
     {
         return [
-            ['Articles/diffbot-sitepoint-basic.json', "Bruno Skvorc"],
-            ['Articles/diffbot-sitepoint-extended.json', "Bruno Skvorc"],
-            ['Articles/apple-watch-verge-basic.json', null],
+            ['Articles/diffbot-sitepoint-basic.json', "Bruno Skvorc", "http://www.sitepoint.com/author/bskvorc/"],
+            ['Articles/diffbot-sitepoint-extended.json', "Bruno Skvorc", "http://www.sitepoint.com/author/bskvorc/"],
+            ['Articles/apple-watch-verge-basic.json', null, null],
             // Diffbot failed to detect this on April 12th
-            ['Articles/apple-watch-verge-extended.json', null]
+            ['Articles/apple-watch-verge-extended.json', null, null]
         ];
     }
 
     /**
      * @param $file
      * @param $articles
+     * @param $url
      * @dataProvider authorProvider
      */
-    public function testAuthor($file, $articles)
+    public function testAuthor($file, $articles, $url)
     {
         $articles = (is_array($articles)) ? $articles : [$articles];
+        $url = (is_array($url)) ? $url : [$url];
         /** @var Article $entity */
         foreach ($this->ei($file) as $i => $entity) {
             $this->assertEquals($articles[$i], $entity->getAuthor());
+            $this->assertEquals($url[$i], $entity->getAuthorUrl());
         }
     }
 
