@@ -1,6 +1,12 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 1.0.0 - November 1st, 2016
+
+- Converted to PHP-HTTP, removed hard dependency on Guzzle 5
+- Modified Travis / Scrutinizer test configuration
+- Converted mock JSON files into pure JSON, stripped away headers
+
 ## 0.4.4 - June 16th, 2015
 
 - [Bug] Fixed #16
