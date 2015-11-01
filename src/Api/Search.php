@@ -138,7 +138,7 @@ class Search extends Api
             $ei = parent::call();
 
             set_error_handler(function() { /* ignore errors */ });
-            $arr = $ei->getResponse()->json(['big_int_strings' => true]);
+            $arr = json_decode((string)$ei->getResponse()->getBody(), true, 512, 1);
             restore_error_handler();
 
             unset($arr['request']);

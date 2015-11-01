@@ -2,13 +2,12 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
 use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Entity\JobCrawl;
 
 class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     /** @var Diffbot */
     protected $diffbot;
@@ -17,16 +16,13 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
     {
         $diffbot = new Diffbot('demo');
         $diffbot->setEntityFactory();
-        $fakeClient = new Client();
-        $diffbot->setHttpClient($fakeClient);
         $this->diffbot = $diffbot;
     }
 
     public function testRoundStart()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_roundstart.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_roundstart.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
@@ -39,9 +35,8 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 
     public function testRestart()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_restart.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_restart.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
@@ -60,9 +55,8 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 
     public function testPauseOn()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_paused.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_paused.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
@@ -75,9 +69,8 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 
     public function testPauseOff()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_unpaused.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/sitepoint_01_unpaused.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
@@ -90,9 +83,8 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/deletedSuccess.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/deletedSuccess.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
@@ -101,21 +93,19 @@ class CrawlCustomMocksTest extends \PHPUnit_Framework_TestCase
 
     public function test500()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/invalid_name.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/invalid_name.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath, 500));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 
-        $this->setExpectedException('GuzzleHttp\Exception\ServerException');
+        $this->setExpectedException('Http\Client\Exception\HttpException');
         $c->call();
     }
 
     public function testOtherError()
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents(__DIR__ . '/../Mocks/Crawlbot/15-05-20/invalid_response.json')]
-        ));
+        $filepath = __DIR__ . '/../Mocks/Crawlbot/15-05-20/invalid_response.json';
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($filepath));
 
         $c = $this->diffbot->crawl('sitepoint_01');
 

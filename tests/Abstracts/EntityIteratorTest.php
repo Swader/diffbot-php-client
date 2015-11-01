@@ -2,13 +2,9 @@
 
 namespace Swader\Diffbot\Test;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
-use Swader\Diffbot\Abstracts\Entity;
+use Swader\Diffbot\Factory\Entity;
 
-class EntityIteratorTest extends \PHPUnit_Framework_TestCase
+class EntityIteratorTest extends ResponseProvider
 {
 
     /** @var  array */
@@ -19,28 +15,11 @@ class EntityIteratorTest extends \PHPUnit_Framework_TestCase
         'Images/multi_images_smittenkitchen.json'
     ];
 
-    protected function prepareResponses()
-    {
-        if (empty($this->responses)) {
-            $mockInput = [];
-            foreach ($this->files as $file) {
-                $mockInput[] = file_get_contents(__DIR__ . '/../Mocks/' . $file);
-            }
-            unset($file);
-            $mock = new Mock($mockInput);
-            $client = new Client();
-            $client->getEmitter()->attach($mock);
-            foreach ($this->files as $file) {
-                $this->responses[$file] = $client->get('sampleurl.com');
-            }
-            unset($file);
-        }
-        return $this->responses;
-    }
+    protected $folder = '/../Mocks/';
 
     public function testBadMethodCall()
     {
-        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ef = new Entity();
         $ei = $ef->createAppropriateIterator($this->prepareResponses()['Images/one_image_zola.json']);
 
         $this->setExpectedException('BadMethodCallException');
@@ -49,7 +28,7 @@ class EntityIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function testMagic()
     {
-        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ef = new Entity();
         $ei = $ef->createAppropriateIterator($this->prepareResponses()['Images/one_image_zola.json']);
 
         $this->assertEquals('image', $ei->type);
@@ -63,7 +42,7 @@ class EntityIteratorTest extends \PHPUnit_Framework_TestCase
             'Images/multi_images_smittenkitchen.json' => 9
         ];
 
-        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ef = new Entity();
 
         foreach ($fileExpectations as $fileName => $expectation) {
             $ei = $ef->createAppropriateIterator($this->prepareResponses()[$fileName]);
@@ -73,17 +52,17 @@ class EntityIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetResponse()
     {
-        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ef = new Entity();
 
         foreach ($this->files as $fileName) {
             $ei = $ef->createAppropriateIterator($this->prepareResponses()[$fileName]);
-            $this->assertInstanceOf('GuzzleHttp\Message\Response', $ei->getResponse());
+            $this->assertInstanceOf('Psr\Http\Message\ResponseInterface', $ei->getResponse());
         }
     }
 
     public function testIteration()
     {
-        $ef = new \Swader\Diffbot\Factory\Entity();
+        $ef = new Entity();
         foreach ($this->files as $fileName) {
 
             $ei = $ef->createAppropriateIterator($this->prepareResponses()[$fileName]);

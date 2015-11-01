@@ -442,7 +442,7 @@ class Crawl
     {
         $response = $this->diffbot->getHttpClient()->get($this->buildUrl());
 
-        $array = $response->json();
+        $array = json_decode($response->getBody(), true);
 
         if (isset($array['jobs'])) {
             $jobs = [];

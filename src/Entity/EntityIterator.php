@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Entity;
 
-use GuzzleHttp\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface as Response;
 use Swader\Diffbot\Abstracts\Entity;
 
 class EntityIterator implements \Countable, \Iterator, \ArrayAccess
@@ -134,6 +134,7 @@ class EntityIterator implements \Countable, \Iterator, \ArrayAccess
         if ($this->offsetExists($offset)) {
             return $this->data[$offset];
         }
+        throw new \OutOfBoundsException("Offset '$offset' not present");
     }
 
     /**

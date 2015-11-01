@@ -1,11 +1,1 @@
-HTTP/1.1 200 OK
-Server: nginx/1.6.3
-Date: Tue, 19 May 2015 21:22:24 GMT
-Content-Type: application/json
-Content-Length: 40
-Connection: keep-alive
-Access-Control-Allow-Origin: *
-Last-Modified: Tue, 19 May 2015 21:23:03 GMT
-Access-Control-Allow-Origin: *
-
 {"response":"Successfully deleted job."}

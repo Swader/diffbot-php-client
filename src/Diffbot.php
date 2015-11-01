@@ -2,6 +2,8 @@
 
 namespace Swader\Diffbot;
 
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
 use Swader\Diffbot\Api\Crawl;
 use Swader\Diffbot\Api\Custom;
 use Swader\Diffbot\Api\Search;
@@ -11,7 +13,7 @@ use Swader\Diffbot\Api\Image;
 use Swader\Diffbot\Api\Analyze;
 use Swader\Diffbot\Api\Article;
 use Swader\Diffbot\Api\Discussion;
-use GuzzleHttp\Client;
+use Http\Client\Utils\HttpMethodsClient as Client;
 use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Interfaces\Api;
 use Swader\Diffbot\Interfaces\EntityFactory;
@@ -90,12 +92,16 @@ class Diffbot
      * Sets the client to be used for querying the API endpoints
      *
      * @param Client $client
+     * @see http://php-http.readthedocs.org/en/latest/utils/#httpmethodsclient
      * @return $this
      */
     public function setHttpClient(Client $client = null)
     {
         if ($client === null) {
-            $client = new Client();
+            $client = new Client(
+                HttpClientDiscovery::find(),
+                MessageFactoryDiscovery::find()
+            );
         }
         $this->client = $client;
         return $this;

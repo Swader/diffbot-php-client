@@ -2,13 +2,11 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
 use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Entity\JobCrawl;
 
 class SearchCustomMocksTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     /** @var Diffbot */
     protected $diffbot;
@@ -20,8 +18,6 @@ class SearchCustomMocksTest extends \PHPUnit_Framework_TestCase
     {
         $diffbot = new Diffbot('demo');
         $diffbot->setEntityFactory();
-        $fakeClient = new Client();
-        $diffbot->setHttpClient($fakeClient);
         $this->diffbot = $diffbot;
     }
 
@@ -45,9 +41,7 @@ class SearchCustomMocksTest extends \PHPUnit_Framework_TestCase
      */
     public function testResultCount($case, $expectations)
     {
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents($this->mockPrefix . $case['file'])]
-        ));
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($this->mockPrefix . $case['file']));
 
         $search = $this->diffbot->search($case['q'])->call();
 
@@ -115,9 +109,7 @@ class SearchCustomMocksTest extends \PHPUnit_Framework_TestCase
     public function testSearchInfo($case, $expectations)
     {
         $this->markTestSkipped('Bugged due to JSONC: https://github.com/Swader/diffbot-php-client/issues/12');
-        $this->diffbot->getHttpClient()->getEmitter()->attach(new Mock(
-            [file_get_contents($this->mockPrefix . $case['file'])]
-        ));
+        $this->diffbot->setHttpClient($this->getCustomMockFakeClient($this->mockPrefix . $case['file']));
 
         $searchInfo = $this->diffbot->search($case['q'])->call(true);
 
