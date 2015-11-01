@@ -453,7 +453,7 @@ class Crawl
             return new EntityIterator($jobs, $response);
         } elseif (!isset($array['jobs']) && isset($array['response'])) {
             return $array['response'];
-        } {
+        } else {
             throw new DiffbotException('It appears something went wrong.');
         }
     }

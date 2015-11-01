@@ -1,6 +1,11 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 1.0.1 - November 1st, 2016
+
+- Minor fixes based on feedback from PHP-HTTP team
+- authorUrl getter added to Article entity
+
 ## 1.0.0 - November 1st, 2016
 
 - Converted to PHP-HTTP, removed hard dependency on Guzzle 5

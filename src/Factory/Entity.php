@@ -31,7 +31,7 @@ class Entity implements EntityFactory
         $this->checkResponseFormat($response);
 
         set_error_handler(function() { /* ignore errors */ });
-        $arr = json_decode((string)$response->getBody(), true, 512, 1);
+        $arr = json_decode($response->getBody(), true, 512, 1);
         restore_error_handler();
 
         $objects = [];
@@ -57,7 +57,7 @@ class Entity implements EntityFactory
     protected function checkResponseFormat(Response $response)
     {
         set_error_handler(function() { /* ignore errors */ });
-        $arr = json_decode((string)$response->getBody(), true, 512, 1);
+        $arr = json_decode($response->getBody(), true, 512, 1);
         restore_error_handler();
 
         if (isset($arr['error'])) {
