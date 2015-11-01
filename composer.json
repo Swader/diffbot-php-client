@@ -23,7 +23,8 @@
     "require-dev": {
         "symfony/var-dumper": "~2",
         "phpunit/phpunit": "^5.0",
-        "php-http/guzzle6-adapter": "~0.2@dev"
+        "php-http/guzzle6-adapter": "~0.2@dev",
+        "scrutinizer/ocular": "^1.1"
     },
     "autoload": {
         "psr-4": {
