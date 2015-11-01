@@ -2,13 +2,12 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Entity\Image;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 class ImageApiTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     protected $validMock;
 
@@ -19,27 +18,18 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $diffbot = $this->getValidDiffbotInstance();
-        $fakeClient = new Client();
-        $fakeClient->getEmitter()->attach($this->getValidMock());
-
-        $diffbot->setHttpClient($fakeClient);
-        $diffbot->setEntityFactory();
+        $diffbot = $this->preSetUp();
 
         $this->apiWithMock = $diffbot->createImageAPI('https://article-mock.com');
-    }
-
-    protected function getValidDiffbotInstance()
-    {
-        return new Diffbot('demo');
     }
 
     protected function getValidMock()
     {
         if (!$this->validMock) {
-            $this->validMock = new Mock(
-                [file_get_contents(__DIR__ . '/../Mocks/Images/one_image_zola.json')]
-            );
+            $this->validMock = new MockHandler([
+                    new Response(200, [],
+                        file_get_contents(__DIR__ . '/../Mocks/Images/one_image_zola.json'))
+            ]);
         }
 
         return $this->validMock;
@@ -47,8 +37,7 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
 
     public function testCall()
     {
-        /** @var Image $image */
-        $image = $this->apiWithMock->call();
+        $this->apiWithMock->call();
     }
 
     public function testBuildUrlNoCustomFields()

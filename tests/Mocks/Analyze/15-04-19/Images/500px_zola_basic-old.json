@@ -1,1 +1,9 @@
+HTTP/1.1 200 OK
+Server: nginx/1.6.3
+Date: Sun, 19 Apr 2015 20:17:58 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 738
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+
 {"title":"Zola by Bruno Skvorc / 500px","request":{"pageUrl":"https://500px.com/photo/78703451/zola-by-bruno-skvorc?from=user_library","api":"analyze","version":3},"humanLanguage":"en","type":"image","objects":[{"title":"Photograph Zola by Bruno Skvorc on 500px","pageUrl":"https://500px.com/photo/78703451/zola-by-bruno-skvorc?from=user_library","diffbotUri":"image|3|-1494041765","naturalHeight":1365,"humanLanguage":"en","type":"image","date":"Aug 1, 2014","naturalWidth":2048,"url":"https://drscdn.500px.org/photo/78703451/m%3D2048/956d2879591f57e2352d2064e98f461b","xpath":"/HTML/BODY/DIV[@class='photo_show minimal has_next_photo has_previous_photo']/DIV[@class='photo segment']/DIV[@id='photo_78703451']/IMG[@class='the_photo']"}]}

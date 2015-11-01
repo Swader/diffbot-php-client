@@ -2,13 +2,13 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use Swader\Diffbot\Diffbot;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use Swader\Diffbot\Entity\Article;
 
 class ArticleApiTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     protected $validMock;
 
@@ -19,27 +19,17 @@ class ArticleApiTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $diffbot = $this->getValidDiffbotInstance();
-        $fakeClient = new Client();
-        $fakeClient->getEmitter()->attach($this->getValidMock());
-
-        $diffbot->setHttpClient($fakeClient);
-        $diffbot->setEntityFactory();
-
+        $diffbot = $this->preSetUp();
         $this->apiWithMock = $diffbot->createArticleAPI('https://article-mock.com');
-    }
-
-    protected function getValidDiffbotInstance()
-    {
-        return new Diffbot('demo');
     }
 
     protected function getValidMock()
     {
         if (!$this->validMock) {
-            $this->validMock = new Mock(
-                [file_get_contents(__DIR__ . '/../Mocks/Articles/hi_quicktip_basic.json')]
-            );
+            $this->validMock = new MockHandler([
+                new Response(200, [],
+                    file_get_contents(__DIR__ . '/../Mocks/Articles/hi_quicktip_basic.json'))
+            ]);
         }
 
         return $this->validMock;

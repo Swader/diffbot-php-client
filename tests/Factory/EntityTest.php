@@ -2,8 +2,7 @@
 
 namespace Swader\Diffbot\Test\Factory;
 
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Psr7\Response;
 use Swader\Diffbot\Diffbot;
 use Swader\Diffbot\Factory\Entity;
 
@@ -21,23 +20,16 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->ef = new Entity();
     }
 
-    public function testInvalidResponseBodyFail()
-    {
-        $this->responseOk->setBody(Stream::factory('Pure text content'));
-        $this->setExpectedException('GuzzleHttp\Exception\ParseException');
-        $this->ef->createAppropriateIterator($this->responseOk);
-    }
-
     public function testMissingObjectsFail()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode(['foo' => 'bar'])));
+        $this->responseOk = $this->responseOk->withBody(\GuzzleHttp\Psr7\stream_for(json_encode(['foo' => 'bar'])));
         $this->setExpectedException('Swader\Diffbot\Exceptions\DiffbotException');
         $this->ef->createAppropriateIterator($this->responseOk);
     }
 
     public function testMissingRequestFail()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode([
+        $this->responseOk = $this->responseOk->withBody(\GuzzleHttp\Psr7\stream_for(json_encode([
             'objects' => 'foo',
             'req' => 'bar'
         ])));
@@ -47,7 +39,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testProductEntityPass()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode([
+        $this->responseOk = $this->responseOk->withBody(\GuzzleHttp\Psr7\stream_for(json_encode([
             'objects' => [['type' => 'product']],
             'request' => ['api' => 'product', 'foo' => 2]
         ])));
@@ -56,7 +48,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testWildCardEntityPass()
     {
-        $this->responseOk->setBody(Stream::factory(json_encode([
+        $this->responseOk = $this->responseOk->withBody(\GuzzleHttp\Psr7\stream_for(json_encode([
             'objects' => [['type' => 'mysterious_api']],
             'request' => ['api' => 'mysterious_api', 'foo' => 2]
         ])));

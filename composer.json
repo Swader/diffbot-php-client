@@ -16,11 +16,15 @@
     ],
     "require": {
         "php" : ">=5.4.0",
-        "guzzlehttp/guzzle": "~5.0"
+        "php-http/client-implementation": "^1.0",
+        "php-http/utils": "^0.1.0@dev",
+        "php-http/discovery": "^0.2.0@dev"
     },
     "require-dev": {
         "symfony/var-dumper": "~2",
-        "phpunit/phpunit": "^5.0"
+        "phpunit/phpunit": "^5.0",
+        "php-http/guzzle6-adapter": "~0.2@dev",
+        "scrutinizer/ocular": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -36,5 +40,7 @@
         "branch-alias": {
             "dev-master": "0.5-dev"
         }
-    }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
 }

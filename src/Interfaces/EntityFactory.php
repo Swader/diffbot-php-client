@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Interfaces;
 
-use GuzzleHttp\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface as Response;
 use Swader\Diffbot\Entity\EntityIterator;
 
 interface EntityFactory

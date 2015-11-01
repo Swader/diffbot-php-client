@@ -3,7 +3,12 @@
 namespace Swader\Diffbot\Test;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use Http\Adapter\Guzzle6HttpAdapter;
+use Http\Client\Utils\HttpMethodsClient;
+use Http\Discovery\MessageFactory\GuzzleFactory;
 use Swader\Diffbot\Diffbot;
 
 class DiffbotTest extends \PHPUnit_Framework_TestCase
@@ -93,14 +98,19 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
     public function testSetHttpClient()
     {
         $bot = new Diffbot('token');
-        $validMock = new Mock(
-            [file_get_contents(__DIR__ . '/Mocks/Products/dogbrush.json')]
-        );
-        $fakeClient = new Client();
-        $fakeClient->getEmitter()->attach($validMock);
+        $mock = new MockHandler([
+            new Response(200, [],
+                file_get_contents(__DIR__ . '/Mocks/Products/dogbrush.json'))
+        ]);
+        $handler = HandlerStack::create($mock);
+        $guzzleClient = new Client(['handler' => $handler]);
+
+        $methodsClient = new HttpMethodsClient(
+            new Guzzle6HttpAdapter($guzzleClient),
+            new GuzzleFactory());
 
         try {
-            $bot->setHttpClient($fakeClient);
+            $bot->setHttpClient($methodsClient);
         } catch (\Exception $e) {
             $this->fail("Could not set fake client: " . $e->getMessage());
         }
@@ -108,7 +118,13 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
 
     public function methodnameProvider()
     {
-        return [['product'], ['image'], ['analyze'], ['article'], ['discussion']];
+        return [
+            ['product'],
+            ['image'],
+            ['analyze'],
+            ['article'],
+            ['discussion']
+        ];
     }
 
     /**

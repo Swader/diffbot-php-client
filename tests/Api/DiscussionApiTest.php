@@ -2,12 +2,12 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use Swader\Diffbot\Diffbot;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 class DiscussionApiTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     protected $validMock;
 
@@ -18,27 +18,18 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $diffbot = $this->getValidDiffbotInstance();
-        $fakeClient = new Client();
-        $fakeClient->getEmitter()->attach($this->getValidMock());
-
-        $diffbot->setHttpClient($fakeClient);
-        $diffbot->setEntityFactory();
+        $diffbot = $this->preSetUp();
 
         $this->apiWithMock = $diffbot->createDiscussionAPI('https://discussion-mock.com');
-    }
-
-    protected function getValidDiffbotInstance()
-    {
-        return new Diffbot('demo');
     }
 
     protected function getValidMock()
     {
         if (!$this->validMock) {
-            $this->validMock = new Mock(
-                [file_get_contents(__DIR__ . '/../Mocks/Discussions/15-05-01/sp_discourse_php7_recap.json')]
-            );
+            $this->validMock = new MockHandler([
+                new Response(200, [],
+                    file_get_contents(__DIR__ . '/../Mocks/Discussions/15-05-01/sp_discourse_php7_recap.json'))
+            ]);
         }
 
         return $this->validMock;

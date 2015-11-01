@@ -2,13 +2,12 @@
 
 namespace Swader\Diffbot\Test\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use Swader\Diffbot\Diffbot;
-use Swader\Diffbot\Entity\Product;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 class ProductApiTest extends \PHPUnit_Framework_TestCase
 {
+    use setterUpper;
 
     protected $validMock;
 
@@ -17,32 +16,27 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
      */
     protected $apiWithMock;
 
-    protected function setUp() {
-        $diffbot = $this->getValidDiffbotInstance();
-        $fakeClient = new Client();
-        $fakeClient->getEmitter()->attach($this->getValidMock());
-
-        $diffbot->setHttpClient($fakeClient);
-        $diffbot->setEntityFactory();
+    protected function setUp()
+    {
+        $diffbot = $this->preSetUp();
 
         $this->apiWithMock = $diffbot->createProductAPI('https://dogbrush-mock.com');
     }
 
-    protected function getValidDiffbotInstance()
+    protected function getValidMock()
     {
-        return new Diffbot('demo');
-    }
-
-    protected function getValidMock(){
         if (!$this->validMock) {
-            $this->validMock = new Mock(
-                [file_get_contents(__DIR__.'/../Mocks/Products/dogbrush.json')]
-            );
+            $this->validMock = new MockHandler([
+                new Response(200, [],
+                    file_get_contents(__DIR__ . '/../Mocks/Products/dogbrush.json'))
+            ]);
         }
+
         return $this->validMock;
     }
 
-    public function testCall() {
+    public function testCall()
+    {
         $products = $this->apiWithMock->call();
 
         foreach ($products as $product) {
@@ -50,7 +44,8 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testBuildUrlNoCustomFields() {
+    public function testBuildUrlNoCustomFields()
+    {
         $url = $this
             ->apiWithMock
             ->buildUrl();
@@ -58,7 +53,8 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testBuildUrlMultipleCustomFields() {
+    public function testBuildUrlMultipleCustomFields()
+    {
         $url = $this
             ->apiWithMock
             ->setColors(true)
@@ -69,7 +65,8 @@ class ProductApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedUrl, $url);
     }
 
-    public function testBuildUrlMultipleCustomFieldsAndOtherOptions() {
+    public function testBuildUrlMultipleCustomFieldsAndOtherOptions()
+    {
         $url = $this
             ->apiWithMock
             ->setColors(true)

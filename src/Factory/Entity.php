@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Factory;
 
-use GuzzleHttp\Message\ResponseInterface as Response;
+use Psr\Http\Message\ResponseInterface as Response;
 use Swader\Diffbot\Entity\EntityIterator;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Interfaces\EntityFactory;
@@ -30,9 +30,8 @@ class Entity implements EntityFactory
     {
         $this->checkResponseFormat($response);
 
-
         set_error_handler(function() { /* ignore errors */ });
-        $arr = $response->json(['big_int_strings' => true]);
+        $arr = json_decode((string)$response->getBody(), true, 512, 1);
         restore_error_handler();
 
         $objects = [];
@@ -58,7 +57,7 @@ class Entity implements EntityFactory
     protected function checkResponseFormat(Response $response)
     {
         set_error_handler(function() { /* ignore errors */ });
-        $arr = $response->json(['big_int_strings' => true]);
+        $arr = json_decode((string)$response->getBody(), true, 512, 1);
         restore_error_handler();
 
         if (isset($arr['error'])) {

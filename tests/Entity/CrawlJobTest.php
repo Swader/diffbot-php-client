@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Test\Entity;
 
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Swader\Diffbot\Entity\EntityIterator;
 use Swader\Diffbot\Entity\Image;
 use Swader\Diffbot\Entity\JobCrawl as Job;
@@ -24,7 +24,7 @@ class CrawlJobTest extends ResponseProvider
         /** @var ResponseInterface $response */
         $response = $this->responses[$file];
         $jobs = [];
-        foreach ($response->json()['jobs'] as $data) {
+        foreach (json_decode($response->getBody(), true)['jobs'] as $data) {
             $jobs[] = new Job($data);
         }
 

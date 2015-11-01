@@ -1,10 +1,1 @@
-HTTP/1.1 500
-Server: nginx/1.6.3
-Date: Wed, 20 May 2015 22:43:55 GMT
-Content-Type: application/json
-Content-Length: 44
-Connection: keep-alive
-Access-Control-Allow-Origin: *
-Last-Modified: Wed, 20 May 2015 22:44:35 GMT
-
 {"error":"crawlbot: name is over 30 chars"}
