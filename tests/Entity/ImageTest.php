@@ -3,35 +3,14 @@
 namespace Swader\Diffbot\Test\Entity;
 
 use Swader\Diffbot\Entity\Image;
-use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Test\ResponseProvider;
 
 class ImageTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Images/multi_images_smittenkitchen.json',
         'Images/one_image_zola.json',
     ];
-
-    protected function ei($file)
-    {
-        $ef = new Entity();
-
-        return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
-    }
 
     /**
      * @dataProvider returnFiles

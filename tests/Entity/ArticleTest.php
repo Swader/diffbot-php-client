@@ -3,42 +3,23 @@
 namespace Swader\Diffbot\Test\Entity;
 
 use Swader\Diffbot\Entity\Article;
-use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Test\ResponseProvider;
 
 class ArticleTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Articles/diffbot-sitepoint-basic.json',
         // http%3A%2F%2Fwww.sitepoint.com%2Fdiffbot-crawling-visual-machine-learning
         'Articles/diffbot-sitepoint-extended.json',
         'Articles/apple-watch-verge-basic.json',
         // http%3A%2F%2Fwww.theverge.com%2Fa%2Fapple-watch-review
-        'Articles/apple-watch-verge-extended.json'
+        'Articles/apple-watch-verge-extended.json',
+        'Articles/15-11-07/diffbot-sitepoint-basic.json',
     ];
-
-    protected function ei($file)
-    {
-        $ef = new Entity();
-
-        return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
-    }
 
     /**
      * @dataProvider returnFiles
+     * @param $file
      */
     public function testType($file)
     {
@@ -303,4 +284,89 @@ class ArticleTest extends ResponseProvider
             }
         }
     }
+
+    public function siteNameProvider()
+    {
+        return [
+            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'SitePoint'],
+        ];
+    }
+
+    /**
+     * @dataProvider siteNameProvider
+     * @param $file
+     * @param $value1
+     */
+    public function testSiteName($file, $value1)
+    {
+        $value1 = (is_array($value1)) ? $value1 : [$value1];
+        /** @var Article $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            $this->assertEquals($value1[$i], $entity->getSiteName());
+        }
+    }
+
+    public function publisherCountryProvider()
+    {
+        return [
+            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'Australia'],
+        ];
+    }
+
+    /**
+     * @dataProvider publisherCountryProvider
+     * @param $file
+     * @param $value1
+     */
+    public function testPublisherCountry($file, $value1)
+    {
+        $value1 = (is_array($value1)) ? $value1 : [$value1];
+        /** @var Article $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            $this->assertEquals($value1[$i], $entity->getPublisherCountry());
+        }
+    }
+
+    public function publisherRegionProvider()
+    {
+        return [
+            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'Australia and New Zealand'],
+        ];
+    }
+
+    /**
+     * @dataProvider publisherRegionProvider
+     * @param $file
+     * @param $value1
+     */
+    public function testPublisherRegion($file, $value1)
+    {
+        $value1 = (is_array($value1)) ? $value1 : [$value1];
+        /** @var Article $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            $this->assertEquals($value1[$i], $entity->getPublisherRegion());
+        }
+    }
+
+    public function estimatedDateProvider()
+    {
+        return [
+            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'Sun, 27 Jul 2014 00:00:00 GMT'],
+        ];
+    }
+
+    /**
+     * @dataProvider estimatedDateProvider
+     * @param $file
+     * @param $value1
+     */
+    public function testEstimatedDate($file, $value1)
+    {
+        $value1 = (is_array($value1)) ? $value1 : [$value1];
+        /** @var Article $entity */
+        foreach ($this->ei($file) as $i => $entity) {
+            $this->assertEquals($value1[$i], $entity->getEstimatedDate());
+        }
+    }
+
 }
