@@ -4,6 +4,7 @@ namespace Swader\Diffbot\Test;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use Swader\Diffbot\Factory\Entity;
 
 /**
  * @property $files array
@@ -15,28 +16,70 @@ class ResponseProvider extends \PHPUnit_Framework_TestCase
 {
     protected $folder = '/Mocks/';
 
+    protected static $staticResponses = [];
+    protected static $staticFiles = [];
+
     protected function prepareResponses()
     {
         if (empty($this->responses)) {
-            $mockInput = [];
             foreach ($this->files as $file) {
-                //$mockInput[] = file_get_contents(__DIR__ . '/Mocks/' . $file);
-                $this->responses[$file] = new Response(200, [],
-                    file_get_contents(__DIR__ . '/Mocks/' . $file));
+
+                $path = __DIR__ . '/Mocks/' . $file;
+                if (!is_readable($path)) {
+                    throw new \InvalidArgumentException("Test will error because mock file '$path' ($file) not readable!");
+                }
+                $contents = file_get_contents($path);
+
+                $this->responses[$file] = new Response(200, [], $contents);
             }
             unset($file);
-//
-//            $mock = new Mock($mockInput);
-//            $client = new Client();
-//            $client->getEmitter()->attach($mock);
-//
-//            foreach ($this->files as $file) {
-//                $this->responses[$file] = $client->get('sampleurl.com');
-//            }
-//            unset($file);
         }
 
         return $this->responses;
     }
+
+    protected static function prepareResponsesStatic()
+    {
+        if (empty(self::$staticResponses)) {
+            foreach (static::$staticFiles as $file) {
+                $path = __DIR__ . '/Mocks/' . $file;
+                if (!is_readable($path)) {
+                    throw new \InvalidArgumentException("Test will error because mock file '$path' ($file) not readable!");
+                }
+                $contents = file_get_contents($path);
+                self::$staticResponses[$file] = new Response(200, [], $contents);
+            }
+        }
+
+        return self::$staticResponses;
+    }
+
+    public static function setUpBeforeClass()
+    {
+        self::prepareResponsesStatic();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$staticResponses = [];
+    }
+
+    protected function ei($file)
+    {
+        $ef = new Entity();
+        return $ef->createAppropriateIterator(self::prepareResponsesStatic()[$file]);
+    }
+
+    public function returnFiles()
+    {
+        $files = [];
+        foreach (static::$staticFiles as $file) {
+            $files[] = [$file];
+        }
+
+        return $files;
+    }
+
+
 
 }

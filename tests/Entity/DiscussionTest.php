@@ -8,30 +8,10 @@ use Swader\Diffbot\Test\ResponseProvider;
 
 class DiscussionTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Discussions/15-05-01/sp_discourse_php7_recap.json',
         //http%3A%2F%2Fcommunity.sitepoint.com%2Ft%2Fphp7-resource-recap%2F174325%2F14
     ];
-
-    protected function ei($file)
-    {
-        $ef = new Entity();
-
-        return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
-    }
 
     /**
      * @dataProvider returnFiles

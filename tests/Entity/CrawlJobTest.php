@@ -10,35 +10,22 @@ use Swader\Diffbot\Test\ResponseProvider;
 
 class CrawlJobTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Crawlbot/15-05-18/sitepoint_01_maxCrawled.json',
         'Crawlbot/15-05-20/multiplejobs01.json'
     ];
 
     protected function ei($file)
     {
-        $this->prepareResponses();
+        $responses = parent::prepareResponsesStatic();
         /** @var ResponseInterface $response */
-        $response = $this->responses[$file];
+        $response = $responses[$file];
         $jobs = [];
         foreach (json_decode($response->getBody(), true)['jobs'] as $data) {
             $jobs[] = new Job($data);
         }
 
         return new EntityIterator($jobs, $response);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
     }
 
     /**

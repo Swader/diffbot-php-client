@@ -3,34 +3,13 @@
 namespace Swader\Diffbot\Test\Entity;
 
 use Swader\Diffbot\Entity\Wildcard;
-use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Test\ResponseProvider;
 
 class WildCardTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Custom/AuthorFolioNew/15-05-03/bskvorc.json',
     ];
-
-    protected function ei($file)
-    {
-        $ef = new Entity();
-
-        return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
-    }
 
     public function customFieldProvider()
     {
@@ -57,7 +36,7 @@ class WildCardTest extends ResponseProvider
         foreach ($this->ei($file) as $i => $entity) {
 
             $property = $posts[$i][0];
-            $method = 'get'.ucfirst($property);
+            $method = 'get' . ucfirst($property);
             $value = $posts[$i][1];
 
             if (!isset($posts[$i][2])) {

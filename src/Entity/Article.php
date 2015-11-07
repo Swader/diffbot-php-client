@@ -66,7 +66,7 @@ class Article extends Entity
      */
     public function getAuthor()
     {
-        return (isset($this->data['author'])) ? $this->data['author'] : null;
+        return $this->getOrDefault('author');
     }
 
     /**
@@ -75,7 +75,7 @@ class Article extends Entity
      */
     public function getAuthorUrl()
     {
-        return (isset($this->data['authorUrl'])) ? $this->data['authorUrl'] : null;
+        return $this->getOrDefault('authorUrl');
     }
 
     /**
@@ -118,7 +118,7 @@ class Article extends Entity
      */
     public function getNumPages()
     {
-        return (isset($this->data['numPages'])) ? $this->data['numPages'] : 1;
+        return $this->getOrDefault('numPages', 1);
     }
 
     /**
@@ -129,7 +129,7 @@ class Article extends Entity
      */
     public function getNextPages()
     {
-        return (isset($this->data['nextPages'])) ? $this->data['nextPages'] : [];
+        return $this->getOrDefault('nextPages', []);
     }
 
     /**
@@ -139,7 +139,7 @@ class Article extends Entity
      */
     public function getSentiment()
     {
-        return (isset($this->data['sentiment'])) ? $this->data['sentiment'] : null;
+        return $this->getOrDefault('sentiment');
     }
 
     /**
@@ -172,7 +172,7 @@ class Article extends Entity
      */
     public function getImages()
     {
-        return (isset($this->data['images'])) ? $this->data['images'] : [];
+        return $this->getOrDefault('images', []);
     }
 
     /**
@@ -199,7 +199,7 @@ class Article extends Entity
      */
     public function getVideos()
     {
-        return (isset($this->data['videos'])) ? $this->data['videos'] : [];
+        return $this->getOrDefault('videos', []);
     }
 
     /**
@@ -209,5 +209,49 @@ class Article extends Entity
     public function getDiscussion()
     {
         return $this->discussion;
+    }
+
+    /**
+     * The plain-text name of the site (e.g. The New York Times or Diffbot).
+     *
+     * If no site name is automatically determined, the root domain (diffbot.com) will be returned.
+     *
+     * @return string | null
+     */
+    public function getSiteName()
+    {
+        return $this->getOrDefault('siteName');
+    }
+
+    /**
+     * If known, the country of the article publication.
+     *
+     * @return string | null
+     */
+    public function getPublisherCountry()
+    {
+        return $this->getOrDefault('publisherCountry', null);
+    }
+
+    /**
+     * If known, the region of the article publication.
+     *
+     * @return string | null
+     */
+    public function getPublisherRegion()
+    {
+        return $this->getOrDefault('publisherRegion', null);
+    }
+
+    /**
+     * If an article's date is ambiguous, Diffbot will attempt to estimate a
+     * more specific timestamp using various factors. This will not be
+     * generated for articles older than two days, or articles without an identified date.
+     *
+     * @return string | null
+     */
+    public function getEstimatedDate()
+    {
+        return $this->getOrDefault('estimatedDate', $this->getDate());
     }
 }

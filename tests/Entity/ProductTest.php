@@ -3,35 +3,14 @@
 namespace Swader\Diffbot\Test\Entity;
 
 use Swader\Diffbot\Entity\Product;
-use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Test\ResponseProvider;
 
 class ProductTest extends ResponseProvider
 {
-    /** @var  array */
-    protected $responses = [];
-
-    protected $files = [
+    protected static $staticFiles = [
         'Products/dogbrush.json',
         'Products/15-05-03/shoes-sportsdirect.json'
     ];
-
-    protected function ei($file)
-    {
-        $ef = new Entity();
-
-        return $ef->createAppropriateIterator($this->prepareResponses()[$file]);
-    }
-
-    public function returnFiles()
-    {
-        $files = [];
-        foreach ($this->files as $file) {
-            $files[] = [$file];
-        }
-
-        return $files;
-    }
 
     /**
      * @dataProvider returnFiles
