@@ -1,18 +1,26 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 1.2. - November 8th, 2015
+
+- [Enhancement] Suggested Carbon as helper library
+- [Enhancement] Added Carbon methods to date returns from Article and Post entity
+
 ## 1.1. - November 7th, 2015
+
+- [Enhancement] Optimized tests
+- [Enhancement] Added new Article Entity getters (Fixes #19)
 
 ## 1.0.1 - November 1st, 2015
 
-- Minor fixes based on feedback from PHP-HTTP team
-- authorUrl getter added to Article entity
+- [Bug] Minor fixes based on feedback from PHP-HTTP team
+- [Bug] authorUrl getter added to Article entity, was missing before
 
 ## 1.0.0 - November 1st, 2015
 
-- Converted to PHP-HTTP, removed hard dependency on Guzzle 5
-- Modified Travis / Scrutinizer test configuration
-- Converted mock JSON files into pure JSON, stripped away headers
+- [Feature] Converted to PHP-HTTP, removed hard dependency on Guzzle 5
+- [Enhancement] Modified Travis / Scrutinizer test configuration
+- [Enhancement] Converted mock JSON files into pure JSON, stripped away headers
 
 ## 0.4.4 - June 16th, 2015
 

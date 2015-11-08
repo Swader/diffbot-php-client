@@ -85,19 +85,23 @@ class ArticleTest extends ResponseProvider
         return [
             [
                 'Articles/diffbot-sitepoint-basic.json',
-                "Sun, 27 Jul 2014 00:00:00 GMT"
+                "Sun, 27 Jul 2014 00:00:00 GMT",
+                2014
             ],
             [
                 'Articles/diffbot-sitepoint-extended.json',
-                "Sun, 27 Jul 2014 00:00:00 GMT"
+                "Sun, 27 Jul 2014 00:00:00 GMT",
+                2014
             ],
             [
                 'Articles/apple-watch-verge-basic.json',
-                "Wed, 08 Apr 2015 00:00:00 GMT"
+                "Wed, 08 Apr 2015 00:00:00 GMT",
+                2015
             ],
             [
                 'Articles/apple-watch-verge-extended.json',
-                "Wed, 08 Apr 2015 00:00:00 GMT"
+                "Wed, 08 Apr 2015 00:00:00 GMT",
+                2015
             ]
         ];
     }
@@ -107,12 +111,15 @@ class ArticleTest extends ResponseProvider
      * @param $articles
      * @dataProvider dateProvider
      */
-    public function testDate($file, $articles)
+    public function testDate($file, $articles, $year)
     {
         $articles = (is_array($articles)) ? $articles : [$articles];
         /** @var Article $entity */
         foreach ($this->ei($file) as $i => $entity) {
             $this->assertEquals($articles[$i], $entity->getDate());
+            if (class_exists('\Carbon\Carbon')) {
+                $this->assertEquals($year, $entity->getDate()->year);
+            }
         }
     }
 
@@ -351,7 +358,7 @@ class ArticleTest extends ResponseProvider
     public function estimatedDateProvider()
     {
         return [
-            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'Sun, 27 Jul 2014 00:00:00 GMT'],
+            ['Articles/15-11-07/diffbot-sitepoint-basic.json', 'Sun, 27 Jul 2014 00:00:00 GMT', 2014],
         ];
     }
 
@@ -360,12 +367,15 @@ class ArticleTest extends ResponseProvider
      * @param $file
      * @param $value1
      */
-    public function testEstimatedDate($file, $value1)
+    public function testEstimatedDate($file, $value1, $value2)
     {
         $value1 = (is_array($value1)) ? $value1 : [$value1];
         /** @var Article $entity */
         foreach ($this->ei($file) as $i => $entity) {
             $this->assertEquals($value1[$i], $entity->getEstimatedDate());
+            if (class_exists('\Carbon\Carbon')) {
+                $this->assertEquals($value2, $entity->getDate()->year);
+            }
         }
     }
 

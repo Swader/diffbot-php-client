@@ -512,6 +512,24 @@ class PostTest extends ResponseProvider
                     "Thu, 30 Apr 2015 16:51:00 GMT",
                     "Thu, 30 Apr 2015 17:02:00 GMT",
                     "Fri, 01 May 2015 08:00:00 GMT",
+                ],
+                [
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
+                    2015,
                 ]
             ]
         ];
@@ -522,13 +540,17 @@ class PostTest extends ResponseProvider
      * @param $posts
      * @dataProvider dateProvider
      */
-    public function testDate($file, $posts)
+    public function testDate($file, $posts, $years)
     {
         /** @var Discussion $entity */
         foreach ($this->ei($file) as $entity) {
             /** @var Post $post */
             foreach ($entity->getPosts() as $i => $post) {
                 $this->assertEquals($posts[$i], $post->getDate());
+                if (class_exists('\Carbon\Carbon')) {
+                    $this->assertEquals($years[$i], $post->getDate()->year);
+                }
+
             }
         }
     }

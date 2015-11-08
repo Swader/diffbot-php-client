@@ -14,6 +14,11 @@ class Article extends Entity
 
     public function __construct(array $data)
     {
+        if (class_exists('\Carbon\Carbon')) {
+            $format = 'D, d M o H:i:s e';
+            \Carbon\Carbon::setToStringFormat($format);
+        }
+
         parent::__construct($data);
         if (isset($this->data['discussion'])) {
             $this->discussion = new Discussion($this->data['discussion']);
@@ -51,13 +56,14 @@ class Article extends Entity
     /**
      * Returns date as per http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3
      * Example date: "Wed, 18 Dec 2013 00:00:00 GMT"
-     * Note that this is "strtotime" friendly for further conversions
-     * @todo add more formats as method arguments
-     * @return string
+     * This will be a Carbon (https://github.com/briannesbitt/Carbon) instance if Carbon is installed.
+     * @return \Carbon\Carbon | string
      */
     public function getDate()
     {
-        return $this->data['date'];
+        return (class_exists('\Carbon\Carbon')) ?
+            new \Carbon\Carbon($this->data['date'], 'GMT') :
+            $this->data['date'];
     }
 
     /**
@@ -248,10 +254,18 @@ class Article extends Entity
      * more specific timestamp using various factors. This will not be
      * generated for articles older than two days, or articles without an identified date.
      *
-     * @return string | null
+     * @see Article::getDate() - used when estimatedDate isn't defined
+     *
+     * This will be a Carbon (https://github.com/briannesbitt/Carbon) instance if Carbon is installed.
+     *
+     * @return \Carbon\Carbon | string
      */
     public function getEstimatedDate()
     {
-        return $this->getOrDefault('estimatedDate', $this->getDate());
+        $date = $this->getOrDefault('estimatedDate', $this->getDate());
+
+        return (class_exists('\Carbon\Carbon')) ?
+            new \Carbon\Carbon($date, 'GMT') :
+            $date;
     }
 }
