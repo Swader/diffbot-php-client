@@ -107,7 +107,7 @@ class Article extends Entity
      */
     public function getTags()
     {
-        return $this->data['tags'];
+        return $this->getOrDefault('tags');
     }
 
     /**
