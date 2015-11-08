@@ -7,6 +7,16 @@ use Swader\Diffbot\Abstracts\Entity;
 class Post extends Entity
 {
 
+    public function __construct(array $data)
+    {
+        if (class_exists('\Carbon\Carbon')) {
+            $format = 'D, d M o H:i:s e';
+            \Carbon\Carbon::setToStringFormat($format);
+        }
+
+        parent::__construct($data);
+    }
+
     /**
      * Should always return "post"
      * @return string
@@ -58,13 +68,15 @@ class Post extends Entity
     /**
      * Returns date as per http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3
      * Example date: "Wed, 18 Dec 2013 00:00:00 GMT"
-     * Note that this is "strtotime" friendly for further conversions
-     * @todo add more formats as method arguments
-     * @return string
+     * This will be a Carbon (https://github.com/briannesbitt/Carbon) instance if Carbon is installed.
+     * @return \Carbon\Carbon | string
      */
     public function getDate()
     {
-        return $this->data['date'];
+
+        return (class_exists('\Carbon\Carbon')) ?
+            new \Carbon\Carbon($this->data['date'], 'GMT') :
+            $this->data['date'];
     }
 
     /**
