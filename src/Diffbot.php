@@ -7,6 +7,7 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Swader\Diffbot\Api\Crawl;
 use Swader\Diffbot\Api\Custom;
 use Swader\Diffbot\Api\Search;
+use Swader\Diffbot\Entity\Account;
 use Swader\Diffbot\Exceptions\DiffbotException;
 use Swader\Diffbot\Api\Product;
 use Swader\Diffbot\Api\Image;
@@ -76,6 +77,7 @@ class Diffbot
         if (strlen($token) < 4) {
             throw new \InvalidArgumentException('Token "' . $token . '" is too short, and thus invalid.');
         }
+
         return true;
     }
 
@@ -104,6 +106,7 @@ class Diffbot
             );
         }
         $this->client = $client;
+
         return $this;
     }
 
@@ -127,6 +130,7 @@ class Diffbot
             $factory = new Entity();
         }
         $this->factory = $factory;
+
         return $this;
     }
 
@@ -155,6 +159,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -173,6 +178,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -191,6 +197,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -209,6 +216,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -227,6 +235,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -248,6 +257,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -270,6 +280,7 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
     }
 
@@ -288,6 +299,28 @@ class Diffbot
         if (!$this->getEntityFactory()) {
             $this->setEntityFactory();
         }
+
         return $api->registerDiffbot($this);
+    }
+
+    public function getAccountInfo($days = 31)
+    {
+        if (!$this->getHttpClient()) {
+            $this->setHttpClient();
+        }
+
+        $url = 'https://api.diffbot.com/v3/account?token='
+            . $this->getToken()
+            . '&invoices=true&days=' . $days;
+
+        $response = $this->getHttpClient()->get($url);
+
+        $info = json_decode($response->getBody()->getContents(), true);
+
+        if (!$info) {
+            throw new DiffbotException('Could not retrieve account information!');
+        }
+
+        return new Account($info);
     }
 }

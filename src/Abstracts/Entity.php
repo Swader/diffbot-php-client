@@ -36,4 +36,11 @@ abstract class Entity
 
         throw new \BadMethodCallException('No such method: '.$name);
     }
+
+    protected function getOrDefault($key, $default = null, $data = null)
+    {
+        $data = ($data !== null) ?: $this->data;
+        return (isset($data[$key]) ? $data[$key] : $default);
+    }
+
 }

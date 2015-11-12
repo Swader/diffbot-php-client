@@ -113,10 +113,4 @@ trait StandardEntity {
         return $this->data['diffbotUri'];
     }
 
-    protected function getOrDefault($key, $default = null, $data = null)
-    {
-        $data = ($data !== null) ?: $this->data;
-        return (isset($data[$key]) ? $data[$key] : $default);
-    }
-
 }
