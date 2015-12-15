@@ -8,7 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Http\Adapter\Guzzle6HttpAdapter;
 use Http\Client\Utils\HttpMethodsClient;
-use Http\Discovery\MessageFactory\GuzzleFactory;
+use Http\Discovery\MessageFactory\GuzzleMessageFactory as GuzzleFactory;
 use Swader\Diffbot\Diffbot;
 
 class DiffbotTest extends \PHPUnit_Framework_TestCase

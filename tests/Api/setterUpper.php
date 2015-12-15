@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Http\Adapter\Guzzle6HttpAdapter;
 use Http\Client\Utils\HttpMethodsClient;
-use Http\Discovery\MessageFactory\GuzzleFactory;
+use Http\Discovery\MessageFactory\GuzzleMessageFactory as GuzzleFactory;
 use Swader\Diffbot\Diffbot;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
