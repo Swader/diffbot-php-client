@@ -20,7 +20,7 @@
   "require": {
     "php": ">=5.4.0",
     "php-http/client-implementation": "^1.0",
-    "php-http/utils": "^0.1.0@dev",
+    "php-http/utils": "dev-master",
     "php-http/discovery": "^0.2.0@dev"
   },
   "require-dev": {
