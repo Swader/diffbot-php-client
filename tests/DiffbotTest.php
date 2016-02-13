@@ -6,9 +6,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Http\Adapter\Guzzle6HttpAdapter;
-use Http\Client\Utils\HttpMethodsClient;
-use Http\Discovery\MessageFactory\GuzzleMessageFactory as GuzzleFactory;
+use Http\Adapter\Guzzle6\Client as Guzzle6;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Discovery\MessageFactoryDiscovery;
 use Swader\Diffbot\Diffbot;
 
 class DiffbotTest extends \PHPUnit_Framework_TestCase
@@ -106,8 +106,8 @@ class DiffbotTest extends \PHPUnit_Framework_TestCase
         $guzzleClient = new Client(['handler' => $handler]);
 
         $methodsClient = new HttpMethodsClient(
-            new Guzzle6HttpAdapter($guzzleClient),
-            new GuzzleFactory());
+            new Guzzle6($guzzleClient),
+            MessageFactoryDiscovery::find());
 
         try {
             $bot->setHttpClient($methodsClient);

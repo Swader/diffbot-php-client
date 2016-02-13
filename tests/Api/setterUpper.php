@@ -4,9 +4,9 @@ namespace Swader\Diffbot\Test\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use Http\Adapter\Guzzle6HttpAdapter;
-use Http\Client\Utils\HttpMethodsClient;
-use Http\Discovery\MessageFactory\GuzzleMessageFactory as GuzzleFactory;
+use Http\Adapter\Guzzle6\Client as Guzzle6;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Discovery\MessageFactoryDiscovery;
 use Swader\Diffbot\Diffbot;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -28,8 +28,8 @@ trait setterUpper
         $guzzleClient = new Client(['handler' => $handler]);
 
         $methodsClient = new HttpMethodsClient(
-            new Guzzle6HttpAdapter($guzzleClient),
-            new GuzzleFactory());
+            new Guzzle6($guzzleClient),
+            MessageFactoryDiscovery::find());
 
         $diffbot->setHttpClient($methodsClient);
         $diffbot->setEntityFactory();
@@ -47,8 +47,8 @@ trait setterUpper
         $guzzleClient = new Client(['handler' => $handler]);
 
         return new HttpMethodsClient(
-            new Guzzle6HttpAdapter($guzzleClient),
-            new GuzzleFactory());
+            new Guzzle6($guzzleClient),
+            MessageFactoryDiscovery::find());
 
     }
 }

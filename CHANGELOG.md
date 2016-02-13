@@ -1,6 +1,13 @@
 #Changelog
 All notable changes will be documented in this file
 
+## 2.0. - Feburary 13th, 2016
+
+- [Enhancement, BC Break] - Httplug packages now at 1.0+, deps updated accordingly
+- [Enhancement] - Raised PHP version constraint. Package no longer usable on unsupported PHP versions
+
+---
+
 ## 1.2. - November 8th, 2015
 
 - [Enhancement] Suggested Carbon as helper library

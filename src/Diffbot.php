@@ -13,7 +13,7 @@ use Swader\Diffbot\Api\Image;
 use Swader\Diffbot\Api\Analyze;
 use Swader\Diffbot\Api\Article;
 use Swader\Diffbot\Api\Discussion;
-use Http\Client\Utils\HttpMethodsClient as Client;
+use Http\Client\Common\HttpMethodsClient as Client;
 use Swader\Diffbot\Factory\Entity;
 use Swader\Diffbot\Interfaces\Api;
 use Swader\Diffbot\Interfaces\EntityFactory;

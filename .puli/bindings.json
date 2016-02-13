@@ -1,0 +1,46 @@
+{
+    "keysByTypeName": {
+        "Http\\Client\\HttpAsyncClient": 0,
+        "Http\\Client\\HttpClient": 1,
+        "Http\\Message\\MessageFactory": 2,
+        "Http\\Message\\RequestFactory": 3,
+        "Http\\Message\\ResponseFactory": 4,
+        "Http\\Message\\StreamFactory": 5,
+        "Http\\Message\\UriFactory": 6,
+        "puli/public-resource": 7
+    },
+    "keysByUuid": {
+        "04b5a002-71a8-473d-a8df-75671551b84a": 1,
+        "9c856476-7f6b-43df-a740-15420a5f839c": 0,
+        "064d003d-78a1-48c4-8f3b-1f92ff25da69": 2,
+        "2438c2d0-0658-441f-8855-ddaf0f87d54d": 2,
+        "253aa08c-d705-46e7-b1d2-e28c97eef792": 3,
+        "273a34f9-62f4-4ba1-9801-b1284d49ff89": 5,
+        "304b83db-b594-4d83-ae75-1f633adf92f7": 6,
+        "3f4bc1cd-aa95-4702-9fa7-65408e471691": 6,
+        "6234e947-d3bd-43eb-97d5-7f9e22e6bb1b": 4,
+        "95c1be8f-39fe-4abd-8351-92cb14379a75": 5,
+        "a018af27-7590-4dcf-83a1-497f95604cd6": 4,
+        "c07955b1-de46-43db-923b-d07fae9382cb": 3
+    },
+    "typesByKey": [
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:27:\"Http\\Client\\HttpAsyncClient\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:0:{}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:22:\"Http\\Client\\HttpClient\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:0:{}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:27:\"Http\\Message\\MessageFactory\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:1:{s:7:\"depends\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:7:\"depends\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:27:\"Http\\Message\\RequestFactory\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:1:{s:7:\"depends\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:7:\"depends\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:28:\"Http\\Message\\ResponseFactory\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:1:{s:7:\"depends\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:7:\"depends\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:26:\"Http\\Message\\StreamFactory\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:1:{s:7:\"depends\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:7:\"depends\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:23:\"Http\\Message\\UriFactory\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:1:{s:7:\"depends\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:7:\"depends\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}",
+        "O:35:\"Puli\\Discovery\\Api\\Type\\BindingType\":3:{s:41:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000name\";s:20:\"puli/public-resource\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000parameters\";a:2:{s:4:\"path\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:4:\"path\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:0;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";s:1:\"/\";}s:6:\"server\";O:40:\"Puli\\Discovery\\Api\\Type\\BindingParameter\":3:{s:46:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000name\";s:6:\"server\";s:47:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000flags\";i:1;s:54:\"\u0000Puli\\Discovery\\Api\\Type\\BindingParameter\u0000defaultValue\";N;}}s:53:\"\u0000Puli\\Discovery\\Api\\Type\\BindingType\u0000acceptedBindings\";a:0:{}}"
+    ],
+    "bindingsByKey": {
+        "1": "a:1:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":137:{a:4:{i:0;s:22:\"Http\\Client\\HttpClient\";i:1;a:0:{}i:2;s:36:\"04b5a002-71a8-473d-a8df-75671551b84a\";i:3;s:27:\"Http\\Adapter\\Guzzle6\\Client\";}}}",
+        "0": "a:1:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":142:{a:4:{i:0;s:27:\"Http\\Client\\HttpAsyncClient\";i:1;a:0:{}i:2;s:36:\"9c856476-7f6b-43df-a740-15420a5f839c\";i:3;s:27:\"Http\\Adapter\\Guzzle6\\Client\";}}}",
+        "2": "a:2:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":210:{a:4:{i:0;s:27:\"Http\\Message\\MessageFactory\";i:1;a:1:{s:7:\"depends\";s:22:\"Zend\\Diactoros\\Request\";}i:2;s:36:\"064d003d-78a1-48c4-8f3b-1f92ff25da69\";i:3;s:51:\"Http\\Message\\MessageFactory\\DiactorosMessageFactory\";}}i:1;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":208:{a:4:{i:0;s:27:\"Http\\Message\\MessageFactory\";i:1;a:1:{s:7:\"depends\";s:23:\"GuzzleHttp\\Psr7\\Request\";}i:2;s:36:\"2438c2d0-0658-441f-8855-ddaf0f87d54d\";i:3;s:48:\"Http\\Message\\MessageFactory\\GuzzleMessageFactory\";}}}",
+        "3": "a:2:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":208:{a:4:{i:0;s:27:\"Http\\Message\\RequestFactory\";i:1;a:1:{s:7:\"depends\";s:23:\"GuzzleHttp\\Psr7\\Request\";}i:2;s:36:\"253aa08c-d705-46e7-b1d2-e28c97eef792\";i:3;s:48:\"Http\\Message\\MessageFactory\\GuzzleMessageFactory\";}}i:1;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":210:{a:4:{i:0;s:27:\"Http\\Message\\RequestFactory\";i:1;a:1:{s:7:\"depends\";s:22:\"Zend\\Diactoros\\Request\";}i:2;s:36:\"c07955b1-de46-43db-923b-d07fae9382cb\";i:3;s:51:\"Http\\Message\\MessageFactory\\DiactorosMessageFactory\";}}}",
+        "5": "a:2:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":204:{a:4:{i:0;s:26:\"Http\\Message\\StreamFactory\";i:1;a:1:{s:7:\"depends\";s:22:\"GuzzleHttp\\Psr7\\Stream\";}i:2;s:36:\"273a34f9-62f4-4ba1-9801-b1284d49ff89\";i:3;s:46:\"Http\\Message\\StreamFactory\\GuzzleStreamFactory\";}}i:1;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":206:{a:4:{i:0;s:26:\"Http\\Message\\StreamFactory\";i:1;a:1:{s:7:\"depends\";s:21:\"Zend\\Diactoros\\Stream\";}i:2;s:36:\"95c1be8f-39fe-4abd-8351-92cb14379a75\";i:3;s:49:\"Http\\Message\\StreamFactory\\DiactorosStreamFactory\";}}}",
+        "6": "a:2:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":192:{a:4:{i:0;s:23:\"Http\\Message\\UriFactory\";i:1;a:1:{s:7:\"depends\";s:19:\"GuzzleHttp\\Psr7\\Uri\";}i:2;s:36:\"304b83db-b594-4d83-ae75-1f633adf92f7\";i:3;s:40:\"Http\\Message\\UriFactory\\GuzzleUriFactory\";}}i:1;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":194:{a:4:{i:0;s:23:\"Http\\Message\\UriFactory\";i:1;a:1:{s:7:\"depends\";s:18:\"Zend\\Diactoros\\Uri\";}i:2;s:36:\"3f4bc1cd-aa95-4702-9fa7-65408e471691\";i:3;s:43:\"Http\\Message\\UriFactory\\DiactorosUriFactory\";}}}",
+        "4": "a:2:{i:0;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":212:{a:4:{i:0;s:28:\"Http\\Message\\ResponseFactory\";i:1;a:1:{s:7:\"depends\";s:23:\"Zend\\Diactoros\\Response\";}i:2;s:36:\"6234e947-d3bd-43eb-97d5-7f9e22e6bb1b\";i:3;s:51:\"Http\\Message\\MessageFactory\\DiactorosMessageFactory\";}}i:1;C:35:\"Puli\\Discovery\\Binding\\ClassBinding\":210:{a:4:{i:0;s:28:\"Http\\Message\\ResponseFactory\";i:1;a:1:{s:7:\"depends\";s:24:\"GuzzleHttp\\Psr7\\Response\";}i:2;s:36:\"a018af27-7590-4dcf-83a1-497f95604cd6\";i:3;s:48:\"Http\\Message\\MessageFactory\\GuzzleMessageFactory\";}}}"
+    },
+    "nextKey": 8
+}

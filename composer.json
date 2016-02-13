@@ -18,15 +18,17 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
+    "php": "^5.5|7.*",
     "php-http/client-implementation": "^1.0",
-    "php-http/utils": "dev-master",
-    "php-http/discovery": "dev-master"
+    "php-http/client-common": "^1",
+    "php-http/discovery": "^0.8",
+    "puli/composer-plugin": "^1.0@beta",
+    "php-http/message": "^1.0"
   },
   "require-dev": {
-    "symfony/var-dumper": "~2",
-    "phpunit/phpunit": "^5.0",
-    "php-http/guzzle6-adapter": "~0.2@dev",
+    "symfony/var-dumper": "^3",
+    "phpunit/phpunit": "^5",
+    "php-http/guzzle6-adapter": "^1",
     "scrutinizer/ocular": "^1.1",
     "nesbot/carbon": "^1.21"
   },
@@ -42,7 +44,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.1-dev"
+      "dev-master": "2.1-dev"
     }
   },
   "suggest": {
