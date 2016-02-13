@@ -12,6 +12,15 @@ Right now it only supports Analyze, Product, Image, Discussion, Crawl, Search, a
 
 Minimum PHP 5.6 is required.
 
+This package uses some non-stable packages, so you must set your project's minimum stability to something like beta or dev in `composer.json`:
+
+```
+"minimum-stability": "dev",
+"prefer-stable": true
+```
+
+If you don't the installation procedure below will fail.
+
 ## Install
 
 The library depends on an implementation of the [client-implementation](https://packagist.org/providers/php-http/client-implementation) virtual package. If you don't know what this means, simply requiring the Guzzle6 adapter will do:
