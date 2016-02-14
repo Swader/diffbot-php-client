@@ -8,6 +8,8 @@
 This package is a slightly overengineered Diffbot API wrapper. It uses [PSR-7](http://www.php-fig.org/psr/psr-7/) and [PHP-HTTP](http://php-http.readthedocs.org/) friendly client implementations to make API calls. To learn more about Diffbot see [here](http://www.sitepoint.com/tag/diffbot/) and [their homepage](http://diffbot.com).
 Right now it only supports Analyze, Product, Image, Discussion, Crawl, Search, and Article APIs, but can also accommodate Custom APIs. Video and Bulk API support coming soon.
 
+Full documentation available [here](http://diffbot-php-client-docs.readthedocs.org/en/latest/).
+
 ## Requirements
 
 Minimum PHP 5.6 is required.
