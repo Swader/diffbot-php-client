@@ -108,7 +108,7 @@ class SearchCustomMocksTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchInfo($case, $expectations)
     {
-        $this->markTestSkipped('Bugged due to JSONC: https://github.com/Swader/diffbot-php-client/issues/12');
+//        $this->markTestSkipped('Bugged due to JSONC: https://github.com/Swader/diffbot-php-client/issues/12');
         $this->diffbot->setHttpClient($this->getCustomMockFakeClient($this->mockPrefix . $case['file']));
 
         $searchInfo = $this->diffbot->search($case['q'])->call(true);

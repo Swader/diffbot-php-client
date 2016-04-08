@@ -40,7 +40,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -50,7 +50,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000&fields=meta';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -61,7 +61,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
             ->setMeta(true)
             ->setLinks(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000&fields=meta,links';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -74,7 +74,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
             ->setBreadcrumb(true)
             ->setQuerystring(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000&fields=meta,links,breadcrumb,querystring';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -85,7 +85,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
             ->setMode('article')
             ->buildUrl();
 
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&discussion=false&mode=article';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000&discussion=false&mode=article';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -100,7 +100,7 @@ class AnalyzeApiTest extends \PHPUnit_Framework_TestCase
             ->setDiscussion(false)
             ->setMode('product')
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&fields=meta,links,breadcrumb,querystring&discussion=false&mode=product';
+        $expectedUrl = 'https://api.diffbot.com/v3/analyze?token=demo&url=https%3A%2F%2Farticle-mock.com&timeout=30000&fields=meta,links,breadcrumb,querystring&discussion=false&mode=product';
         $this->assertEquals($expectedUrl, $url);
     }
 

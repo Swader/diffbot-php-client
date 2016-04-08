@@ -43,7 +43,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
     {
         $api = $this->diffbot->createArticleAPI('crawl')->setDiscussion(false);
 
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Farticle%3F%26discussion%3Dfalse';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Farticle%3F%26timeout%3D30000%26discussion%3Dfalse';
         $c = $this->diffbot->crawl('sitepoint_01', $api);
         $c->setSeeds(['http://sitepoint.com']);
         $this->assertEquals($expected, $c->buildUrl());
@@ -51,7 +51,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUrlDefaultApi()
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
         $this->assertEquals($expected, $c->buildUrl());
@@ -67,7 +67,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
 
     public function testPatternSetters()
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&pageProcessPattern=class%3DarticleBody&urlCrawlPattern=%2Fcategory%2Fshoes||%21%2Fauthor%2F||%5Ehttp%3A%2F%2Fwww.diffbot.com||type%3Dproduct%24&urlProcessPattern=%2Fproduct%2Fdetail||%21%3Fcurrency%3Deuro&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&pageProcessPattern=class%3DarticleBody&urlCrawlPattern=%2Fcategory%2Fshoes||%21%2Fauthor%2F||%5Ehttp%3A%2F%2Fwww.diffbot.com||type%3Dproduct%24&urlProcessPattern=%2Fproduct%2Fdetail||%21%3Fcurrency%3Deuro&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -85,7 +85,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
 
     public function testRegexSetters()
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&urlCrawlRegEx=/^[a-z0-9_-]{3,16}$/&urlProcessRegEx=/^#?([a-f0-9]{6}|[a-f0-9]{3})$/&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&urlCrawlRegEx=/^[a-z0-9_-]{3,16}$/&urlProcessRegEx=/^#?([a-f0-9]{6}|[a-f0-9]{3})$/&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -114,7 +114,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testMaxHops($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxHops=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxHops=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -142,7 +142,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testMax($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxToCrawl=' . $urlFragment . '&maxToProcess=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxToCrawl=' . $urlFragment . '&maxToProcess=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -177,7 +177,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotify($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -230,7 +230,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testCrawlOk($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&crawlDelay=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&crawlDelay=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -280,7 +280,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testRepeatOk($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&repeat=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&repeat=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -314,8 +314,8 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
 
     public function testOnlyProcessIfNew()
     {
-        $expected1 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&onlyProcessIfNew=1&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
-        $expected2 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&onlyProcessIfNew=0&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected1 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&onlyProcessIfNew=1&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
+        $expected2 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&onlyProcessIfNew=0&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
 
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
@@ -345,7 +345,7 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
      */
     public function testMaxRounds($input, $urlFragment)
     {
-        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxRounds=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&maxRounds=' . $urlFragment . '&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 
@@ -356,8 +356,8 @@ class CrawlTest extends \PHPUnit_Framework_TestCase
 
     public function testObeyRobots()
     {
-        $expected1 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&obeyRobots=1&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
-        $expected2 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&obeyRobots=0&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26mode%3Dauto';
+        $expected1 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&obeyRobots=1&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
+        $expected2 = 'https://api.diffbot.com/v3/crawl?token=demo&name=sitepoint_01&seeds=http%3A%2F%2Fsitepoint.com&obeyRobots=0&apiUrl=https%3A%2F%2Fapi.diffbot.com%2Fv3%2Fanalyze%3F%26timeout%3D30000%26mode%3Dauto';
         $c = $this->diffbot->crawl('sitepoint_01');
         $c->setSeeds(['http://sitepoint.com']);
 

@@ -37,23 +37,23 @@ class CustomApiTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 'custom',
-                'https://api.diffbot.com/v3/custom?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/custom?token=demo&url=http%3A%2F%2Fsample-url.com&timeout=30000'
             ],
             [
                 'authorFolioNew',
-                'https://api.diffbot.com/v3/authorFolioNew?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/authorFolioNew?token=demo&url=http%3A%2F%2Fsample-url.com&timeout=30000'
             ],
             [
                 'authorFolioNew/something',
-                'https://api.diffbot.com/v3/authorFolioNew/something?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/authorFolioNew/something?token=demo&url=http%3A%2F%2Fsample-url.com&timeout=30000'
             ],
             [
                 'my-api',
-                'https://api.diffbot.com/v3/my-api?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/my-api?token=demo&url=http%3A%2F%2Fsample-url.com&timeout=30000'
             ],
             [
                 'my-api?param=value',
-                'https://api.diffbot.com/v3/my-api?param=value?token=demo&url=http%3A%2F%2Fsample-url.com'
+                'https://api.diffbot.com/v3/my-api?param=value?token=demo&url=http%3A%2F%2Fsample-url.com&timeout=30000'
             ]
         ];
     }
