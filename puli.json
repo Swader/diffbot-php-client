@@ -73,6 +73,10 @@
             "installer": "composer",
             "env": "dev"
         },
+        "paragonie/random_compat": {
+            "install-path": "vendor/paragonie/random_compat",
+            "installer": "composer"
+        },
         "php-http/client-common": {
             "install-path": "vendor/php-http/client-common",
             "installer": "composer"
@@ -220,6 +224,11 @@
             "installer": "composer",
             "env": "dev"
         },
+        "sebastian/object-enumerator": {
+            "install-path": "vendor/sebastian/object-enumerator",
+            "installer": "composer",
+            "env": "dev"
+        },
         "sebastian/recursion-context": {
             "install-path": "vendor/sebastian/recursion-context",
             "installer": "composer",
@@ -248,6 +257,10 @@
             "install-path": "vendor/symfony/event-dispatcher",
             "installer": "composer",
             "env": "dev"
+        },
+        "symfony/filesystem": {
+            "install-path": "vendor/symfony/filesystem",
+            "installer": "composer"
         },
         "symfony/polyfill-mbstring": {
             "install-path": "vendor/symfony/polyfill-mbstring",

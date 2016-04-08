@@ -45,7 +45,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
         $url = $this
             ->apiWithMock
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -55,7 +55,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
             ->apiWithMock
             ->setMeta(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000&fields=meta';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -66,7 +66,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
             ->setMeta(true)
             ->setLinks(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000&fields=meta,links';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -80,7 +80,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
             ->setQuerystring(true)
             ->setSentiment(true)
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links,breadcrumb,querystring,sentiment';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000&fields=meta,links,breadcrumb,querystring,sentiment';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -90,7 +90,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
             ->setMaxPages(10)
             ->buildUrl();
 
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&maxPages=10';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000&maxPages=10';
         $this->assertEquals($expectedUrl, $url);
     }
 
@@ -104,7 +104,7 @@ class DiscussionApiTest extends \PHPUnit_Framework_TestCase
             ->setQuerystring(true)
             ->setMaxPages('all')
             ->buildUrl();
-        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&fields=meta,links,breadcrumb,querystring&maxPages=all';
+        $expectedUrl = 'https://api.diffbot.com/v3/discussion?token=demo&url=https%3A%2F%2Fdiscussion-mock.com&timeout=30000&fields=meta,links,breadcrumb,querystring&maxPages=all';
         $this->assertEquals($expectedUrl, $url);
     }
 

@@ -12,7 +12,7 @@ Full documentation available [here](http://diffbot-php-client-docs.readthedocs.o
 
 ## Requirements
 
-Minimum PHP 5.6 is required.
+Minimum PHP 5.6 is required. PHP 7.0 is recommended.
 
 This package uses some non-stable packages, so you must set your project's minimum stability to something like beta or dev in `composer.json`:
 

@@ -105,6 +105,8 @@ abstract class Api implements \Swader\Diffbot\Interfaces\Api
             $url .= '&url=' . urlencode($this->url);
         }
 
+        $url .= '&timeout='.$this->timeout;
+
         // Add Custom Fields
         $fields = $this->fieldSettings;
         $fieldString = '';
