@@ -2,7 +2,7 @@
 
 namespace Swader\Diffbot\Api;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use \InvalidArgumentException;
 use Swader\Diffbot\Entity\EntityIterator;
 use Swader\Diffbot\Entity\JobCrawl;
 use Swader\Diffbot\Exceptions\DiffbotException;
@@ -454,7 +454,7 @@ class Crawl
         } elseif (!isset($array['jobs']) && isset($array['response'])) {
             return $array['response'];
         } else {
-            throw new DiffbotException('It appears something went wrong.');
+            throw new DiffbotException('It appears something went wrong - no data was returned. Did you use the correct token / job name?');
         }
     }
 
