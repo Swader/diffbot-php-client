@@ -365,6 +365,19 @@ class Crawl
 
         return $this;
     }
+    
+    /**
+     * Set value to 1 to force the use of proxy IPs for the crawl.
+     *
+     * @param bool $bool
+     * @return $this
+     */
+    public function setUseProxies($bool = true)
+    {
+        $this->otherOptions['useProxies'] = (int)(bool)$bool;
+
+        return $this;
+    }
 
     /**
      * Force the start of a new crawl "round" (manually repeat the crawl).
@@ -488,13 +501,17 @@ class Crawl
             $url .= '&name=' . $this->getName();
 
             // Add seeds
-            $url .= '&seeds=' . implode(' ', array_map(function ($item) {
+            if (!empty($this->seeds)) {
+                $url .= '&seeds=' . implode(' ', array_map(function ($item) {
                     return urlencode($item);
                 }, $this->seeds));
+            }
 
             // Add other options
-            foreach ($this->otherOptions as $option => $value) {
-                $url .= '&' . $option . '=' . $value;
+            if (!empty($this->otherOptions)) {
+                foreach ($this->otherOptions as $option => $value) {
+                    $url .= '&' . $option . '=' . $value;
+                }
             }
 
             // Add API link
