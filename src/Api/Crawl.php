@@ -522,6 +522,42 @@ class Crawl
     }
 
     /**
+     * Sets the request type to "urls" to retrieve the URL Report
+     * URL for understanding diagnostic data of URLs 
+     *
+     * @return $this
+     */
+    public function getUrlReportUrl($num = null)
+    {
+        $this->otherOptions['type'] = 'urls';
+
+        if (!empty($num) && is_numeric($num)) {
+           $this->otherOptions['num'] = $num; 
+        }
+
+        // Setup data endpoint
+        $url = $this->apiUrl . '/data';
+
+        // Add token
+        $url .= '?token=' . $this->diffbot->getToken();
+
+        if ($this->getName()) {
+            // Add name
+            $url .= '&name=' . $this->getName();
+
+            // Add other options
+            if (!empty($this->otherOptions)) {
+                foreach ($this->otherOptions as $option => $value) {
+                    $url .= '&' . $option . '=' . $value;
+                }
+            }
+        }
+
+        return $url;
+
+    }
+
+    /**
      * @return string
      */
     protected function getApiString()
