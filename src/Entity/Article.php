@@ -61,6 +61,9 @@ class Article extends Entity
      */
     public function getDate()
     {
+        if (!isset($this->data['date'])) {
+            return null;
+        }
         return (class_exists('\Carbon\Carbon')) ?
             new \Carbon\Carbon($this->data['date'], 'GMT') :
             $this->data['date'];
