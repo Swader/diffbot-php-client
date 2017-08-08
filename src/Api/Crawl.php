@@ -502,7 +502,7 @@ class Crawl
 
             // Add seeds
             if (!empty($this->seeds)) {
-                $url .= '&seeds=' . implode(' ', array_map(function ($item) {
+                $url .= '&seeds=' . implode('%20', array_map(function ($item) {
                     return urlencode($item);
                 }, $this->seeds));
             }
