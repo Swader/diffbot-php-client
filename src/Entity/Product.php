@@ -254,7 +254,7 @@ class Product extends Entity
      */
     public function getBrand()
     {
-        return $this->data['brand'];
+        return (isset($this->data['brand'])) ? $this->data['brand'] : null;
     }
 
     /**
