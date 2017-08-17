@@ -18,6 +18,12 @@ class Product extends Entity
         if (isset($this->data['discussion'])) {
             $this->discussion = new Discussion($this->data['discussion']);
         }
+        
+        if (!isset($this->data['offerPrice'])) {
+            $this->data['availability'] = false;
+            $this->data['offerPrice'] = null;
+            $this->data['offerPriceDetails'] = [];
+        }
     }
 
     /**
@@ -223,7 +229,7 @@ class Product extends Entity
 
     /**
      * Offer or actual/final price of the product.
-     * @return string
+     * @return string | null
      */
     public function getOfferPrice()
     {
