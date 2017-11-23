@@ -64,9 +64,13 @@ class Article extends Entity
         if (!isset($this->data['date'])) {
             return null;
         }
+        try {
         return (class_exists('\Carbon\Carbon')) ?
             new \Carbon\Carbon($this->data['date'], 'GMT') :
             $this->data['date'];
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /**
