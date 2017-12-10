@@ -275,4 +275,13 @@ class Article extends Entity
             new \Carbon\Carbon($date, 'GMT') :
             $date;
     }
+
+    /**
+     * Returns the canonical url from a page, if any.
+     * @return string
+     */
+    public function getCanonicalUrl()
+    {
+        return isset($this->data['canonicalUrl']) ? $this->data['canonicalUrl'] : null;
+    }
 }
