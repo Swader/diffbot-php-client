@@ -365,7 +365,7 @@ class Crawl
 
         return $this;
     }
-    
+
     /**
      * Set value to 1 to force the use of proxy IPs for the crawl.
      *
@@ -450,10 +450,31 @@ class Crawl
 
         return ($commit) ? $this->call() : $this;
     }
+    public function getCrawl()
+    {
+        $theUrl = $this->apiUrl ."?token=" . $this->diffbot->getToken() . "&name=" . $this->name;
+        $response = $this->diffbot->getHttpClient()->get($theUrl);
+
+        $array = json_decode($response->getBody(), true);
+
+        if (isset($array['jobs'])) {
+            $jobs = [];
+            foreach ($array['jobs'] as $job) {
+                $jobs[] = new JobCrawl($job);
+            }
+            return new EntityIterator($jobs, $response);
+        } elseif (!isset($array['jobs']) && isset($array['response'])) {
+            return $array['response'];
+        } else {
+            throw new DiffbotException($array["error"]);
+        }
+    }
 
     public function call()
     {
-        $response = $this->diffbot->getHttpClient()->get($this->buildUrl());
+        $theHeader=["content-type"=>"application/x-www-form-urlencoded; charset=UTF-8"];
+        $response = $this->diffbot->getHttpClient()->post($this->apiUrl, $theHeader, $this->buildUrl());
+
 
         $array = json_decode($response->getBody(), true);
 
@@ -491,10 +512,9 @@ class Crawl
             unset($this->otherOptions['urlCrawlPattern']);
         }
 
-        $url = rtrim($this->apiUrl, '/') . '?';
 
         // Add token
-        $url .= 'token=' . $this->diffbot->getToken();
+        $url = 'token=' . $this->diffbot->getToken();
 
         if ($this->getName()) {
             // Add name
@@ -503,8 +523,8 @@ class Crawl
             // Add seeds
             if (!empty($this->seeds)) {
                 $url .= '&seeds=' . implode('%20', array_map(function ($item) {
-                    return urlencode($item);
-                }, $this->seeds));
+                        return urlencode($item);
+                    }, $this->seeds));
             }
 
             // Add other options
@@ -523,7 +543,7 @@ class Crawl
 
     /**
      * Sets the request type to "urls" to retrieve the URL Report
-     * URL for understanding diagnostic data of URLs 
+     * URL for understanding diagnostic data of URLs
      *
      * @return $this
      */
@@ -532,7 +552,7 @@ class Crawl
         $this->otherOptions['type'] = 'urls';
 
         if (!empty($num) && is_numeric($num)) {
-           $this->otherOptions['num'] = $num; 
+            $this->otherOptions['num'] = $num;
         }
 
         // Setup data endpoint
