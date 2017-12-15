@@ -113,6 +113,19 @@ trait StandardEntity {
         return $this->data['diffbotUri'];
     }
 
+    /**
+     * Returns the timestamp from the point in time the page was indexed by the engine
+     * Example date: "Wed, 18 Dec 2013 00:00:00 GMT"
+     * This will be a Carbon (https://github.com/briannesbitt/Carbon) instance if Carbon is installed.
+     * @return \Carbon\Carbon | string
+     */
+    public function getTimestamp()
+    {
+        return (class_exists('\Carbon\Carbon')) ?
+            new \Carbon\Carbon($this->data['timestamp'], 'GMT') :
+            $this->data['timestamp'];
+    }
+
     protected function getOrDefault($key, $default = null, $data = null)
     {
         $data = ($data !== null) ?: $this->data;
