@@ -37,11 +37,11 @@ class Product extends Entity
 
     /**
      * Text description, if available, of the product
-     * @return string
+     * @return string|null
      */
     public function getText()
     {
-        return $this->data['text'];
+        return (isset($this->data['text'])) ? $this->data['text'] : null;
     }
 
     /**
