@@ -1,3 +1,5 @@
+# Deprecated / Being Phased Out - please prefer using API calls directly, they have been simplified for max usability!
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Swader/diffbot-php-client/?branch=master)
 [![Build Status](https://travis-ci.org/Swader/diffbot-php-client.svg?branch=master)](https://travis-ci.org/Swader/diffbot-php-client)
